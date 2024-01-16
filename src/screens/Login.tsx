@@ -5,9 +5,13 @@ import { Text, TextInput } from '../components'
 import Button from '../components/Button'
 import { colors } from '../utils'
 import { useNavigation } from '@react-navigation/native'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 const Login = () => {
   const navigation = useNavigation()
+
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(true)
+
   return (
 
     <KeyboardAvoidingView
@@ -18,7 +22,12 @@ const Login = () => {
         <Text size='large'>Login</Text>
         <Image style={styles.image} source={require('../assets/images/login.png')} />
         <TextInput placeholder="Email"></TextInput>
-        <TextInput placeholder="Password"></TextInput>
+        <TextInput placeholder="Password"
+          secureTextEntry={isPasswordVisible}
+          icon={isPasswordVisible ? faEyeSlash : faEye}
+          iconPress={() => {
+            setIsPasswordVisible(!isPasswordVisible)
+          }}></TextInput>
         <Button text="Login" size='medium' wFull></Button>
         <Button text="Login with Google" textColor={colors.black} style={{ backgroundColor: colors.frenchGray }} size='medium' wFull></Button>
         <Text size='small' onPress={() => navigation.navigate('Register' as never)} style={{

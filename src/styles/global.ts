@@ -15,8 +15,7 @@ const globalStyles = StyleSheet.create({
   textInput: {
     borderWidth: 1,
     borderColor: colors.frenchGray,
-    padding: 10,
-    margin: 10,
+    padding: 14,
     width: "100%",
     borderRadius: 10,
     color:colors.black,
