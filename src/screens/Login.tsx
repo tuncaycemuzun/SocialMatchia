@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import { colors } from '../utils'
 import { useNavigation } from '@react-navigation/native'
 
-const Register = () => {
+const Login = () => {
   const navigation = useNavigation()
   return (
 
@@ -15,18 +15,15 @@ const Register = () => {
 
       }]}>
       <View style={styles.form}>
-        <Text size='large'>Register</Text>
-        <Image style={styles.image} source={require('../assets/images/register.png')} />
+        <Text size='large'>Login</Text>
+        <Image style={styles.image} source={require('../assets/images/login.png')} />
         <TextInput placeholder="Email"></TextInput>
         <TextInput placeholder="Password"></TextInput>
-        <TextInput placeholder="Re-Password"></TextInput>
-        <Button text="Register" size='medium' wFull></Button>
-        <Button text="Register with Google" textColor={colors.black} style={{ backgroundColor: colors.frenchGray }} size='medium' wFull></Button>
-        <Text size='small'
-          onPress={() => navigation.navigate('Login' as never)}
-          style={{
-            textDecorationLine: 'underline'
-          }}>Do you have an account?</Text>
+        <Button text="Login" size='medium' wFull></Button>
+        <Button text="Login with Google" textColor={colors.black} style={{ backgroundColor: colors.frenchGray }} size='medium' wFull></Button>
+        <Text size='small' onPress={() => navigation.navigate('Register' as never)} style={{
+          textDecorationLine: 'underline'
+        }}>Do you haven't account?</Text>
       </View>
 
     </KeyboardAvoidingView>
@@ -49,4 +46,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default Register
+export default Login
