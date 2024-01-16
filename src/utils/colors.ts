@@ -2,7 +2,7 @@ const colors = {
   ghostWhite: '#f5f6fb',
   frenchGray: '#bcbfce',
   midnightBlue: '#342e76',
-  royalBlue: '#3c7ce1',
+  royalBlue: '#4582E5',
   ultraViolet: '#555574',
   black: '#000000',
 }

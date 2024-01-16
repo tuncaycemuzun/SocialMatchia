@@ -1,15 +1,19 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TextProps } from 'react-native';
 import { globalStyles } from '../styles';
 
-interface CustomTextProps {
+interface CustomTextProps extends TextProps {
   children: React.ReactNode;
+  size: 'small' | 'medium' | 'large';
 }
 
-const CustomText = ({ children }: CustomTextProps) => {
+const CustomText = (props: CustomTextProps) => {
   return (
-    <Text style={globalStyles.textColor}>{children}</Text>
+    <Text {...props} style={[globalStyles.textColor, props.style, {
+      fontSize: props.size === 'small' ? 12 : props.size === 'medium' ? 16 : 20,
+    }]}>{props.children}</Text>
   );
 }
+
 
 export default CustomText;

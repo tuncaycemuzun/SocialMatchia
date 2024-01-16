@@ -7,7 +7,7 @@ const globalStyles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     paddingVertical: 20,
-    paddingHorizontal:10
+    paddingHorizontal:20
   },
   textColor: {
     color: "black",
@@ -18,8 +18,8 @@ const globalStyles = StyleSheet.create({
     padding: 10,
     margin: 10,
     width: "100%",
-    borderRadius: 8,
-    color:colors.black
+    borderRadius: 10,
+    color:colors.black,
   }
 });
 
