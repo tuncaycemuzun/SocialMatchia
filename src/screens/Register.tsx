@@ -5,10 +5,12 @@ import { Text, TextInput } from '../components'
 import Button from '../components/Button'
 import { colors } from '../utils'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
 import { useNavigation } from '@react-navigation/native'
 
 const Register = () => {
+
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(true)
   const [isRePasswordVisible, setIsRePasswordVisible] = React.useState(true)
 
@@ -20,6 +22,7 @@ const Register = () => {
 
       }]}>
       <View style={styles.form}>
+
         <Text size='large'>Register</Text>
         <Image style={styles.image} source={require('../assets/images/register.png')} />
         <TextInput placeholder="Email"></TextInput>
@@ -36,7 +39,7 @@ const Register = () => {
             setIsRePasswordVisible(!isRePasswordVisible)
           }}></TextInput>
         <Button text="Register" size='medium' wFull></Button>
-        <Button text="Register with Google" textColor={colors.black} style={{ backgroundColor: colors.frenchGray }} size='medium' wFull></Button>
+        <Button text="Register with Google" icon={faGoogle} iconPosition='left' textColor={colors.black} style={{ backgroundColor: colors.frenchGray }} size='medium' wFull></Button>
         <Text size='small'
           onPress={() => navigation.navigate('Login' as never)}
           style={{
