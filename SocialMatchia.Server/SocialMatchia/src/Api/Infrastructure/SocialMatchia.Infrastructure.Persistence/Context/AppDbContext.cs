@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SocialMatchia.Domain.Models;
 using SocialMatchia.Infrastructure.Persistence.Seeds;
 
 namespace SocialMatchia.Infrastructure.Persistence.Context;
@@ -11,6 +12,14 @@ public class SocialMatchiaDbContext : IdentityDbContext<IdentityUser<Guid>, Iden
     {
 
     }
+
+    public DbSet<UserPhoto> UserPhotos { get; set; }
+    public DbSet<UserSocialMedia> UserSocialMedias { get; set; }
+    public DbSet<SocialMedia> SocialMedias { get; set; }
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<City> Cities { get; set; }
+    public DbSet<Town> Towns { get; set; }
+    public DbSet<UserInformation> UserInformations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
