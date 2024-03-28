@@ -20,6 +20,7 @@ public class SocialMatchiaDbContext : IdentityDbContext<IdentityUser<Guid>, Iden
     public DbSet<City> Cities { get; set; }
     public DbSet<Town> Towns { get; set; }
     public DbSet<UserInformation> UserInformations { get; set; }
+    public DbSet<Gender> Genders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

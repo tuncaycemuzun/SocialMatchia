@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SocialMatchia.Infrastructure.Persistence.Context;
@@ -11,9 +12,11 @@ using SocialMatchia.Infrastructure.Persistence.Context;
 namespace SocialMatchia.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SocialMatchiaDbContext))]
-    partial class SocialMatchiaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240328234202_addedGenderTable")]
+    partial class addedGenderTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -332,9 +335,6 @@ namespace SocialMatchia.Infrastructure.Persistence.Migrations
                     b.Property<string>("Bio")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("CityId")
                         .HasColumnType("uuid");

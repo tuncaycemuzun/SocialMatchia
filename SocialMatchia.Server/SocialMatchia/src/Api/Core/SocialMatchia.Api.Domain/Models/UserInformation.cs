@@ -14,6 +14,10 @@ namespace SocialMatchia.Domain.Models
         public required Country Country { get; set; }
         public required string Bio { get; set; }
         public required string Website { get; set; }
+        public required Guid GenderId { get; set; }
+        public required Gender Gender { get; set; }
+        public required DateTime BirthDate { get; set; }
+
         public ICollection<UserSocialMedia> SocialMedias { get; set; }
     }
 }
