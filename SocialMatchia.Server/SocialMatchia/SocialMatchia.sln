@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DC5343A0-8FEE-425D-95A5-0E089DC95197}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{91CB6194-B164-47AF-B20C-6FC8BC243CEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{6C4F7281-0C4B-4ED6-8263-47A660CBB7E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projections", "Projections", "{1C2FD64A-1B43-4A45-9B8F-A5BC3B14AF56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4BE09F9E-5AA5-4038-912A-102B08A16E1F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{2E5C44A2-C0D1-42CE-B2BA-B1136C4D8BE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{C9BB2C9A-C056-40AD-8F25-22195CDCC8D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Common", "src\Common\SocialMatchia.Common\SocialMatchia.Common.csproj", "{29E92296-241F-48F9-A9A0-E8EE13E0CB22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Domain", "src\Api\Core\SocialMatchia.Api.Domain\SocialMatchia.Domain.csproj", "{D09F58D6-6CD2-4AC3-90ED-CD6074838DD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Application", "src\Api\Core\SocialMatchia.Application\SocialMatchia.Application.csproj", "{118A56DE-A1E1-4D90-8255-ED27012EE088}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Infrastructure.Persistence", "src\Api\Infrastructure\SocialMatchia.Infrastructure.Persistence\SocialMatchia.Infrastructure.Persistence.csproj", "{AB233686-F03D-45B8-939E-CEE7DF5A54C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Projections.Notification", "src\Projections\SocialMatchia.Projections.Notification\SocialMatchia.Projections.Notification.csproj", "{B923DE20-1095-4CBB-9683-FA434A3EE0F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Api", "src\Api\WebApi\SocialMatchia.Api\SocialMatchia.Api.csproj", "{849DCC1D-248F-49BE-985D-F760AA567224}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29E92296-241F-48F9-A9A0-E8EE13E0CB22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29E92296-241F-48F9-A9A0-E8EE13E0CB22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29E92296-241F-48F9-A9A0-E8EE13E0CB22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29E92296-241F-48F9-A9A0-E8EE13E0CB22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D09F58D6-6CD2-4AC3-90ED-CD6074838DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D09F58D6-6CD2-4AC3-90ED-CD6074838DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D09F58D6-6CD2-4AC3-90ED-CD6074838DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D09F58D6-6CD2-4AC3-90ED-CD6074838DD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{118A56DE-A1E1-4D90-8255-ED27012EE088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118A56DE-A1E1-4D90-8255-ED27012EE088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118A56DE-A1E1-4D90-8255-ED27012EE088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118A56DE-A1E1-4D90-8255-ED27012EE088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB233686-F03D-45B8-939E-CEE7DF5A54C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB233686-F03D-45B8-939E-CEE7DF5A54C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB233686-F03D-45B8-939E-CEE7DF5A54C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB233686-F03D-45B8-939E-CEE7DF5A54C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B923DE20-1095-4CBB-9683-FA434A3EE0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B923DE20-1095-4CBB-9683-FA434A3EE0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B923DE20-1095-4CBB-9683-FA434A3EE0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B923DE20-1095-4CBB-9683-FA434A3EE0F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{849DCC1D-248F-49BE-985D-F760AA567224}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{849DCC1D-248F-49BE-985D-F760AA567224}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{849DCC1D-248F-49BE-985D-F760AA567224}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{849DCC1D-248F-49BE-985D-F760AA567224}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{91CB6194-B164-47AF-B20C-6FC8BC243CEA} = {DC5343A0-8FEE-425D-95A5-0E089DC95197}
+		{6C4F7281-0C4B-4ED6-8263-47A660CBB7E9} = {DC5343A0-8FEE-425D-95A5-0E089DC95197}
+		{1C2FD64A-1B43-4A45-9B8F-A5BC3B14AF56} = {DC5343A0-8FEE-425D-95A5-0E089DC95197}
+		{4BE09F9E-5AA5-4038-912A-102B08A16E1F} = {91CB6194-B164-47AF-B20C-6FC8BC243CEA}
+		{2E5C44A2-C0D1-42CE-B2BA-B1136C4D8BE0} = {91CB6194-B164-47AF-B20C-6FC8BC243CEA}
+		{C9BB2C9A-C056-40AD-8F25-22195CDCC8D7} = {91CB6194-B164-47AF-B20C-6FC8BC243CEA}
+		{29E92296-241F-48F9-A9A0-E8EE13E0CB22} = {6C4F7281-0C4B-4ED6-8263-47A660CBB7E9}
+		{D09F58D6-6CD2-4AC3-90ED-CD6074838DD5} = {4BE09F9E-5AA5-4038-912A-102B08A16E1F}
+		{118A56DE-A1E1-4D90-8255-ED27012EE088} = {4BE09F9E-5AA5-4038-912A-102B08A16E1F}
+		{AB233686-F03D-45B8-939E-CEE7DF5A54C6} = {2E5C44A2-C0D1-42CE-B2BA-B1136C4D8BE0}
+		{B923DE20-1095-4CBB-9683-FA434A3EE0F4} = {1C2FD64A-1B43-4A45-9B8F-A5BC3B14AF56}
+		{849DCC1D-248F-49BE-985D-F760AA567224} = {C9BB2C9A-C056-40AD-8F25-22195CDCC8D7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BC25BAA-6CB5-42FF-95DD-79F8F4B9C595}
+	EndGlobalSection
+EndGlobal
