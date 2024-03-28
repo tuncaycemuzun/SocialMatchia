@@ -30,5 +30,66 @@ public class SocialMatchiaDbContext : IdentityDbContext<IdentityUser<Guid>, Iden
 
         builder.Seed();
     }
+
+    public override int SaveChanges()
+    {
+        var entriesCopy = ChangeTracker.Entries().ToList();
+
+        foreach (var item in entriesCopy)
+        {
+            if (item.Entity is BaseEntity entityReference)
+            {
+                switch (item.State)
+                {
+                    case EntityState.Added:
+                        {
+                            entityReference.CreateDate = DateTime.UtcNow;
+                            entityReference.CreatedUserId = new Guid("ab750336-f152-46cb-b2d2-1e520711d361");
+                            break;
+                        }
+                    case EntityState.Modified:
+                        {
+                            entityReference.UpdateDate = DateTime.UtcNow;
+                            entityReference.UpdatedUserId = new Guid("ab750336-f152-46cb-b2d2-1e520711d361");
+
+                            break;
+                        }
+                }
+            }
+        }
+
+        return base.SaveChanges();
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var entriesCopy = ChangeTracker.Entries().ToList();
+
+        foreach (var item in entriesCopy)
+        {
+            if (item.Entity is BaseEntity entityReference)
+            {
+                switch (item.State)
+                {
+                    case EntityState.Added:
+                        {
+                            entityReference.CreateDate = DateTime.Now;
+                            entityReference.CreatedUserId = new Guid("ab750336-f152-46cb-b2d2-1e520711d361");
+                            break;
+                        }
+                    case EntityState.Modified:
+                        {
+                            entityReference.UpdateDate = DateTime.Now;
+                            entityReference.UpdatedUserId = new Guid("ab750336-f152-46cb-b2d2-1e520711d361");
+
+                            break;
+                        }
+                }
+
+            }
+        }
+
+        return base.SaveChangesAsync(cancellationToken);
+    }
 }
 
