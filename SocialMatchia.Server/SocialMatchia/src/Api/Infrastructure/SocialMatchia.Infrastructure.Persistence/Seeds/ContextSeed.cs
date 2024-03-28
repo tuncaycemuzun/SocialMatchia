@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SocialMatchia.Common;
-using SocialMatchia.Domain.Models;
 
 namespace SocialMatchia.Infrastructure.Persistence.Seeds
 {
@@ -34,7 +33,7 @@ namespace SocialMatchia.Infrastructure.Persistence.Seeds
                 }
             };
 
-            modelBuilder.Entity<Role>().HasData(roles);
+            modelBuilder.Entity<IdentityRole<Guid>>().HasData(roles);
         }
     }
 }

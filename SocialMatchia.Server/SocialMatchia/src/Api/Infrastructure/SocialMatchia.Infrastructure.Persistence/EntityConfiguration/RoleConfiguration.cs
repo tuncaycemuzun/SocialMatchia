@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SocialMatchia.Domain.Models;
 
 namespace SocialMatchia.Infrastructure.Persistence.EntityConfiguration
 {
-    public class RoleConfiguration : IEntityTypeConfiguration<Role>
+    public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole<Guid>>
     {
-        public void Configure(EntityTypeBuilder<Role> builder)
+        public void Configure(EntityTypeBuilder<IdentityRole<Guid>> builder)
         {
             builder.Property(r => r.Id).ValueGeneratedOnAdd();
             builder.ToTable("Roles");
