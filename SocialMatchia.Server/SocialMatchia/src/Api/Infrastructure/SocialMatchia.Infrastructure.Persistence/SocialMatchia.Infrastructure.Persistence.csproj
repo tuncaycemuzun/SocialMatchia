@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\SocialMatchia.Common\SocialMatchia.Common.csproj" />
     <ProjectReference Include="..\..\Core\SocialMatchia.Api.Domain\SocialMatchia.Domain.csproj" />
+    <ProjectReference Include="..\..\Core\SocialMatchia.Application\SocialMatchia.Application.csproj" />
   </ItemGroup>
 
 </Project>
