@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SocialMatchia.Infrastructure.Persistence.Context;
@@ -11,9 +12,11 @@ using SocialMatchia.Infrastructure.Persistence.Context;
 namespace SocialMatchia.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SocialMatchiaDbContext))]
-    partial class SocialMatchiaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240405223419_likeTableDeleteColumns")]
+    partial class likeTableDeleteColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,12 +299,6 @@ namespace SocialMatchia.Infrastructure.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("SourceUserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TargetUserId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -309,10 +306,6 @@ namespace SocialMatchia.Infrastructure.Persistence.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SourceUserId");
-
-                    b.HasIndex("TargetUserId");
 
                     b.ToTable("Likes");
                 });
@@ -582,25 +575,6 @@ namespace SocialMatchia.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("SocialMatchia.Domain.Models.Like", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser<System.Guid>", "SourceUser")
-                        .WithMany()
-                        .HasForeignKey("SourceUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser<System.Guid>", "TargetUser")
-                        .WithMany()
-                        .HasForeignKey("TargetUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SourceUser");
-
-                    b.Navigation("TargetUser");
                 });
 
             modelBuilder.Entity("SocialMatchia.Domain.Models.Town", b =>
