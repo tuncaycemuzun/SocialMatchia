@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Features\ResponseModel\" />
-    <Folder Include="Features\RequestModel\" />
     <Folder Include="Validations\" />
   </ItemGroup>
 

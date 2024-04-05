@@ -15,11 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\SocialMatchia.Common\SocialMatchia.Common.csproj" />
     <ProjectReference Include="..\SocialMatchia.Api.Domain\SocialMatchia.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Commands\" />
     <Folder Include="Features\Queries\" />
   </ItemGroup>
 

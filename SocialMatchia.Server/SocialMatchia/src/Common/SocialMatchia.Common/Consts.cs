@@ -7,5 +7,16 @@
 
         public static readonly string AdminUser = Guid.NewGuid().ToString();
         public static readonly string BasicUser = Guid.NewGuid().ToString();
+
+        public static Dictionary<string, string> MimeTypesToExtensions = new Dictionary<string, string>
+        {
+            {"image/jpeg", ".jpg"},
+            {"image/png", ".png"},
+            {"image/gif", ".gif"},
+            {"image/bmp", ".bmp"},
+            {"image/svg+xml", ".svg"},
+            {"image/webp", ".webp"},
+            {"image/heic", ".heic"},
+        };
     }
 }
