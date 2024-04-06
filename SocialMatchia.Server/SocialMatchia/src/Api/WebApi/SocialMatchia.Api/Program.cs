@@ -1,16 +1,16 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using SocialMatchia.Api.Filters;
+using SocialMatchia.Api.Middlewares;
+using SocialMatchia.Application.Extensions;
+using SocialMatchia.Common;
+using SocialMatchia.Common.Exceptions;
+using SocialMatchia.Domain.Models;
 using SocialMatchia.Infrastructure.Persistence.Context;
 using SocialMatchia.Infrastructure.Persistence.Extensions;
-using SocialMatchia.Application.Extensions;
-using SocialMatchia.Api.Filters;
-using FluentValidation.AspNetCore;
-using SocialMatchia.Common.Exceptions;
 using System.Reflection;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
-using SocialMatchia.Api.Middlewares;
-using SocialMatchia.Common;
-using SocialMatchia.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

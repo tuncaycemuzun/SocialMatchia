@@ -2,7 +2,6 @@
 using MediatR;
 using SocialMatchia.Application.Interfaces.Repositories;
 using SocialMatchia.Common;
-using SocialMatchia.Domain.Models;
 
 namespace SocialMatchia.Application.Features.Commands.Like
 {

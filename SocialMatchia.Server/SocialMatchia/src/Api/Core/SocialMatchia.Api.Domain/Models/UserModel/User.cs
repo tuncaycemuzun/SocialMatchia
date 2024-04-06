@@ -2,7 +2,7 @@
 
 namespace SocialMatchia.Domain.Models
 {
-    public class User :IdentityUser<Guid>
+    public class User : IdentityUser<Guid>
     {
     }
 }
