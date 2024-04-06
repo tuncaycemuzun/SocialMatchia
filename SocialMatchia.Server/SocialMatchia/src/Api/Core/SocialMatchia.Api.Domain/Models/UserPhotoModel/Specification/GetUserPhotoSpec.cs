@@ -2,11 +2,11 @@
 
 namespace SocialMatchia.Domain.Models.UserPhotoModel.Specification
 {
-    public class GetUserPhotoSpec : Specification<UserPhoto>
+    public class GetUserPhotoSpec: Specification<UserPhoto>
     {
-        public GetUserPhotoSpec(Guid userId)
+        public GetUserPhotoSpec(Guid id, Guid userId)
         {
-            Query.Where(x => x.UserId == userId && x.IsDeleted == false);
+            Query.Where(x => x.Id == id && x.UserId == userId && x.IsDeleted == false);
         }
     }
 }

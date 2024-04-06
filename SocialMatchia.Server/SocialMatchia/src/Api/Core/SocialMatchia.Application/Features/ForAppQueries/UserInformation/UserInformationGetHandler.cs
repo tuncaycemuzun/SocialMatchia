@@ -13,11 +13,9 @@ namespace SocialMatchia.Application.Features.ForAppQueries.UserInformation
     public class UserInformationGetHandler : IRequestHandler<UserInformationGetCommand, Domain.Models.UserInformation?>
     {
         private readonly IReadRepositoryBase<Domain.Models.UserInformation> _repository;
-        private readonly CurrentUser _currentUser;
 
-        public UserInformationGetHandler(CurrentUser currentUser, IReadRepositoryBase<Domain.Models.UserInformation> repository)
+        public UserInformationGetHandler(IReadRepositoryBase<Domain.Models.UserInformation> repository)
         {
-            _currentUser = currentUser;
             _repository = repository;
         }
 

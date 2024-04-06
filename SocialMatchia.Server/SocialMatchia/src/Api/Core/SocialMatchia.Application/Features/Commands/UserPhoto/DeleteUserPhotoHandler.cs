@@ -25,7 +25,7 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
 
         public async Task<Result<bool>> Handle(DeleteUserPhotoCommand request, CancellationToken cancellationToken)
         {
-            var photo = await _repository.FirstOrDefaultAsync(new GetPhotoSpec(request.Id, _currentUser.Id)) ?? throw new NotFoundException("Photo not found");
+            var photo = await _repository.FirstOrDefaultAsync(new GetUserPhotoSpec(request.Id, _currentUser.Id)) ?? throw new NotFoundException("Photo not found");
 
             photo.SetIsDeleted(false);
 
