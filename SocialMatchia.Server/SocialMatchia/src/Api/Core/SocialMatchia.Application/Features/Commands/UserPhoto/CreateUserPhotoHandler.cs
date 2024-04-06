@@ -1,60 +1,70 @@
 ﻿using Ardalis.Result;
 using MediatR;
+using Microsoft.Extensions.Hosting;
 using SocialMatchia.Application.Interfaces.Repositories;
 using SocialMatchia.Common;
+using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Helpers;
-using System.Net.Mime;
 
 namespace SocialMatchia.Application.Features.Commands.UserPhoto
 {
     public class CreateUserPhotoHandler : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
     {
-        private readonly IGenericRepository<SocialMatchia.Domain.Models.UserPhoto> _repository;
-        private readonly IWebHostEnvironment _environment;
+        private readonly IGenericRepository<Domain.Models.UserPhoto> _repository;
+        private readonly IHostEnvironment _hostEnvironment;
+        private readonly CurrentUser _currentUser;
 
-        public CreateUserPhotoHandler(IGenericRepository<Domain.Models.UserPhoto> repository)
+        public CreateUserPhotoHandler(IGenericRepository<Domain.Models.UserPhoto> repository, IHostEnvironment hostEnvironment, CurrentUser currentUser)
         {
             _repository = repository;
+            _hostEnvironment = hostEnvironment;
+            _currentUser = currentUser;
         }
 
         public async Task<Result<bool>> Handle(CreateUserPhotoCommand request, CancellationToken cancellationToken)
         {
             if (request.Photos.Count! > 0)
             {
-                return Result.Error("Photos rqeuired");
+                throw new PropertyValidationException("Photos rqeuired");
             }
 
             if (request.Photos.Count > 7)
             {
-                return Result.Error("Maximum 7 photos can be upload");
+                throw new PropertyValidationException("Maximum 7 photos can be upload");
             }
 
             var userPhotos = new List<Domain.Models.UserPhoto>();
+            var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
+
+            var index = 0;
 
             foreach (var photo in request.Photos)
             {
-
                 if (!string.IsNullOrEmpty(photo))
                 {
-                    var base64Data = photo.Substring(photo.IndexOf(",") + 1);
-                    base64Data = base64Data.Trim('\0');
+                    var imageName = ImageHelper.CreateImage(hostEnvironmentPath, photo, _currentUser.Id.ToString());
 
-                    var dataUri = new DataUri(base64Data);
-                    var contentType = dataUri.MimeType;
-
-                    if (!Consts.MimeTypesToExtensions.TryGetValue(contentType, out var extension))
+                    if (!string.IsNullOrEmpty(imageName))
                     {
-                        continue;
+                        userPhotos.Add(new Domain.Models.UserPhoto
+                        {
+                            FileName = imageName,
+                            FilePath = Path.Combine(hostEnvironmentPath, imageName),
+                            UserId = _currentUser.Id,
+                            Order = index,
+                        });
+
+                        index++;
                     }
-
-                    byte[] imageBytes = Convert.FromBase64String(photo);
-
-                    string fileName = string.Join(",", "CurrentUser - ", Guid.NewGuid().ToString(), extension);
-
-                    File.WriteAllBytes(fileName, imageBytes);
                 }
             }
 
+            if (userPhotos.Count == 0)
+            {
+                return Result.Success(false);
+            }
+
+            await _repository.AddRangeAsync(userPhotos);
             return Result.Success(true);
         }
     }

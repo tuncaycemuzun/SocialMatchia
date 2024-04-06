@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using SocialMatchia.Api.Middlewares;
+using SocialMatchia.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -17,7 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddControllers(opt=> opt.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(opt =>
+builder.Services.AddControllers(opt => opt.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(opt =>
 {
     opt.RegisterValidatorsFromAssembly(Assembly.GetAssembly(typeof(PropertyValidationException)));
 }).AddJsonOptions(opt =>
@@ -33,7 +34,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistence(builder.Configuration);
 
-builder.Services.AddIdentity<IdentityUser<Guid>,IdentityRole<Guid>>(options =>
+builder.Services.AddIdentity<IdentityUser<Guid>, IdentityRole<Guid>>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
@@ -45,6 +46,8 @@ builder.Services.AddIdentity<IdentityUser<Guid>,IdentityRole<Guid>>(options =>
     .AddEntityFrameworkStores<SocialMatchiaDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddSingleton<CurrentUser>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -53,7 +56,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
+app.UseMiddleware<CurrentUserMiddleware>();
 app.UseCustomException();
 app.UseAuthorization();
 
