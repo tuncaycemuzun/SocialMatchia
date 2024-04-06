@@ -6,8 +6,8 @@ namespace SocialMatchia.Domain.Models
     {
         public bool IsDeleted { get; set; }
         public Guid SourceUserId { get; set; }
-        public required IdentityUser<Guid> SourceUser { get; set; }
+        public User SourceUser { get; set; }
         public Guid TargetUserId { get; set; }
-        public required IdentityUser<Guid> TargetUser { get; set; }
+        public User TargetUser { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using SocialMatchia.Api.Middlewares;
 using SocialMatchia.Common;
+using SocialMatchia.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -34,7 +35,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistence(builder.Configuration);
 
-builder.Services.AddIdentity<IdentityUser<Guid>, IdentityRole<Guid>>(options =>
+builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;

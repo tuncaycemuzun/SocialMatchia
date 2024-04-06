@@ -7,7 +7,7 @@ using SocialMatchia.Infrastructure.Persistence.Seeds;
 
 namespace SocialMatchia.Infrastructure.Persistence.Context;
 
-public class SocialMatchiaDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
+public class SocialMatchiaDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 {
     private readonly CurrentUser _currentUser;
     public SocialMatchiaDbContext(DbContextOptions<SocialMatchiaDbContext> options, CurrentUser currentUser) : base(options)
