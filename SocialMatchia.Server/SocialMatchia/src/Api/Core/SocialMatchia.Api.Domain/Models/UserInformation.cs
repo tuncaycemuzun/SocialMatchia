@@ -2,7 +2,7 @@
 
 namespace SocialMatchia.Domain.Models
 {
-    public class UserInformation : BaseEntity
+    public class UserInformation : BaseDetailEntity
     {
         public required Guid UserId { get; set; }
         public required IdentityUser<Guid> User { get; set; }

@@ -1,8 +1,7 @@
 ﻿namespace SocialMatchia.Domain.Models
 {
-    public class Gender
+    public class Gender : BaseEntity
     {
-        public Guid Id { get;set; }
         public required string Name { get; set; }
     }
 }

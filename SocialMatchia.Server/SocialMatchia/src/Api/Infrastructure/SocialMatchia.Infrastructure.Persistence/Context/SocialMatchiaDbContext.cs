@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SocialMatchia.Common;
 using SocialMatchia.Domain.Models;
 using SocialMatchia.Infrastructure.Persistence.Seeds;
 
@@ -8,9 +9,10 @@ namespace SocialMatchia.Infrastructure.Persistence.Context;
 
 public class SocialMatchiaDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
 {
-    public SocialMatchiaDbContext(DbContextOptions<SocialMatchiaDbContext> options) : base(options)
+    private readonly CurrentUser _currentUser;
+    public SocialMatchiaDbContext(DbContextOptions<SocialMatchiaDbContext> options, CurrentUser currentUser) : base(options)
     {
-
+        _currentUser = currentUser;
     }
 
     public DbSet<UserPhoto> UserPhotos { get; set; }
@@ -39,20 +41,20 @@ public class SocialMatchiaDbContext : IdentityDbContext<IdentityUser<Guid>, Iden
 
         foreach (var item in entriesCopy)
         {
-            if (item.Entity is BaseEntity entityReference)
+            if (item.Entity is BaseDetailEntity entityReference)
             {
                 switch (item.State)
                 {
                     case EntityState.Added:
                         {
                             entityReference.CreateDate = DateTime.UtcNow;
-                            entityReference.CreatedUserId = new Guid("ab750336-f152-46cb-b2d2-1e520711d361");
+                            entityReference.CreatedUserId = _currentUser.Id;
                             break;
                         }
                     case EntityState.Modified:
                         {
                             entityReference.UpdateDate = DateTime.UtcNow;
-                            entityReference.UpdatedUserId = new Guid("ab750336-f152-46cb-b2d2-1e520711d361");
+                            entityReference.UpdatedUserId = _currentUser.Id;
 
                             break;
                         }
@@ -69,20 +71,20 @@ public class SocialMatchiaDbContext : IdentityDbContext<IdentityUser<Guid>, Iden
 
         foreach (var item in entriesCopy)
         {
-            if (item.Entity is BaseEntity entityReference)
+            if (item.Entity is BaseDetailEntity entityReference)
             {
                 switch (item.State)
                 {
                     case EntityState.Added:
                         {
                             entityReference.CreateDate = DateTime.Now;
-                            entityReference.CreatedUserId = new Guid("ab750336-f152-46cb-b2d2-1e520711d361");
+                            entityReference.CreatedUserId = _currentUser.Id;
                             break;
                         }
                     case EntityState.Modified:
                         {
                             entityReference.UpdateDate = DateTime.Now;
-                            entityReference.UpdatedUserId = new Guid("ab750336-f152-46cb-b2d2-1e520711d361");
+                            entityReference.UpdatedUserId = _currentUser.Id;
 
                             break;
                         }

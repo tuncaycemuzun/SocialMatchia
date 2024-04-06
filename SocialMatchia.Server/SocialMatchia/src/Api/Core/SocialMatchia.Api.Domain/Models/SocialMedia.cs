@@ -1,8 +1,7 @@
 ﻿namespace SocialMatchia.Domain.Models
 {
-    public class SocialMedia
+    public class SocialMedia : BaseEntity
     {
-        public Guid Id { get; set; }
         public required string Name { get; set; }
         public required string IconName { get; set; }
         public int Order { get; set; }

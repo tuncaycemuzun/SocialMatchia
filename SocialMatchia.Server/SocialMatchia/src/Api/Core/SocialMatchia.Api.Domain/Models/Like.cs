@@ -2,7 +2,7 @@
 
 namespace SocialMatchia.Domain.Models
 {
-    public class Like : BaseEntity
+    public class Like : BaseDetailEntity
     {
         public bool IsDeleted { get; set; }
         public Guid SourceUserId { get; set; }
