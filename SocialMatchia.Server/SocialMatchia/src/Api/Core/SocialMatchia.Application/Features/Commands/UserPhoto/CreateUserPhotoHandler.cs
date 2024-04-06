@@ -1,20 +1,21 @@
 ﻿using Ardalis.Result;
+using Ardalis.Specification;
 using MediatR;
 using Microsoft.Extensions.Hosting;
-using SocialMatchia.Application.Interfaces.Repositories;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Helpers;
+using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
 
 namespace SocialMatchia.Application.Features.Commands.UserPhoto
 {
     public class CreateUserPhotoHandler : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
     {
-        private readonly IGenericRepository<Domain.Models.UserPhoto> _repository;
+        private readonly IRepositoryBase<Domain.Models.UserPhoto> _repository;
         private readonly IHostEnvironment _hostEnvironment;
         private readonly CurrentUser _currentUser;
 
-        public CreateUserPhotoHandler(IGenericRepository<Domain.Models.UserPhoto> repository, IHostEnvironment hostEnvironment, CurrentUser currentUser)
+        public CreateUserPhotoHandler(IRepositoryBase<Domain.Models.UserPhoto> repository, IHostEnvironment hostEnvironment, CurrentUser currentUser)
         {
             _repository = repository;
             _hostEnvironment = hostEnvironment;
@@ -36,7 +37,7 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
             var userPhotos = new List<Domain.Models.UserPhoto>();
             var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
 
-            var userPhotoCount = await _repository.CountAsync(x => x.UserId == _currentUser.Id && x.IsDeleted == false);
+            var userPhotoCount = await _repository.CountAsync(new GetUserPhotoSpec(_currentUser.Id));
 
             foreach (var photo in request.Photos)
             {
@@ -65,6 +66,8 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
             }
 
             await _repository.AddRangeAsync(userPhotos);
+            await _repository.SaveChangesAsync();
+
             return Result.Success(true);
         }
     }
