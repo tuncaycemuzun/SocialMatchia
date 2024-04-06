@@ -9,6 +9,11 @@ using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
 
 namespace SocialMatchia.Application.Features.Commands.UserPhoto
 {
+    public class CreateUserPhotoCommand : IRequest<Result<bool>>
+    {
+        public required List<string> Photos { get; set; }
+    }
+
     public class CreateUserPhotoHandler : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
     {
         private readonly IRepositoryBase<Domain.Models.UserPhoto> _repository;

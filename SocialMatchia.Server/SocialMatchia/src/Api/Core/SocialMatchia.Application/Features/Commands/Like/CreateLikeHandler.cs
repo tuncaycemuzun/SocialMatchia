@@ -1,25 +1,37 @@
 ﻿using Ardalis.Result;
 using Ardalis.Specification;
 using MediatR;
+using SocialMatchia.Application.Features.Queries.Like;
 using SocialMatchia.Common;
-using SocialMatchia.Domain.Models.LikeModel.Specifications;
 
 namespace SocialMatchia.Application.Features.Commands.Like
 {
+    public class CreateLikeCommand : IRequest<Result<bool>>
+    {
+        public required Guid TargetUserId { get; set; }
+    }
+
     public class CreateLikeHandler : IRequestHandler<CreateLikeCommand, Result<bool>>
     {
         private readonly IRepositoryBase<Domain.Models.Like> _repository;
+        private readonly IMediator _mediator;
         private readonly CurrentUser _currentUser;
 
-        public CreateLikeHandler(IRepositoryBase<Domain.Models.Like> repository, CurrentUser currentUser)
+        public CreateLikeHandler(IRepositoryBase<Domain.Models.Like> repository, CurrentUser currentUser, IMediator mediator)
         {
             _repository = repository;
             _currentUser = currentUser;
+            _mediator = mediator;
         }
 
         public async Task<Result<bool>> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
         {
-            var hasExistingLike = await _repository.AnyAsync(new LikeCheckHasExistSpec(request.TargetUserId), cancellationToken);
+            var hasExistingLike = await _mediator
+                .Send(new LikeHasExistCommand
+                {
+                    TargetUserId = request.TargetUserId,
+                    SourceUserId = _currentUser.Id
+                }, cancellationToken);
 
             if (hasExistingLike) return Result.Success(true);
 

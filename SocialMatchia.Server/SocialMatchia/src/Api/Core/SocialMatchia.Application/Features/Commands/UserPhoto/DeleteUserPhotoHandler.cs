@@ -7,6 +7,11 @@ using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
 
 namespace SocialMatchia.Application.Features.Commands.UserPhoto
 {
+    public class DeleteUserPhotoCommand : IRequest<Result<bool>>
+    {
+        public required Guid Id { get; set; }
+    }
+
     public class DeleteUserPhotoHandler : IRequestHandler<DeleteUserPhotoCommand, Result<bool>>
     {
         private readonly IRepositoryBase<Domain.Models.UserPhoto> _repository;

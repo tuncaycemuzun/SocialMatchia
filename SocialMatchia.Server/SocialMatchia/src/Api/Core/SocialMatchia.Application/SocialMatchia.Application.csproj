@@ -21,8 +21,4 @@
     <ProjectReference Include="..\SocialMatchia.Api.Domain\SocialMatchia.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Queries\" />
-  </ItemGroup>
-
 </Project>

@@ -8,6 +8,11 @@ using SocialMatchia.Domain.Models.UserSocialMediaModel.Specifications;
 
 namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
 {
+    public class CreateUserSocialMediaCommand : IRequest<Result<bool>>
+    {
+        public required Dictionary<Guid, string> Values { get; set; }
+    }
+
     public class CreateUserSocialMediaHandler : IRequestHandler<CreateUserSocialMediaCommand, Result<bool>>
     {
         private readonly IRepositoryBase<Domain.Models.UserSocialMedia> _repository;
