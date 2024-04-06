@@ -27,7 +27,6 @@ namespace SocialMatchia.Api.Middlewares
                         PropertyValidationException => StatusCodes.Status500InternalServerError,
                         NotFoundException => StatusCodes.Status404NotFound,
                         _ => statusCode,
-
                     };
 
                     var response = Result.Error(exceptionFeature.Error.Message);

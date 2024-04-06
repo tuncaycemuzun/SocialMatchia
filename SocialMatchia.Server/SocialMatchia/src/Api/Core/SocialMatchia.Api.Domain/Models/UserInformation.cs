@@ -19,5 +19,14 @@ namespace SocialMatchia.Domain.Models
         public required DateTime BirthDate { get; set; }
 
         public ICollection<UserSocialMedia> SocialMedias { get; set; }
+
+        public void SetUserInformation(Guid cityId, string bio, string website, Guid genderId, DateTime birthDate)
+        {
+            CityId = cityId;
+            Bio = bio;
+            Website = website;
+            GenderId = genderId;
+            BirthDate = birthDate;
+        }
     }
 }
