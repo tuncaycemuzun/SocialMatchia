@@ -2,6 +2,7 @@
 using SocialMatchia.Application.Interfaces.Repositories;
 using SocialMatchia.Domain.Models;
 using SocialMatchia.Infrastructure.Persistence.Context;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace SocialMatchia.Infrastructure.Persistence.Repositories
@@ -34,21 +35,22 @@ namespace SocialMatchia.Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(TEntity entity)
         {
-            var entity = await _entity.FirstOrDefaultAsync(x => x.Id == id);
-            if (entity != null)
+            var data = await _entity.FirstOrDefaultAsync(x => x.Id == entity.Id);
+            if (data != null)
             {
-                _entity.Remove(entity);
+                _entity.Remove(data);
                 return _context.SaveChanges() > 0;
             }
 
             return false;
         }
 
-        public async Task<bool> DeleteRangeAsync(IEnumerable<Guid> ids)
+        public async Task<bool> DeleteRangeAsync(IEnumerable<TEntity> entities)
         {
-            var entities = _entity.Where(x => ids.Contains(x.Id));
+            var ids = entities.Select(x => x.Id);
+            var dataList = _entity.Where(x => ids.Contains(x.Id));
             _entity.RemoveRange(entities);
             return await _context.SaveChangesAsync() > 0;
         }
@@ -135,6 +137,11 @@ namespace SocialMatchia.Infrastructure.Persistence.Repositories
                 }
             }
             return query;
+        }
+
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _entity.CountAsync(predicate);
         }
     }
 }

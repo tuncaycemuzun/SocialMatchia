@@ -10,8 +10,10 @@ namespace SocialMatchia.Application.Interfaces.Repositories
 
         Task UpdateAsync(TEntity entity);
 
-        Task<bool> DeleteAsync(Guid id);
-        Task<bool> DeleteRangeAsync(IEnumerable<Guid> ids);
+        Task<bool> DeleteAsync(TEntity entity);
+        Task<bool> DeleteRangeAsync(IEnumerable<TEntity> entities);
+
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
 
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
         Task<List<TEntity>?> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null, bool noTracking = true, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, params Expression<Func<TEntity, object>>[] includes);

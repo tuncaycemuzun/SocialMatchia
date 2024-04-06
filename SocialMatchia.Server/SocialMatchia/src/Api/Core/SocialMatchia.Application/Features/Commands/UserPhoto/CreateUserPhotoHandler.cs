@@ -36,7 +36,7 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
             var userPhotos = new List<Domain.Models.UserPhoto>();
             var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
 
-            var index = 0;
+            var userPhotoCount = await _repository.CountAsync(x => x.UserId == _currentUser.Id && x.IsDeleted == false);
 
             foreach (var photo in request.Photos)
             {
@@ -49,12 +49,12 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
                         userPhotos.Add(new Domain.Models.UserPhoto
                         {
                             FileName = imageName,
-                            FilePath = Path.Combine(hostEnvironmentPath, imageName),
+                            FilePath = hostEnvironmentPath,
                             UserId = _currentUser.Id,
-                            Order = index,
+                            Order = userPhotoCount,
                         });
 
-                        index++;
+                        userPhotoCount++;
                     }
                 }
             }

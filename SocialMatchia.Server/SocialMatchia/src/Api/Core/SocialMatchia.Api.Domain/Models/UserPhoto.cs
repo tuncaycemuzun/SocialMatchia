@@ -9,5 +9,11 @@ namespace SocialMatchia.Domain.Models
         public required string FileName { get; set; }
         public required string FilePath { get; set; }
         public int Order { get; set; }
+        public bool IsDeleted { get; set; } = false;
+
+        public void SetIsDeleted(bool value)
+        {
+            IsDeleted = value;
+        }
     }
 }

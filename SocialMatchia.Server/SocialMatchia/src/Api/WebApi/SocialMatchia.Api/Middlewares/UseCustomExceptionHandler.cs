@@ -25,6 +25,7 @@ namespace SocialMatchia.Api.Middlewares
                     statusCode = exceptionFeature.Error switch
                     {
                         PropertyValidationException => StatusCodes.Status500InternalServerError,
+                        NotFoundException => StatusCodes.Status404NotFound,
                         _ => statusCode,
 
                     };
