@@ -9,6 +9,7 @@ namespace SocialMatchia.Application.Interfaces.Repositories
         Task AddRangeAsync(IEnumerable<TEntity> entities);
 
         Task UpdateAsync(TEntity entity);
+        Task UpdateRangeAsync(IEnumerable<TEntity> entities);
 
         Task<bool> DeleteAsync(TEntity entity);
         Task<bool> DeleteRangeAsync(IEnumerable<TEntity> entities);

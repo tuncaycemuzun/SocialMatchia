@@ -40,12 +40,16 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
 
             if(userSocialMedias.Count > 0)
             {
-                await _repository.DeleteRangeAsync(userSocialMedias);
-            }
+                var existMedias = userSocialMedias.Where(x => request.Values.Select(x => x.Key).Contains(x.Id)).ToList();
+                
+                foreach(var item in existMedias)
+                {
+                    item.UserName = request.Values.FirstOrDefault(x => x.Key == item.Id).Value;
+                }
 
-            foreach (var item in request.Values)
-            {
-                if (!string.IsNullOrEmpty(item.Value))
+                var newSocialMedias = request.Values.Where(x => !existMedias.Select(x => x.SocialMediaId).Contains(x.Key)).ToList();
+
+                foreach(var item in newSocialMedias)
                 {
                     userSocialMedias.Add(new Domain.Models.UserSocialMedia
                     {
@@ -54,12 +58,24 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
                         UserName = item.Value
                     });
                 }
-            }
 
-            if(userSocialMedias.Count > 0)
+                await _repository.UpdateRangeAsync(userSocialMedias);
+            }
+            else
             {
-                await _repository.AddRangeAsync(userSocialMedias);
-                return Result.Success(true);
+                var userSocialMedia = new List<Domain.Models.UserSocialMedia>();
+
+                foreach (var item in request.Values)
+                {
+                    userSocialMedia.Add(new Domain.Models.UserSocialMedia
+                    {
+                        UserId = _currentUser.Id,
+                        SocialMediaId = item.Key,
+                        UserName = item.Value
+                    });
+                }
+
+                await _repository.AddRangeAsync(userSocialMedia);
             }
 
             return Result<bool>.Error("Invalid social media");

@@ -143,5 +143,11 @@ namespace SocialMatchia.Infrastructure.Persistence.Repositories
         {
             return await _entity.CountAsync(predicate);
         }
+
+        public Task UpdateRangeAsync(IEnumerable<TEntity> entities)
+        {
+            _entity.UpdateRange(entities);
+            return _context.SaveChangesAsync();
+        }
     }
 }
