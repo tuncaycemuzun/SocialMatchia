@@ -10,14 +10,9 @@ namespace SocialMatchia.Application.Features.ForAppQueries.UserInformation
         public Guid UserId { get; set; }
     }
 
-    public class UserInformationGetHandler : IRequestHandler<UserInformationGetCommand, Domain.Models.UserInformation?>
+    public class UserInformationGetHandler(IReadRepositoryBase<Domain.Models.UserInformation> repository) : IRequestHandler<UserInformationGetCommand, Domain.Models.UserInformation?>
     {
-        private readonly IReadRepositoryBase<Domain.Models.UserInformation> _repository;
-
-        public UserInformationGetHandler(IReadRepositoryBase<Domain.Models.UserInformation> repository)
-        {
-            _repository = repository;
-        }
+        private readonly IReadRepositoryBase<Domain.Models.UserInformation> _repository = repository;
 
         public async Task<Domain.Models.UserInformation?> Handle(UserInformationGetCommand request, CancellationToken cancellationToken)
         {

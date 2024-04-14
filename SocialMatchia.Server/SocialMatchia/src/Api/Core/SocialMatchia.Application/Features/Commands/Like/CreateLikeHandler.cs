@@ -11,18 +11,11 @@ namespace SocialMatchia.Application.Features.Commands.Like
         public required Guid TargetUserId { get; set; }
     }
 
-    public class CreateLikeHandler : IRequestHandler<CreateLikeCommand, Result<bool>>
+    public class CreateLikeHandler(IRepositoryBase<Domain.Models.Like> repository, CurrentUser currentUser, IMediator mediator) : IRequestHandler<CreateLikeCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.Like> _repository;
-        private readonly IMediator _mediator;
-        private readonly CurrentUser _currentUser;
-
-        public CreateLikeHandler(IRepositoryBase<Domain.Models.Like> repository, CurrentUser currentUser, IMediator mediator)
-        {
-            _repository = repository;
-            _currentUser = currentUser;
-            _mediator = mediator;
-        }
+        private readonly IRepositoryBase<Domain.Models.Like> _repository = repository;
+        private readonly IMediator _mediator = mediator;
+        private readonly CurrentUser _currentUser = currentUser;
 
         public async Task<Result<bool>> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
         {

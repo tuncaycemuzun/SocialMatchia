@@ -14,19 +14,14 @@ namespace SocialMatchia.Application.Features.Commands.UserSetting
         public Guid? GenderId { get; set; }
     }
 
-    public class UpsertUserSettingHandler : IRequestHandler<UpsertUserSettingCommand, Result<bool>>
+    public class UpsertUserSettingHandler(IRepositoryBase<Domain.Models.UserSetting> repository, CurrentUser currentUser) : IRequestHandler<UpsertUserSettingCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.UserSetting> _repository;
-        private readonly CurrentUser _currentUser;
-        public UpsertUserSettingHandler(IRepositoryBase<Domain.Models.UserSetting> repository, CurrentUser currentUser)
-        {
-            _repository = repository;
-            _currentUser = currentUser;
-        }
+        private readonly IRepositoryBase<Domain.Models.UserSetting> _repository = repository;
+        private readonly CurrentUser _currentUser = currentUser;
 
         public async Task<Result<bool>> Handle(UpsertUserSettingCommand request, CancellationToken cancellationToken)
         {
-            var userSettings = await _repository.FirstOrDefaultAsync(new GetUserSetting(_currentUser.Id), cancellationToken);
+            var userSettings = await _repository.FirstOrDefaultAsync(new GetUserSettingSpec(_currentUser.Id), cancellationToken);
 
             var update = userSettings != null ? true : false;
 

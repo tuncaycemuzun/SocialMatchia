@@ -16,18 +16,11 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
         public required DateTime BirthDate { get; set; }
     }
 
-    public class UpsertUserInformationHandler : IRequestHandler<UpsertUserInformationCommand, Result<bool>>
+    public class UpsertUserInformationHandler(IRepositoryBase<Domain.Models.UserInformation> repository, CurrentUser currentUser, IMediator mediator) : IRequestHandler<UpsertUserInformationCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.UserInformation> _repository;
-        private readonly CurrentUser _currentUser;
-        private readonly IMediator _mediator;
-
-        public UpsertUserInformationHandler(IRepositoryBase<Domain.Models.UserInformation> repository, CurrentUser currentUser, IMediator mediator)
-        {
-            _repository = repository;
-            _currentUser = currentUser;
-            _mediator = mediator;
-        }
+        private readonly IRepositoryBase<Domain.Models.UserInformation> _repository = repository;
+        private readonly CurrentUser _currentUser = currentUser;
+        private readonly IMediator _mediator = mediator;
 
         public async Task<Result<bool>> Handle(UpsertUserInformationCommand request, CancellationToken cancellationToken)
         {

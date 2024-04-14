@@ -11,14 +11,9 @@ namespace SocialMatchia.Application.Features.ForAppQueries.Like
         public Guid TargetUserId { get; set; }
     }
 
-    public class LikeGetForAppHandler : IRequestHandler<LikeGetForAppCommand, Domain.Models.Like?>
+    public class LikeGetForAppHandler(IReadRepositoryBase<Domain.Models.Like> repository) : IRequestHandler<LikeGetForAppCommand, Domain.Models.Like?>
     {
-        private readonly IReadRepositoryBase<Domain.Models.Like> _repository;
-
-        public LikeGetForAppHandler(IReadRepositoryBase<Domain.Models.Like> repository)
-        {
-            _repository = repository;
-        }
+        private readonly IReadRepositoryBase<Domain.Models.Like> _repository = repository;
 
         public async Task<Domain.Models.Like?> Handle(LikeGetForAppCommand request, CancellationToken cancellationToken)
         {

@@ -11,18 +11,11 @@ namespace SocialMatchia.Application.Features.Commands.Like
         public Guid TargetUserId { get; set; }
     }
 
-    public class UndoLikeHandler : IRequestHandler<UndoLikeCommand, Result<bool>>
+    public class UndoLikeHandler(IRepositoryBase<Domain.Models.Like> repository, CurrentUser currentUser, IMediator mediator) : IRequestHandler<UndoLikeCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.Like> _repository;
-        private readonly CurrentUser _currentUser;
-        private readonly IMediator _mediator;
-
-        public UndoLikeHandler(IRepositoryBase<Domain.Models.Like> repository, CurrentUser currentUser, IMediator mediator)
-        {
-            _repository = repository;
-            _currentUser = currentUser;
-            _mediator = mediator;
-        }
+        private readonly IRepositoryBase<Domain.Models.Like> _repository = repository;
+        private readonly CurrentUser _currentUser = currentUser;
+        private readonly IMediator _mediator = mediator;
 
         public async Task<Result<bool>> Handle(UndoLikeCommand request, CancellationToken cancellationToken)
         {

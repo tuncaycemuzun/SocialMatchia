@@ -13,18 +13,11 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
         public required Dictionary<Guid, string> Values { get; set; }
     }
 
-    public class CreateUserSocialMediaHandler : IRequestHandler<CreateUserSocialMediaCommand, Result<bool>>
+    public class CreateUserSocialMediaHandler(IRepositoryBase<Domain.Models.UserSocialMedia> repository, IRepositoryBase<Domain.Models.SocialMedia> socialMediaRepository, CurrentUser currentUser) : IRequestHandler<CreateUserSocialMediaCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.UserSocialMedia> _repository;
-        private readonly IRepositoryBase<Domain.Models.SocialMedia> _socialMediaRepository;
-        private readonly CurrentUser _currentUser;
-
-        public CreateUserSocialMediaHandler(IRepositoryBase<Domain.Models.UserSocialMedia> repository, IRepositoryBase<Domain.Models.SocialMedia> socialMediaRepository, CurrentUser currentUser)
-        {
-            _repository = repository;
-            _socialMediaRepository = socialMediaRepository;
-            _currentUser = currentUser;
-        }
+        private readonly IRepositoryBase<Domain.Models.UserSocialMedia> _repository = repository;
+        private readonly IRepositoryBase<Domain.Models.SocialMedia> _socialMediaRepository = socialMediaRepository;
+        private readonly CurrentUser _currentUser = currentUser;
 
         public async Task<Result<bool>> Handle(CreateUserSocialMediaCommand request, CancellationToken cancellationToken)
         {
@@ -43,7 +36,7 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
                 }
             }
 
-            var userSocialMedias = await _repository.ListAsync(new GetUserSocialMedia(_currentUser.Id), cancellationToken);
+            var userSocialMedias = await _repository.ListAsync(new GetUserSocialMediaSpec(_currentUser.Id), cancellationToken);
 
             if (userSocialMedias.Count > 0)
             {

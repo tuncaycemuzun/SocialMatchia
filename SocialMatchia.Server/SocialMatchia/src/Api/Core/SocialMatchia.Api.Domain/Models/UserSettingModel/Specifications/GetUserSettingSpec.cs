@@ -2,9 +2,9 @@
 
 namespace SocialMatchia.Domain.Models.UserSettingModel.Specifications
 {
-    public class GetUserSetting : Specification<UserSetting>
+    public class GetUserSettingSpec : Specification<UserSetting>
     {
-        public GetUserSetting(Guid userId)
+        public GetUserSettingSpec(Guid userId)
         {
             Query.Where(x => x.UserId == userId);
         }

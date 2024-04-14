@@ -9,14 +9,9 @@ namespace SocialMatchia.Application.Features.ForAppQueries.UserPhoto
         public Guid UserId{ get; set; }
     }
 
-    public class UserPhotoCountHandler : IRequestHandler<UserPhotoGetCommand, int>
+    public class UserPhotoCountHandler(IRepositoryBase<Domain.Models.UserPhoto> repository) : IRequestHandler<UserPhotoGetCommand, int>
     {
-        private readonly IRepositoryBase<Domain.Models.UserPhoto> _repository;
-
-        public UserPhotoCountHandler(IRepositoryBase<Domain.Models.UserPhoto> repository)
-        {
-            _repository = repository;
-        }
+        private readonly IRepositoryBase<Domain.Models.UserPhoto> _repository = repository;
 
         public async Task<int> Handle(UserPhotoGetCommand request, CancellationToken cancellationToken)
         {

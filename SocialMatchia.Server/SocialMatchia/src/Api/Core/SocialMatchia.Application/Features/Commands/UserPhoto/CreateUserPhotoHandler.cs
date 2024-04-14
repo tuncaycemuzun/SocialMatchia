@@ -15,20 +15,12 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
         public required List<string> Photos { get; set; }
     }
 
-    public class CreateUserPhotoHandler : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
+    public class CreateUserPhotoHandler(IRepositoryBase<Domain.Models.UserPhoto> repository, IHostEnvironment hostEnvironment, CurrentUser currentUser, IMediator mediator) : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.UserPhoto> _repository;
-        private readonly IHostEnvironment _hostEnvironment;
-        private readonly IMediator _mediator;
-        private readonly CurrentUser _currentUser;
-
-        public CreateUserPhotoHandler(IRepositoryBase<Domain.Models.UserPhoto> repository, IHostEnvironment hostEnvironment, CurrentUser currentUser, IMediator mediator)
-        {
-            _repository = repository;
-            _hostEnvironment = hostEnvironment;
-            _currentUser = currentUser;
-            _mediator = mediator;
-        }
+        private readonly IRepositoryBase<Domain.Models.UserPhoto> _repository = repository;
+        private readonly IHostEnvironment _hostEnvironment = hostEnvironment;
+        private readonly IMediator _mediator = mediator;
+        private readonly CurrentUser _currentUser = currentUser;
 
         public async Task<Result<bool>> Handle(CreateUserPhotoCommand request, CancellationToken cancellationToken)
         {
