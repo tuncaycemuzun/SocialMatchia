@@ -20,7 +20,7 @@ namespace SocialMatchia.Application.Features.Commands.Like
         public async Task<Result<bool>> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
         {
             var hasExistingLike = await _mediator
-                .Send(new LikeHasExistCommand
+                .Send(new _LikeHasExistQuery
                 {
                     TargetUserId = request.TargetUserId,
                     SourceUserId = _currentUser.Id

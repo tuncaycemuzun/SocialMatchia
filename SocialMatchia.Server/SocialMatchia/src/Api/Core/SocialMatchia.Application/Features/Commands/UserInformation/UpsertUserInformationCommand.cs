@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using Ardalis.Specification;
 using MediatR;
-using SocialMatchia.Application.Features.ForAppQueries.UserInformation;
+using SocialMatchia.Application.Features.Queries.UserInformation;
 using SocialMatchia.Common;
 
 namespace SocialMatchia.Application.Features.Commands.UserInformation
@@ -24,7 +24,7 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
 
         public async Task<Result<bool>> Handle(UpsertUserInformationCommand request, CancellationToken cancellationToken)
         {
-            var userInformation = await _mediator.Send(new UserInformationGetCommand()
+            var userInformation = await _mediator.Send(new _UserInformationQuery()
             {
                 UserId = _currentUser.Id
             }, cancellationToken);

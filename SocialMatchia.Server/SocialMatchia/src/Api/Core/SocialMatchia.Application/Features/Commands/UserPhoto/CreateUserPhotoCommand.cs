@@ -2,11 +2,10 @@
 using Ardalis.Specification;
 using MediatR;
 using Microsoft.Extensions.Hosting;
-using SocialMatchia.Application.Features.ForAppQueries.UserPhoto;
+using SocialMatchia.Application.Features.Queries.UserPhoto;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Helpers;
-using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
 
 namespace SocialMatchia.Application.Features.Commands.UserPhoto
 {
@@ -37,7 +36,7 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
             var userPhotos = new List<Domain.Models.UserPhoto>();
             var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
 
-            var userPhotoCount = await _mediator.Send(new UserPhotoGetCommand()
+            var userPhotoCount = await _mediator.Send(new _UserPhotoCountQuery()
             {
                 UserId = _currentUser.Id
             }, cancellationToken);

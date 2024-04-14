@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using Ardalis.Specification;
 using MediatR;
-using SocialMatchia.Application.Features.ForAppQueries.Like;
+using SocialMatchia.Application.Features.Queries.Like;
 using SocialMatchia.Common;
 
 namespace SocialMatchia.Application.Features.Commands.Like
@@ -19,7 +19,7 @@ namespace SocialMatchia.Application.Features.Commands.Like
 
         public async Task<Result<bool>> Handle(UndoLikeCommand request, CancellationToken cancellationToken)
         {
-            var like = await _mediator.Send(new LikeGetForAppCommand()
+            var like = await _mediator.Send(new _LikeQuery()
             {
                 SourceUserId = _currentUser.Id,
                 TargetUserId = request.TargetUserId
