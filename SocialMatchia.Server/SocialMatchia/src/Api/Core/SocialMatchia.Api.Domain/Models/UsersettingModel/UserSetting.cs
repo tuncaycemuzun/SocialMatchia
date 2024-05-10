@@ -1,4 +1,8 @@
-﻿namespace SocialMatchia.Domain.Models
+﻿using SocialMatchia.Domain.Models.CityModel;
+using SocialMatchia.Domain.Models.GenderModel;
+using SocialMatchia.Domain.Models.UserModel;
+
+namespace SocialMatchia.Domain.Models.UserSettingModel
 {
     public class UserSetting : BaseEntity
     {

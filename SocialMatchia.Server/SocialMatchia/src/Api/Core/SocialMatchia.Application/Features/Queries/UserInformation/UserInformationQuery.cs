@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result;
-using Ardalis.Specification;
 using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Features.ResponseModel;
+using SocialMatchia.Common.Interfaces;
 using SocialMatchia.Domain.Models.UserInformationModel.Specification;
 
 namespace SocialMatchia.Application.Features.Queries.UserInformation
@@ -12,10 +12,16 @@ namespace SocialMatchia.Application.Features.Queries.UserInformation
 
     }
 
-    public class UserInformationHandler(IReadRepositoryBase<Domain.Models.UserInformation> repository, CurrentUser currentUser) : IRequestHandler<UserInformationQuery, Result<UserInformationResponse>>
+    public class UserInformationHandler : IRequestHandler<UserInformationQuery, Result<UserInformationResponse>>
     {
-        private readonly IReadRepositoryBase<Domain.Models.UserInformation> _repository = repository;
-        private readonly CurrentUser _currentUser = currentUser;
+        private readonly IReadRepository<Domain.Models.UserInformationModel.UserInformation> _repository;
+        private readonly CurrentUser _currentUser;
+
+        public UserInformationHandler(IReadRepository<Domain.Models.UserInformationModel.UserInformation> repository, CurrentUser currentUser)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+        }
 
         public async Task<Result<UserInformationResponse>> Handle(UserInformationQuery request, CancellationToken cancellationToken)
         {

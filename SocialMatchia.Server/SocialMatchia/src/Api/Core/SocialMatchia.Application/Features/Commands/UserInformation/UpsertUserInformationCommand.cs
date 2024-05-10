@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result;
-using Ardalis.Specification;
 using MediatR;
-using SocialMatchia.Application.Features.Queries.UserInformation;
+using SocialMatchia.Application.Features.InternalQueries.UserInformation;
 using SocialMatchia.Common;
+using SocialMatchia.Common.Interfaces;
 
 namespace SocialMatchia.Application.Features.Commands.UserInformation
 {
@@ -16,15 +16,22 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
         public required DateTime BirthDate { get; set; }
     }
 
-    public class UpsertUserInformationHandler(IRepositoryBase<Domain.Models.UserInformation> repository, CurrentUser currentUser, IMediator mediator) : IRequestHandler<UpsertUserInformationCommand, Result<bool>>
+    public class UpsertUserInformationHandler : IRequestHandler<UpsertUserInformationCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.UserInformation> _repository = repository;
-        private readonly CurrentUser _currentUser = currentUser;
-        private readonly IMediator _mediator = mediator;
+        private readonly IRepository<Domain.Models.UserInformationModel.UserInformation> _repository;
+        private readonly CurrentUser _currentUser;
+        private readonly IMediator _mediator;
+
+        public UpsertUserInformationHandler(IRepository<Domain.Models.UserInformationModel.UserInformation> repository, CurrentUser currentUser, IMediator mediator)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
 
         public async Task<Result<bool>> Handle(UpsertUserInformationCommand request, CancellationToken cancellationToken)
         {
-            var userInformation = await _mediator.Send(new _UserInformationQuery()
+            var userInformation = await _mediator.Send(new UserInformationByUserIdQuery()
             {
                 UserId = _currentUser.Id
             }, cancellationToken);
@@ -36,7 +43,7 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
             }
             else
             {
-                await _repository.AddAsync(new Domain.Models.UserInformation
+                await _repository.AddAsync(new Domain.Models.UserInformationModel.UserInformation
                 {
                     UserId = request.UserId,
                     CityId = request.CityId,

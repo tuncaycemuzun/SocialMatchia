@@ -1,4 +1,4 @@
-﻿namespace SocialMatchia.Domain.Models
+﻿namespace SocialMatchia.Domain.Models.CountryModel
 {
     public class Country : BaseEntity
     {

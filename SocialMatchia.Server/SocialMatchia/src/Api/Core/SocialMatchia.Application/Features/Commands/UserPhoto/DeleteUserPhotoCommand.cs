@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result;
-using Ardalis.Specification;
 using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
+using SocialMatchia.Common.Interfaces;
 using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
 
 namespace SocialMatchia.Application.Features.Commands.UserPhoto
@@ -12,10 +12,16 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
         public required Guid Id { get; set; }
     }
 
-    public class DeleteUserPhotoHandler(IRepositoryBase<Domain.Models.UserPhoto> repository, CurrentUser currentUser) : IRequestHandler<DeleteUserPhotoCommand, Result<bool>>
+    public class DeleteUserPhotoHandler : IRequestHandler<DeleteUserPhotoCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.UserPhoto> _repository = repository;
-        private readonly CurrentUser _currentUser = currentUser;
+        private readonly IRepository<Domain.Models.UserPhotoModel.UserPhoto> _repository;
+        private readonly CurrentUser _currentUser;
+
+        public DeleteUserPhotoHandler(IRepository<Domain.Models.UserPhotoModel.UserPhoto> repository, CurrentUser currentUser)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+        }
 
         public async Task<Result<bool>> Handle(DeleteUserPhotoCommand request, CancellationToken cancellationToken)
         {

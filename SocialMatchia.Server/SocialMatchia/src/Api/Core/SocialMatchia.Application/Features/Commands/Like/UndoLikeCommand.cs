@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result;
-using Ardalis.Specification;
 using MediatR;
-using SocialMatchia.Application.Features.Queries.Like;
+using SocialMatchia.Application.Features.InternalQueries.Like;
 using SocialMatchia.Common;
+using SocialMatchia.Common.Interfaces;
 
 namespace SocialMatchia.Application.Features.Commands.Like
 {
@@ -11,15 +11,22 @@ namespace SocialMatchia.Application.Features.Commands.Like
         public Guid TargetUserId { get; set; }
     }
 
-    public class UndoLikeHandler(IRepositoryBase<Domain.Models.Like> repository, CurrentUser currentUser, IMediator mediator) : IRequestHandler<UndoLikeCommand, Result<bool>>
+    public class UndoLikeHandler : IRequestHandler<UndoLikeCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.Like> _repository = repository;
-        private readonly CurrentUser _currentUser = currentUser;
-        private readonly IMediator _mediator = mediator;
+        private readonly IRepository<Domain.Models.LikeModel.Like> _repository;
+        private readonly CurrentUser _currentUser;
+        private readonly IMediator _mediator;
+
+        public UndoLikeHandler(IRepository<Domain.Models.LikeModel.Like> repository, CurrentUser currentUser, IMediator mediator)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
 
         public async Task<Result<bool>> Handle(UndoLikeCommand request, CancellationToken cancellationToken)
         {
-            var like = await _mediator.Send(new _LikeQuery()
+            var like = await _mediator.Send(new LikeQuery()
             {
                 SourceUserId = _currentUser.Id,
                 TargetUserId = request.TargetUserId

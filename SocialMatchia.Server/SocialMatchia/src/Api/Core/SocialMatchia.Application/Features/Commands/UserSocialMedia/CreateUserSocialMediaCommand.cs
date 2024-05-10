@@ -3,6 +3,8 @@ using Ardalis.Specification;
 using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
+using SocialMatchia.Common.Interfaces;
+using SocialMatchia.Domain.Models.SocialMediaModel;
 using SocialMatchia.Domain.Models.SocialMediaModel.Specifications;
 using SocialMatchia.Domain.Models.UserSocialMediaModel.Specifications;
 
@@ -13,11 +15,18 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
         public required Dictionary<Guid, string> Values { get; set; }
     }
 
-    public class CreateUserSocialMediaHandler(IRepositoryBase<Domain.Models.UserSocialMedia> repository, IRepositoryBase<Domain.Models.SocialMedia> socialMediaRepository, CurrentUser currentUser) : IRequestHandler<CreateUserSocialMediaCommand, Result<bool>>
+    public class CreateUserSocialMediaHandler : IRequestHandler<CreateUserSocialMediaCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.UserSocialMedia> _repository = repository;
-        private readonly IRepositoryBase<Domain.Models.SocialMedia> _socialMediaRepository = socialMediaRepository;
-        private readonly CurrentUser _currentUser = currentUser;
+        private readonly IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> _repository;
+        private readonly IRepository<SocialMedia> _socialMediaRepository;
+        private readonly CurrentUser _currentUser;
+
+        public CreateUserSocialMediaHandler(IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> repository, IRepository<SocialMedia> socialMediaRepository, CurrentUser currentUser)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _socialMediaRepository = socialMediaRepository ?? throw new ArgumentNullException(nameof(socialMediaRepository));
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+        }
 
         public async Task<Result<bool>> Handle(CreateUserSocialMediaCommand request, CancellationToken cancellationToken)
         {
@@ -51,7 +60,7 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
 
                 foreach (var item in newSocialMedias)
                 {
-                    userSocialMedias.Add(new Domain.Models.UserSocialMedia
+                    userSocialMedias.Add(new Domain.Models.UserSocialMediaModel.UserSocialMedia
                     {
                         UserId = _currentUser.Id,
                         SocialMediaId = item.Key,
@@ -63,11 +72,11 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
             }
             else
             {
-                var userSocialMedia = new List<Domain.Models.UserSocialMedia>();
+                var userSocialMedia = new List<Domain.Models.UserSocialMediaModel.UserSocialMedia>();
 
                 foreach (var item in request.Values)
                 {
-                    userSocialMedia.Add(new Domain.Models.UserSocialMedia
+                    userSocialMedia.Add(new Domain.Models.UserSocialMediaModel.UserSocialMedia
                     {
                         UserId = _currentUser.Id,
                         SocialMediaId = item.Key,

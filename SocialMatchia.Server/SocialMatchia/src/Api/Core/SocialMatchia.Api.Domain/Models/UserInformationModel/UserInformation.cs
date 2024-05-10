@@ -1,4 +1,9 @@
-﻿namespace SocialMatchia.Domain.Models
+﻿using SocialMatchia.Domain.Models.CityModel;
+using SocialMatchia.Domain.Models.GenderModel;
+using SocialMatchia.Domain.Models.UserModel;
+using SocialMatchia.Domain.Models.UserSocialMediaModel;
+
+namespace SocialMatchia.Domain.Models.UserInformationModel
 {
     public class UserInformation : BaseDetailEntity
     {

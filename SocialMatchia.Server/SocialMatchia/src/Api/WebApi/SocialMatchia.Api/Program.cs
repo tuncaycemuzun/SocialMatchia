@@ -6,7 +6,7 @@ using SocialMatchia.Api.Middlewares;
 using SocialMatchia.Application.Extensions;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
-using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.UserModel;
 using SocialMatchia.Infrastructure.Persistence.Context;
 using SocialMatchia.Infrastructure.Persistence.Extensions;
 using System.Reflection;
@@ -32,8 +32,9 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     options.SuppressModelStateInvalidFilter = true;
 });
 
-builder.Services.AddApplicationServices();
 builder.Services.AddPersistence(builder.Configuration);
+
+builder.Services.AddApplicationServices();
 
 builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 {

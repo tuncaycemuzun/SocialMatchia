@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -11,8 +10,11 @@ namespace SocialMatchia.Application.Extensions
         {
             var assm = Assembly.GetExecutingAssembly();
 
-            services.AddMediatR(assm);
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(assm));
             services.AddValidatorsFromAssembly(assm);
+
+            //services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+            //services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             return services;
         }

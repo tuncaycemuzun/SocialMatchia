@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result;
-using Ardalis.Specification;
 using MediatR;
-using SocialMatchia.Application.Features.Queries.Like;
+using SocialMatchia.Application.Features.InternalQueries.Like;
 using SocialMatchia.Common;
+using SocialMatchia.Common.Interfaces;
 
 namespace SocialMatchia.Application.Features.Commands.Like
 {
@@ -11,16 +11,23 @@ namespace SocialMatchia.Application.Features.Commands.Like
         public required Guid TargetUserId { get; set; }
     }
 
-    public class CreateLikeHandler(IRepositoryBase<Domain.Models.Like> repository, CurrentUser currentUser, IMediator mediator) : IRequestHandler<CreateLikeCommand, Result<bool>>
+    public class CreateLikeHandler : IRequestHandler<CreateLikeCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.Like> _repository = repository;
-        private readonly IMediator _mediator = mediator;
-        private readonly CurrentUser _currentUser = currentUser;
+        private readonly IRepository<Domain.Models.LikeModel.Like> _repository;
+        private readonly IMediator _mediator;
+        private readonly CurrentUser _currentUser;
+
+        public CreateLikeHandler(IRepository<Domain.Models.LikeModel.Like> repository, IMediator mediator, CurrentUser currentUser)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+        }
 
         public async Task<Result<bool>> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
         {
             var hasExistingLike = await _mediator
-                .Send(new _LikeHasExistQuery
+                .Send(new LikeHasExistQuery
                 {
                     TargetUserId = request.TargetUserId,
                     SourceUserId = _currentUser.Id
@@ -28,7 +35,7 @@ namespace SocialMatchia.Application.Features.Commands.Like
 
             if (hasExistingLike) return Result.Success(true);
 
-            var like = new Domain.Models.Like
+            var like = new Domain.Models.LikeModel.Like
             {
                 SourceUserId = _currentUser.Id,
                 TargetUserId = request.TargetUserId,

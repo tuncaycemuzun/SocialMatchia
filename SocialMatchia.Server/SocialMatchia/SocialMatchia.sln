@@ -17,17 +17,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{C9BB2C9A-C056-40AD-8F25-22195CDCC8D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Common", "src\Common\SocialMatchia.Common\SocialMatchia.Common.csproj", "{29E92296-241F-48F9-A9A0-E8EE13E0CB22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMatchia.Common", "src\Common\SocialMatchia.Common\SocialMatchia.Common.csproj", "{29E92296-241F-48F9-A9A0-E8EE13E0CB22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Domain", "src\Api\Core\SocialMatchia.Api.Domain\SocialMatchia.Domain.csproj", "{D09F58D6-6CD2-4AC3-90ED-CD6074838DD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMatchia.Domain", "src\Api\Core\SocialMatchia.Api.Domain\SocialMatchia.Domain.csproj", "{D09F58D6-6CD2-4AC3-90ED-CD6074838DD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Application", "src\Api\Core\SocialMatchia.Application\SocialMatchia.Application.csproj", "{118A56DE-A1E1-4D90-8255-ED27012EE088}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMatchia.Application", "src\Api\Core\SocialMatchia.Application\SocialMatchia.Application.csproj", "{118A56DE-A1E1-4D90-8255-ED27012EE088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Infrastructure.Persistence", "src\Api\Infrastructure\SocialMatchia.Infrastructure.Persistence\SocialMatchia.Infrastructure.Persistence.csproj", "{AB233686-F03D-45B8-939E-CEE7DF5A54C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMatchia.Infrastructure.Persistence", "src\Api\Infrastructure\SocialMatchia.Infrastructure.Persistence\SocialMatchia.Infrastructure.Persistence.csproj", "{AB233686-F03D-45B8-939E-CEE7DF5A54C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Projections.Notification", "src\Projections\SocialMatchia.Projections.Notification\SocialMatchia.Projections.Notification.csproj", "{B923DE20-1095-4CBB-9683-FA434A3EE0F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMatchia.Projections.Notification", "src\Projections\SocialMatchia.Projections.Notification\SocialMatchia.Projections.Notification.csproj", "{B923DE20-1095-4CBB-9683-FA434A3EE0F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialMatchia.Api", "src\Api\WebApi\SocialMatchia.Api\SocialMatchia.Api.csproj", "{849DCC1D-248F-49BE-985D-F760AA567224}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMatchia.Api", "src\Api\WebApi\SocialMatchia.Api\SocialMatchia.Api.csproj", "{849DCC1D-248F-49BE-985D-F760AA567224}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

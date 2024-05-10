@@ -1,11 +1,11 @@
 ﻿using Ardalis.Result;
-using Ardalis.Specification;
 using MediatR;
 using Microsoft.Extensions.Hosting;
-using SocialMatchia.Application.Features.Queries.UserPhoto;
+using SocialMatchia.Application.Features.InternalQueries.UserPhoto;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Helpers;
+using SocialMatchia.Common.Interfaces;
 
 namespace SocialMatchia.Application.Features.Commands.UserPhoto
 {
@@ -14,12 +14,20 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
         public required List<string> Photos { get; set; }
     }
 
-    public class CreateUserPhotoHandler(IRepositoryBase<Domain.Models.UserPhoto> repository, IHostEnvironment hostEnvironment, CurrentUser currentUser, IMediator mediator) : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
+    public class CreateUserPhotoHandler : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
     {
-        private readonly IRepositoryBase<Domain.Models.UserPhoto> _repository = repository;
-        private readonly IHostEnvironment _hostEnvironment = hostEnvironment;
-        private readonly IMediator _mediator = mediator;
-        private readonly CurrentUser _currentUser = currentUser;
+        private readonly IRepository<Domain.Models.UserPhotoModel.UserPhoto> _repository;
+        private readonly IHostEnvironment _hostEnvironment;
+        private readonly IMediator _mediator;
+        private readonly CurrentUser _currentUser;
+
+        public CreateUserPhotoHandler(IRepository<Domain.Models.UserPhotoModel.UserPhoto> repository, IHostEnvironment hostEnvironment, IMediator mediator, CurrentUser currentUser)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _hostEnvironment = hostEnvironment ?? throw new ArgumentNullException(nameof(hostEnvironment));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+        }
 
         public async Task<Result<bool>> Handle(CreateUserPhotoCommand request, CancellationToken cancellationToken)
         {
@@ -33,10 +41,10 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
                 throw new PropertyValidationException("Maximum 7 photos can be upload");
             }
 
-            var userPhotos = new List<Domain.Models.UserPhoto>();
+            var userPhotos = new List<Domain.Models.UserPhotoModel.UserPhoto>();
             var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
 
-            var userPhotoCount = await _mediator.Send(new _UserPhotoCountQuery()
+            var userPhotoCount = await _mediator.Send(new UserPhotoCountByUserIdQuery()
             {
                 UserId = _currentUser.Id
             }, cancellationToken);
@@ -49,7 +57,7 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
 
                     if (!string.IsNullOrEmpty(imageName))
                     {
-                        userPhotos.Add(new Domain.Models.UserPhoto
+                        userPhotos.Add(new Domain.Models.UserPhotoModel.UserPhoto
                         {
                             FileName = imageName,
                             FilePath = hostEnvironmentPath,
