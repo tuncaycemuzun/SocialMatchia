@@ -1,8 +1,11 @@
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using SocialMatchia.Api.Filters;
 using SocialMatchia.Api.Middlewares;
 using SocialMatchia.Application.Extensions;
@@ -20,7 +23,32 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SocialMatchia Api", Version = "v1" });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme.",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 builder.Services.AddControllers(opt => opt.Filters.Add(new ValidateFilterAttribute())).AddFluentValidation(opt =>
 {
@@ -39,20 +67,21 @@ builder.Services.AddPersistence(builder.Configuration);
 
 builder.Services.AddApplicationServices();
 
-builder.Services.AddIdentityApiEndpoints<User>(opt =>
-{
-    opt.User.RequireUniqueEmail = true;
-    opt.Password.RequireNonAlphanumeric = false;
-    opt.Password.RequiredLength = 8;
-    opt.Password.RequireDigit = true;
-    opt.Password.RequireLowercase = true;
-    opt.Password.RequireUppercase = true;
-}).AddEntityFrameworkStores<SocialMatchiaDbContext>();
+builder.Services.AddIdentityApiEndpoints<User>()
+    .AddRoles<IdentityRole<Guid>>()
+    .AddEntityFrameworkStores<SocialMatchiaDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication().AddBearerToken(opt =>
+builder.Services.ConfigureAll<BearerTokenOptions>(option =>
 {
-    opt.BearerTokenExpiration = TimeSpan.FromDays(1);
-    opt.RefreshTokenExpiration = TimeSpan.FromDays(3);
+    option.BearerTokenExpiration = TimeSpan.FromDays(1);
+    option.RefreshTokenExpiration = TimeSpan.FromDays(10);
+});
+
+builder.Services.ConfigureAll<AuthenticationOptions>(option =>
+{
+    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 });
 
 builder.Services.AddSingleton<CurrentUser>();

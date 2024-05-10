@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,6 +22,10 @@
     <ProjectReference Include="..\..\..\Common\SocialMatchia.Common\SocialMatchia.Common.csproj" />
     <ProjectReference Include="..\..\Core\SocialMatchia.Application\SocialMatchia.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SocialMatchia.Infrastructure.Persistence\SocialMatchia.Infrastructure.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Identity\" />
   </ItemGroup>
 
 </Project>
