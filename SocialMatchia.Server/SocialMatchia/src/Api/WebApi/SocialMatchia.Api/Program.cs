@@ -1,6 +1,8 @@
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using SocialMatchia.Api.Filters;
 using SocialMatchia.Api.Middlewares;
 using SocialMatchia.Application.Extensions;
@@ -10,6 +12,7 @@ using SocialMatchia.Domain.Models.UserModel;
 using SocialMatchia.Infrastructure.Persistence.Context;
 using SocialMatchia.Infrastructure.Persistence.Extensions;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,17 +39,21 @@ builder.Services.AddPersistence(builder.Configuration);
 
 builder.Services.AddApplicationServices();
 
-builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
+builder.Services.AddIdentityApiEndpoints<User>(opt =>
 {
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 8;
-    options.User.RequireUniqueEmail = true;
-})
-    .AddEntityFrameworkStores<SocialMatchiaDbContext>()
-    .AddDefaultTokenProviders();
+    opt.User.RequireUniqueEmail = true;
+    opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequiredLength = 8;
+    opt.Password.RequireDigit = true;
+    opt.Password.RequireLowercase = true;
+    opt.Password.RequireUppercase = true;
+}).AddEntityFrameworkStores<SocialMatchiaDbContext>();
+
+builder.Services.AddAuthentication().AddBearerToken(opt =>
+{
+    opt.BearerTokenExpiration = TimeSpan.FromDays(1);
+    opt.RefreshTokenExpiration = TimeSpan.FromDays(3);
+});
 
 builder.Services.AddSingleton<CurrentUser>();
 
@@ -63,6 +70,8 @@ app.UseHttpsRedirection();
 app.UseMiddleware<CurrentUserMiddleware>();
 app.UseCustomException();
 app.UseAuthorization();
+
+app.MapGroup("/identity").MapIdentityApi<User>();
 
 app.MapControllers();
 

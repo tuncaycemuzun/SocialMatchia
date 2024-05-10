@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SocialMatchia.Common.Interfaces;
+using SocialMatchia.Domain.Models.UserModel;
 using SocialMatchia.Infrastructure.Persistence.Context;
+using System;
 
 namespace SocialMatchia.Infrastructure.Persistence.Extensions
 {
@@ -15,6 +18,8 @@ namespace SocialMatchia.Infrastructure.Persistence.Extensions
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             });
 
+
+            
             services.AddTransient(typeof(IReadRepository<>), typeof(EfRepository<>));
             services.AddTransient(typeof(IRepository<>), typeof(EfRepository<>));
 
