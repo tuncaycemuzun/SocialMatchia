@@ -25,7 +25,7 @@ namespace SocialMatchia.Application.Features.Queries.UserInformation
 
         public async Task<Result<UserInformationResponse>> Handle(UserInformationQuery request, CancellationToken cancellationToken)
         {
-            var userInformation = await _repository.FirstOrDefaultAsync(new GetUserInformationSpec(_currentUser.Id), cancellationToken);
+            var userInformation = await _repository.FirstOrDefaultAsync(new GetUserInformationByUserIdSpec(_currentUser.Id), cancellationToken);
 
             if (userInformation is null)
             {

@@ -31,7 +31,7 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
 
         public async Task<Result<bool>> Handle(UpsertUserInformationCommand request, CancellationToken cancellationToken)
         {
-            var userInformation = await _mediator.Send(new UserInformationByUserIdQuery()
+            var userInformation = await _mediator.Send(new UserInformationQuery()
             {
                 UserId = _currentUser.Id
             }, cancellationToken);

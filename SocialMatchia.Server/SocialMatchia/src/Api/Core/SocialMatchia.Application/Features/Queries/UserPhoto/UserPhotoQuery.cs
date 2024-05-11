@@ -23,7 +23,7 @@ namespace SocialMatchia.Application.Features.Queries.UserPhoto
 
         public async Task<Result<List<string>>> Handle(UserPhotoQuery request, CancellationToken cancellationToken)
         {
-            var response = await _repository.ListAsync(new GetCurrentUserPhotoSpec(_currentUser.Id), cancellationToken);
+            var response = await _repository.ListAsync(new GetUserPhotosSpec(_currentUser.Id), cancellationToken);
             var photos = new List<string>();
 
             foreach (var photo in response)

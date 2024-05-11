@@ -44,7 +44,7 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
             var userPhotos = new List<Domain.Models.UserPhotoModel.UserPhoto>();
             var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
 
-            var userPhotoCount = await _mediator.Send(new UserPhotoCountByUserIdQuery()
+            var userPhotoCount = await _mediator.Send(new UserPhotoCountQuery() // TODO: sıralamayı dışardan alacak şekilde geliştirme yap.
             {
                 UserId = _currentUser.Id
             }, cancellationToken);

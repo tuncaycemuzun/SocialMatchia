@@ -2,9 +2,9 @@
 
 namespace SocialMatchia.Domain.Models.UserInformationModel.Specification
 {
-    public class GetUserInformationSpec : Specification<UserInformation>
+    public class GetUserInformationByUserIdSpec : Specification<UserInformation>
     {
-        public GetUserInformationSpec(Guid userId)
+        public GetUserInformationByUserIdSpec(Guid userId)
         {
             Query.Where(x => x.UserId == userId);
         }

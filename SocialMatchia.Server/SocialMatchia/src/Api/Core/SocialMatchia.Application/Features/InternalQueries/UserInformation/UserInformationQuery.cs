@@ -4,12 +4,12 @@ using SocialMatchia.Domain.Models.UserInformationModel.Specification;
 
 namespace SocialMatchia.Application.Features.InternalQueries.UserInformation
 {
-    public class UserInformationByUserIdQuery : IRequest<Domain.Models.UserInformationModel.UserInformation?>
+    internal class UserInformationQuery : IRequest<Domain.Models.UserInformationModel.UserInformation?>
     {
         public Guid UserId { get; set; }
     }
 
-    public class UserInformationHandler : IRequestHandler<UserInformationByUserIdQuery, Domain.Models.UserInformationModel.UserInformation?>
+    internal class UserInformationHandler : IRequestHandler<UserInformationQuery, Domain.Models.UserInformationModel.UserInformation?>
     {
         private readonly IReadRepository<Domain.Models.UserInformationModel.UserInformation> _repository;
 
@@ -18,9 +18,9 @@ namespace SocialMatchia.Application.Features.InternalQueries.UserInformation
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public async Task<Domain.Models.UserInformationModel.UserInformation?> Handle(UserInformationByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<Domain.Models.UserInformationModel.UserInformation?> Handle(UserInformationQuery request, CancellationToken cancellationToken)
         {
-            var response = await _repository.FirstOrDefaultAsync(new GetUserInformationSpec(request.UserId), cancellationToken);
+            var response = await _repository.FirstOrDefaultAsync(new GetUserInformationByUserIdSpec(request.UserId), cancellationToken);
             return response;
         }
     }

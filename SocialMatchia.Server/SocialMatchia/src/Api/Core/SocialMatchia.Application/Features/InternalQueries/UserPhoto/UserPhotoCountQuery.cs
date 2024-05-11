@@ -4,12 +4,12 @@ using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
 
 namespace SocialMatchia.Application.Features.InternalQueries.UserPhoto
 {
-    internal class UserPhotoCountByUserIdQuery : IRequest<int>
+    internal class UserPhotoCountQuery : IRequest<int>
     {
         public Guid UserId { get; set; }
     }
 
-    internal class UserPhotoCountHandler : IRequestHandler<UserPhotoCountByUserIdQuery, int>
+    internal class UserPhotoCountHandler : IRequestHandler<UserPhotoCountQuery, int>
     {
         private readonly IReadRepository<Domain.Models.UserPhotoModel.UserPhoto> _repository;
 
@@ -18,9 +18,9 @@ namespace SocialMatchia.Application.Features.InternalQueries.UserPhoto
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public async Task<int> Handle(UserPhotoCountByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<int> Handle(UserPhotoCountQuery request, CancellationToken cancellationToken)
         {
-            var response = await _repository.CountAsync(new GetCurrentUserPhotoSpec(request.UserId));
+            var response = await _repository.CountAsync(new GetUserPhotosSpec(request.UserId));
             return response;
         }
     }
