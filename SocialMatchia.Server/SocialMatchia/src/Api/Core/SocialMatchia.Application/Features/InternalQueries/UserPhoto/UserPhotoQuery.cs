@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SocialMatchia.Common;
 using SocialMatchia.Common.Interfaces;
 using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
 
@@ -12,9 +11,9 @@ namespace SocialMatchia.Application.Features.InternalQueries.UserPhoto
 
     internal class UserPhotoHandler : IRequestHandler<UserPhotoQuery, Domain.Models.UserPhotoModel.UserPhoto?>
     {
-        private readonly IRepository<Domain.Models.UserPhotoModel.UserPhoto> _repository;
+        private readonly IReadRepository<Domain.Models.UserPhotoModel.UserPhoto> _repository;
 
-        public UserPhotoHandler(IRepository<Domain.Models.UserPhotoModel.UserPhoto> repository)
+        public UserPhotoHandler(IReadRepository<Domain.Models.UserPhotoModel.UserPhoto> repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }

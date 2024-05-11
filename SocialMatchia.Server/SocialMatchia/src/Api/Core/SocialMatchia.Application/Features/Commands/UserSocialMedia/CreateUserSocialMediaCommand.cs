@@ -1,12 +1,11 @@
 ﻿using Ardalis.Result;
 using Ardalis.Specification;
 using MediatR;
+using SocialMatchia.Application.Features.InternalQueries.SocialMedia;
+using SocialMatchia.Application.Features.InternalQueries.UserSocialMedia;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.SocialMediaModel;
-using SocialMatchia.Domain.Models.SocialMediaModel.Specifications;
-using SocialMatchia.Domain.Models.UserSocialMediaModel.Specifications;
 
 namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
 {
@@ -18,24 +17,24 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
     public class CreateUserSocialMediaHandler : IRequestHandler<CreateUserSocialMediaCommand, Result<bool>>
     {
         private readonly IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> _repository;
-        private readonly IRepository<SocialMedia> _socialMediaRepository;
         private readonly CurrentUser _currentUser;
+        private readonly IMediator _mediator;
 
-        public CreateUserSocialMediaHandler(IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> repository, IRepository<SocialMedia> socialMediaRepository, CurrentUser currentUser)
+        public CreateUserSocialMediaHandler(IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> repository, CurrentUser currentUser, IMediator mediator)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            _socialMediaRepository = socialMediaRepository ?? throw new ArgumentNullException(nameof(socialMediaRepository));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
+            _mediator = mediator;
         }
 
         public async Task<Result<bool>> Handle(CreateUserSocialMediaCommand request, CancellationToken cancellationToken)
         {
-            var socialMedias = await _socialMediaRepository.ListAsync(new GetAllSocialMediaSpec(), cancellationToken);
-
             if (request.Values.Count == 0)
             {
                 throw new PropertyValidationException("Social Media required");
             }
+
+            var socialMedias = await _mediator.Send(new SocialMediaQuery(), cancellationToken);
 
             foreach (var socialMedia in socialMedias!)
             {
@@ -45,7 +44,7 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
                 }
             }
 
-            var userSocialMedias = await _repository.ListAsync(new GetUserSocialMediaSpec(_currentUser.Id), cancellationToken);
+            var userSocialMedias = await _mediator.Send(new UserSocialMediaQuery(), cancellationToken);
 
             if (userSocialMedias.Count > 0)
             {

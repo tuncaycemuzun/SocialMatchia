@@ -2,9 +2,7 @@
 using MediatR;
 using SocialMatchia.Application.Features.InternalQueries.UserSetting;
 using SocialMatchia.Common;
-using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.UserSettingModel.Specifications;
 
 namespace SocialMatchia.Application.Features.Commands.UserSetting
 {

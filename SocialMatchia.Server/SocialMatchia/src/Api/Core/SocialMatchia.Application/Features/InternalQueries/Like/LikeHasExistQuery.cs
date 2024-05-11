@@ -1,5 +1,4 @@
 ﻿using Ardalis.Result;
-using Ardalis.Specification;
 using MediatR;
 using SocialMatchia.Common.Interfaces;
 using SocialMatchia.Domain.Models.LikeModel.Specifications;
