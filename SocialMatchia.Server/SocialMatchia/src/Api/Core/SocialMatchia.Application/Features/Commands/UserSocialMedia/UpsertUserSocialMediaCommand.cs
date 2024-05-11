@@ -9,25 +9,25 @@ using SocialMatchia.Common.Interfaces;
 
 namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
 {
-    public class CreateUserSocialMediaCommand : IRequest<Result<bool>>
+    public class UpsertUserSocialMediaCommand : IRequest<Result<bool>>
     {
         public required Dictionary<Guid, string> Values { get; set; }
     }
 
-    public class CreateUserSocialMediaHandler : IRequestHandler<CreateUserSocialMediaCommand, Result<bool>>
+    public class UpsertUserSocialMediaHandler : IRequestHandler<UpsertUserSocialMediaCommand, Result<bool>>
     {
         private readonly IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> _repository;
         private readonly CurrentUser _currentUser;
         private readonly IMediator _mediator;
 
-        public CreateUserSocialMediaHandler(IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> repository, CurrentUser currentUser, IMediator mediator)
+        public UpsertUserSocialMediaHandler(IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> repository, CurrentUser currentUser, IMediator mediator)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
             _mediator = mediator;
         }
 
-        public async Task<Result<bool>> Handle(CreateUserSocialMediaCommand request, CancellationToken cancellationToken)
+        public async Task<Result<bool>> Handle(UpsertUserSocialMediaCommand request, CancellationToken cancellationToken)
         {
             if (request.Values.Count == 0)
             {

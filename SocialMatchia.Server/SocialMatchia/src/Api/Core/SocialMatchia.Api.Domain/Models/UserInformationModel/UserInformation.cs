@@ -1,5 +1,4 @@
-﻿using SocialMatchia.Domain.Models.CityModel;
-using SocialMatchia.Domain.Models.GenderModel;
+﻿using SocialMatchia.Domain.Models.ParameterModel;
 using SocialMatchia.Domain.Models.UserModel;
 using SocialMatchia.Domain.Models.UserSocialMediaModel;
 

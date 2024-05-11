@@ -1,4 +1,4 @@
-﻿namespace SocialMatchia.Domain.Models.GenderModel
+﻿namespace SocialMatchia.Domain.Models.ParameterModel
 {
     public class Gender : BaseEntity
     {

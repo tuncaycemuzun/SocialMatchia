@@ -1,4 +1,4 @@
-﻿namespace SocialMatchia.Domain.Models.SocialMediaModel
+﻿namespace SocialMatchia.Domain.Models.ParameterModel
 {
     public class SocialMedia : BaseEntity
     {

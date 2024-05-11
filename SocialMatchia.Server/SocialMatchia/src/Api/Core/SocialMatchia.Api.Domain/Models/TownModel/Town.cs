@@ -1,4 +1,4 @@
-﻿using SocialMatchia.Domain.Models.CityModel;
+﻿using SocialMatchia.Domain.Models.ParameterModel;
 
 namespace SocialMatchia.Domain.Models.TownModel
 {

@@ -1,4 +1,4 @@
-﻿using SocialMatchia.Domain.Models.SocialMediaModel;
+﻿using SocialMatchia.Domain.Models.ParameterModel;
 using SocialMatchia.Domain.Models.UserModel;
 
 namespace SocialMatchia.Domain.Models.UserSocialMediaModel
