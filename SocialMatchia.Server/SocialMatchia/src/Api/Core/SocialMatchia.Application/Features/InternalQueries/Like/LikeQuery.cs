@@ -23,8 +23,7 @@ namespace SocialMatchia.Application.Features.InternalQueries.Like
         public async Task<Domain.Models.LikeModel.Like?> Handle(LikeQuery request, CancellationToken cancellationToken)
         {
             var response = await _repository.FirstOrDefaultAsync(new LikeGetSpec(request.SourceUserId, request.TargetUserId), cancellationToken);
-
-            return Result.Success(response);
+            return response;
         }
     }
 }

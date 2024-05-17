@@ -5,13 +5,13 @@ using SocialMatchia.Domain.Models.LikeModel.Specifications;
 
 namespace SocialMatchia.Application.Features.InternalQueries.Like
 {
-    internal class LikeHasExistQuery : IRequest<Result<bool>>
+    internal class LikeHasExistQuery : IRequest<bool>
     {
         public Guid TargetUserId { get; set; }
         public Guid SourceUserId { get; set; }
     }
 
-    internal class LikeHasExistHandler : IRequestHandler<LikeHasExistQuery, Result<bool>>
+    internal class LikeHasExistHandler : IRequestHandler<LikeHasExistQuery, bool>
     {
         private readonly IReadRepository<Domain.Models.LikeModel.Like> _repository;
 
@@ -20,7 +20,7 @@ namespace SocialMatchia.Application.Features.InternalQueries.Like
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public async Task<Result<bool>> Handle(LikeHasExistQuery request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(LikeHasExistQuery request, CancellationToken cancellationToken)
         {
             var result = await _repository.AnyAsync(new LikeGetSpec(request.TargetUserId, request.SourceUserId), cancellationToken);
             return Result.Success(result);

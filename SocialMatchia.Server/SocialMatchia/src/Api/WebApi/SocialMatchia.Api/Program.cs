@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SocialMatchia.Api.Filters;
 using SocialMatchia.Api.Middlewares;
@@ -15,7 +14,6 @@ using SocialMatchia.Domain.Models.UserModel;
 using SocialMatchia.Infrastructure.Persistence.Context;
 using SocialMatchia.Infrastructure.Persistence.Extensions;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -79,11 +77,6 @@ builder.Services.ConfigureAll<BearerTokenOptions>(option =>
     option.RefreshTokenExpiration = TimeSpan.FromDays(10);
 });
 
-builder.Services.ConfigureAll<AuthenticationOptions>(option =>
-{
-    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-});
-
 builder.Services.AddSingleton<CurrentUser>();
 
 var app = builder.Build();
@@ -98,6 +91,7 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseMiddleware<CurrentUserMiddleware>();
 app.UseCustomException();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapGroup("/identity").MapIdentityApi<User>();
