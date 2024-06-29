@@ -5,14 +5,14 @@ namespace SocialMatchia.Domain.Models.UserSettingModel
 {
     public class UserSetting : BaseEntity
     {
-        public required int BeginAge { get; set; }
-        public required int EndAge { get; set; }
-        public required Guid CityId { get; set; }
-        public required City City { get; set; }
-        public required Guid GenderId { get; set; }
-        public required Gender Gender { get; set; }
-        public required Guid UserId { get; set; }
-        public required User User { get; set; }
+        public int BeginAge { get; set; }
+        public int EndAge { get; set; }
+        public Guid CityId { get; set; }
+        public City City { get; set; }
+        public Guid GenderId { get; set; }
+        public Gender Gender { get; set; }
+        public Guid UserId { get; set; }
+        public User User { get; set; }
 
         public void SetUserSetting(UserSetting userSetting)
         {

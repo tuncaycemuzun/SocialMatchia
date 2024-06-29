@@ -14,6 +14,8 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
         public required string Website { get; set; }
         public required Guid GenderId { get; set; }
         public required DateTime BirthDate { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
     }
 
     public class UpsertUserInformationHandler : IRequestHandler<UpsertUserInformationCommand, Result<bool>>
@@ -38,7 +40,7 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
 
             if (userInformation is not null)
             {
-                userInformation.SetUserInformation(request.CityId, request.Bio, request.Website, request.GenderId, request.BirthDate);
+                userInformation.SetUserInformation(request.FirstName, request.LastName, request.CityId, request.Bio, request.Website, request.GenderId, request.BirthDate);
                 await _repository.UpdateAsync(userInformation, cancellationToken);
             }
             else
@@ -50,7 +52,9 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
                     Bio = request.Bio,
                     Website = request.Website,
                     GenderId = request.GenderId,
-                    BirthDate = request.BirthDate
+                    BirthDate = request.BirthDate,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName
                 }, cancellationToken);
             }
 

@@ -6,6 +6,8 @@ namespace SocialMatchia.Domain.Models.UserInformationModel
 {
     public class UserInformation : BaseDetailEntity
     {
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
         public required Guid UserId { get; set; }
         public User User { get; set; }
         public required Guid CityId { get; set; }
@@ -22,13 +24,15 @@ namespace SocialMatchia.Domain.Models.UserInformationModel
 
         public ICollection<UserSocialMedia> SocialMedias { get; set; }
 
-        public void SetUserInformation(Guid cityId, string bio, string website, Guid genderId, DateTime birthDate)
+        public void SetUserInformation(string firstName, string lastName , Guid cityId, string bio, string website, Guid genderId, DateTime birthDate)
         {
             CityId = cityId;
             Bio = bio;
             Website = website;
             GenderId = genderId;
             BirthDate = birthDate;
+            FirstName = firstName;
+            LastName = lastName;
         }
     }
 }

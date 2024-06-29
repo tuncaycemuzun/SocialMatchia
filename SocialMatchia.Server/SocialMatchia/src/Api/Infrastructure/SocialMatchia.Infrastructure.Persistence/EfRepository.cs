@@ -1,5 +1,7 @@
-﻿using Ardalis.Specification.EntityFrameworkCore;
+﻿using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SocialMatchia.Common.Features.ResponseModel;
 using SocialMatchia.Common.Interfaces;
 using SocialMatchia.Infrastructure.Persistence.Context;
 
@@ -12,6 +14,12 @@ namespace SocialMatchia.Infrastructure.Persistence
         public EfRepository(SocialMatchiaDbContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public Task<PaginationModel<T>> PagedListAsync(ISpecification<T> specification, int pageNumber, CancellationToken cancellationToken = default)
+        {
+            var q = ApplySpecification(specification);
+            return PaginationModel<T>.ToPagedListAsync(q, pageNumber, 20, cancellationToken);
         }
 
         public void SetUpdateStateChangedProperties(T entity, string[] changedProperties)

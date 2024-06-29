@@ -8,6 +8,7 @@ using SocialMatchia.Application.Features.Commands.UserSetting;
 using SocialMatchia.Application.Features.Commands.UserSocialMedia;
 using SocialMatchia.Application.Features.Queries.UserInformation;
 using SocialMatchia.Application.Features.Queries.UserPhoto;
+using SocialMatchia.Application.Features.Queries.UserSearch;
 using SocialMatchia.Application.Features.Queries.UserSetting;
 using SocialMatchia.Application.Features.Queries.UserSocialMedia;
 using SocialMatchia.Common.Features.ResponseModel;
@@ -97,6 +98,14 @@ namespace SocialMatchia.Api.Controllers
         public async Task<ActionResult<bool>> UndoLikeAsync([FromBody] UndoLikeCommand command)
         {
             var response = await _mediator.Send(command);
+            return this.ToActionResult(response);
+        }
+
+        [HttpGet]
+        [Route("{page}")]
+        public async Task<ActionResult<List<UserSearchModel>>?> Search([FromRoute] int pageNumber)
+        {
+            var response = await _mediator.Send(new UserSearchQuery { Page = pageNumber });
             return this.ToActionResult(response);
         }
     }
