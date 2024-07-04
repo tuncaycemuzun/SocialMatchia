@@ -1,23 +1,70 @@
-﻿using SocialMatchia.Common;
+﻿using Microsoft.AspNetCore.Identity;
+using SocialMatchia.Common.Exceptions;
+using SocialMatchia.Common.Interfaces;
+using SocialMatchia.Common;
+using SocialMatchia.Domain.Models.Specifications;
+using SocialMatchia.Domain.Models;
+using System.Security.Claims;
 
-namespace SocialMatchia.Api.Middlewares
+public class CurrentUserMiddleware
 {
-    public class CurrentUserMiddleware
+    private readonly RequestDelegate _next;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
+
+    public CurrentUserMiddleware(RequestDelegate next, IServiceScopeFactory serviceScopeFactory)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+        _serviceScopeFactory = serviceScopeFactory;
+    }
 
-        public CurrentUserMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context)
+    {
+        if (context.User.Identity?.IsAuthenticated == true)
         {
-            _next = next;
+            using (var scope = _serviceScopeFactory.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var signInManager = scope.ServiceProvider.GetRequiredService<SignInManager<User>>();
+                var userInformation = scope.ServiceProvider.GetRequiredService<IReadRepository<UserInformation>>();
+
+                var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var currentUser = context.RequestServices.GetRequiredService<CurrentUser>();
+
+                if (Guid.TryParse(userId, out Guid currentUserId))
+                {
+                    currentUser.Id = new Guid(userId);
+                }
+
+                var hasUserInfo = context.User.FindFirstValue("HasUserInfo");
+
+                if (hasUserInfo is null)
+                {
+                    var hasUserInfoInTable = await userInformation.AnyAsync(new UserInformationByUserIdSpec(currentUser.Id));
+
+                    if (hasUserInfoInTable == false)
+                    {
+                        var hasUserInformationUpdateRoute = context.Request.Path.Value?.Contains("information", StringComparison.OrdinalIgnoreCase);
+                        var method = context.Request.Method;
+
+                        if (hasUserInformationUpdateRoute != true && method != "PUT")
+                        {
+                            throw new NotFoundException("Hesap bilgilerinizi düzenlemeniz gerekmektedir");
+                        }
+                    }
+                    else
+                    {
+                        var user = await userManager.FindByIdAsync(currentUserId.ToString());
+                        if (user is not null)
+                        {
+                            await userManager.AddClaimAsync(user, new Claim("HasUserInfo", "true"));
+                            var identity = (ClaimsIdentity)context.User.Identity!;
+                            identity.AddClaim(new Claim("HasUserInfo", "true"));
+                        }
+                    }
+                }
+            }
         }
 
-        public async Task Invoke(HttpContext context)
-        {
-            var currentUser = context.RequestServices.GetRequiredService<CurrentUser>();
-
-            currentUser.Id = new Guid("ab750336-f152-46cb-b2d2-1e520711d361");
-
-            await _next(context);
-        }
+        await _next(context);
     }
 }

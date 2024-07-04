@@ -23,7 +23,7 @@ namespace SocialMatchia.Application.Features.Commands
 
         public async Task<Result<bool>> Handle(CreateUserPhotoCommand request, CancellationToken cancellationToken)
         {
-            if (request.Photos.Count! > 0)
+            if (!request.Photos.Any())
             {
                 throw new PropertyValidationException("Photos rqeuired");
             }
@@ -34,15 +34,15 @@ namespace SocialMatchia.Application.Features.Commands
             }
 
             var userPhotos = new List<UserPhoto>();
-            var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
+            var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "/wwwroot", "Folders", "UserPhotos");
 
-            var userPhotoCount = await _userPhoto.CountAsync(new UserPhotoSpec(_currentUser.Id));
+            var userPhotoCount = await _userPhoto.CountAsync(new UserPhotosSpec(_currentUser.Id));
 
             foreach (var photo in request.Photos)
             {
                 if (!string.IsNullOrEmpty(photo))
                 {
-                    var imageName = ImageHelper.CreateImage(hostEnvironmentPath, photo, _currentUser.Id.ToString());
+                    var imageName = ImageHelper.CreateImage(hostEnvironmentPath, photo);
 
                     if (!string.IsNullOrEmpty(imageName))
                     {

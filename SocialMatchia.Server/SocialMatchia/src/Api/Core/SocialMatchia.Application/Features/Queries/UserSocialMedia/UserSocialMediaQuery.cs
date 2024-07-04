@@ -1,10 +1,10 @@
 ﻿namespace SocialMatchia.Application.Features.Queries
 {
-    public class UserSocialMediaQuery : IRequest<Result<UserSocialMediaResponse>>
+    public class UserSocialMediaQuery : IRequest<Result<List<UserSocialMediaResponse>>>
     {
     }
 
-    public class UserSocialMediaHandler : IRequestHandler<UserSocialMediaQuery, Result<UserSocialMediaResponse>>
+    public class UserSocialMediaHandler : IRequestHandler<UserSocialMediaQuery, Result<List<UserSocialMediaResponse>>>
     {
         private readonly IReadRepository<UserSocialMedia> _userSocialMedia;
         private readonly CurrentUser _currentUser;
@@ -15,19 +15,17 @@
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
         }
 
-        public async Task<Result<UserSocialMediaResponse>> Handle(UserSocialMediaQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<UserSocialMediaResponse>>> Handle(UserSocialMediaQuery request, CancellationToken cancellationToken)
         {
-            var response = await _userSocialMedia.FirstOrDefaultAsync(new UserSocialMediaSpec(_currentUser.Id), cancellationToken);
-            if (response == null)
-            {
-                return Result<UserSocialMediaResponse>.NotFound();
-            }
+            var response = await _userSocialMedia.ListAsync(new UserSocialMediaSpec(_currentUser.Id), cancellationToken);
 
-            return Result<UserSocialMediaResponse>.Success(new UserSocialMediaResponse
+            var data = response.Select(x => new UserSocialMediaResponse
             {
-                SocialMediaId = response.SocialMediaId,
-                UserName = response.UserName
-            });
+                SocialMediaId = x.SocialMediaId,
+                UserName = x.UserName
+            }).ToList();
+
+            return Result.Success(data);
         }
     }
 }

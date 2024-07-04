@@ -4,9 +4,9 @@ namespace SocialMatchia.Domain.Models.Specifications
 {
     public class UserInformationForSearchSpec : Specification<UserInformation>
     {
-        public UserInformationForSearchSpec(Guid currentUserId, UserSetting setting, List<Guid>? nonSearchableUserIdList)
+        public UserInformationForSearchSpec(Guid currentUserId, UserSetting setting, List<Guid> nonSearchableUserIdList)
         {
-            if (nonSearchableUserIdList is null)
+            if (!nonSearchableUserIdList.Any())
             {
                 Query.Where(
                 x => x.UserId != currentUserId &&

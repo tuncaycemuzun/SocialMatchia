@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SocialMatchia.Application.Features.Queries;
 using SocialMatchia.Common.Features.ResponseModel;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SocialMatchia.Api.Controllers
 {
@@ -15,10 +16,10 @@ namespace SocialMatchia.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<List<CityResponse>>> CityAsync([FromBody]CityQuery query)
+        [HttpGet]
+        public async Task<ActionResult<List<CityResponse>>> CityAsync()
         {
-            var response = await _mediator.Send(query);
+            var response = await _mediator.Send(new CityQuery());
             return this.ToActionResult(response);
         }
 

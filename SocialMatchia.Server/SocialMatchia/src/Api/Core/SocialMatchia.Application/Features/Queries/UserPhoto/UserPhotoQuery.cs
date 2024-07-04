@@ -17,14 +17,16 @@
 
         public async Task<Result<List<string>>> Handle(UserPhotoQuery request, CancellationToken cancellationToken)
         {
-            var response = await _userPhoto.ListAsync(new UserPhotoSpec(_currentUser.Id), cancellationToken);
+            var response = await _userPhoto.ListAsync(new UserPhotosSpec(_currentUser.Id), cancellationToken);
             var photos = new List<string>();
 
             foreach (var photo in response)
             {
-                byte[] fileBytes = File.ReadAllBytes(string.Join("/", photo.FilePath, photo.FileName));
-                string base64String = Convert.ToBase64String(fileBytes);
-                photos.Add(base64String);
+                var file = ImageHelper.ConvertImageToBase64(string.Join("/", photo.FilePath, photo.FileName));
+
+                if(file == null) continue;
+
+                photos.Add(file);
             }
 
             return Result.Success(photos);

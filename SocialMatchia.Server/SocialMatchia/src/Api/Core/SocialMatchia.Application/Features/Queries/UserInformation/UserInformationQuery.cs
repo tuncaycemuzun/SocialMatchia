@@ -32,7 +32,11 @@
                 Bio = userInformation.Bio,
                 Website = userInformation.Website,
                 GenderId = userInformation.GenderId,
-                BirthDate = userInformation.BirthDate
+                BirthDate = userInformation.BirthDate,
+                FirstName = userInformation.FirstName,
+                LastName = userInformation.LastName,
+                CityName = userInformation.City.Name,
+                GenderName = userInformation.Gender.Name
             };
 
             return Result.Success(response);

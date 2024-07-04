@@ -2,7 +2,6 @@
 {
     public class UpsertUserInformationCommand : IRequest<Result<bool>>
     {
-        public required Guid UserId { get; set; }
         public required Guid CityId { get; set; }
         public required string Bio { get; set; }
         public required string Website { get; set; }
@@ -29,14 +28,14 @@
 
             if (userInformation is not null)
             {
-                userInformation.SetUserInformation(request.FirstName, request.LastName, request.CityId, request.Bio, request.Website, request.GenderId, request.BirthDate);
+                userInformation.SetUserInformation(_currentUser.Id, request.FirstName, request.LastName, request.CityId, request.Bio, request.Website, request.GenderId, request.BirthDate);
                 await _userInformation.UpdateAsync(userInformation, cancellationToken);
             }
             else
             {
                 await _userInformation.AddAsync(new UserInformation
                 {
-                    UserId = request.UserId,
+                    UserId = _currentUser.Id,
                     CityId = request.CityId,
                     Bio = request.Bio,
                     Website = request.Website,

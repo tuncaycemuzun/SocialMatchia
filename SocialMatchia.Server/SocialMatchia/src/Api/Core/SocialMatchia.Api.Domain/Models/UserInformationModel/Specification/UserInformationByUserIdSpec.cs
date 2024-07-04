@@ -6,7 +6,7 @@ namespace SocialMatchia.Domain.Models.Specifications
     {
         public UserInformationByUserIdSpec(Guid userId)
         {
-            Query.Where(x => x.UserId == userId);
+            Query.Where(x => x.UserId == userId).Include(x => x.City).Include(x => x.Gender);
         }
     }
 }

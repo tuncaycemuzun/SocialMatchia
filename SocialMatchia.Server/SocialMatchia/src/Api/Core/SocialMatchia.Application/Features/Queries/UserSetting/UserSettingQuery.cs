@@ -19,17 +19,12 @@
         {
             var response = await _userSetting.FirstOrDefaultAsync(new UserSettingSpec(_currentUser.Id), cancellationToken);
 
-            if (response == null)
-            {
-                return Result<UserSettingResponse>.NotFound();
-            }
-
             return Result<UserSettingResponse>.Success(new UserSettingResponse
             {
-                BeginAge = response.BeginAge,
-                EndAge = response.EndAge,
-                CityId = response.CityId,
-                GenderId = response.GenderId
+                BeginAge = response?.BeginAge,
+                EndAge = response?.EndAge,
+                CityId = response?.CityId,
+                GenderId = response?.GenderId
             });
         }
     }

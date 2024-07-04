@@ -2,10 +2,10 @@
 {
     public class UpsertUserSettingCommand : IRequest<Result<bool>>
     {
-        public int? BeginAge { get; set; }
-        public int? EndAge { get; set; }
-        public Guid? CityId { get; set; }
-        public Guid? GenderId { get; set; }
+        public int BeginAge { get; set; }
+        public int EndAge { get; set; }
+        public Guid CityId { get; set; }
+        public Guid GenderId { get; set; }
     }
 
     public class UpsertUserSettingHandler : IRequestHandler<UpsertUserSettingCommand, Result<bool>>
@@ -21,21 +21,26 @@
 
         public async Task<Result<bool>> Handle(UpsertUserSettingCommand request, CancellationToken cancellationToken)
         {
-            var userSettings = await _userSetting.FirstOrDefaultAsync(new UserSettingSpec(_currentUser.Id), cancellationToken);
+            var userSetting = await _userSetting.FirstOrDefaultAsync(new UserSettingSpec(_currentUser.Id), cancellationToken);
 
-            var update = userSettings != null ? true : false;
-
-            userSettings ??= new UserSetting { UserId = _currentUser.Id };
-
-            userSettings.SetUserSetting(userSettings);
-
-            if (update)
+            var data = new UserSetting
             {
-                await _userSetting.AddAsync(userSettings, cancellationToken);
+                CityId = request.CityId,
+                GenderId = request.GenderId,
+                BeginAge = request.BeginAge,
+                EndAge = request.EndAge,
+                UserId = _currentUser.Id
+            };
+
+            if (userSetting != null)
+            {
+                data.Id = userSetting.Id;
+                userSetting.SetUserSetting(data);
+                await _userSetting.UpdateAsync(userSetting, cancellationToken);
             }
             else
             {
-                await _userSetting.UpdateAsync(userSettings, cancellationToken);
+                await _userSetting.AddAsync(data, cancellationToken);
             }
 
             await _userSetting.SaveChangesAsync(cancellationToken);

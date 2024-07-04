@@ -16,9 +16,9 @@ namespace SocialMatchia.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<UserInformationResponse>> InformationAsync([FromBody] UserInformationQuery query)
+        public async Task<ActionResult<UserInformationResponse>> InformationAsync()
         {
-            var response = await _mediator.Send(query);
+            var response = await _mediator.Send(new UserInformationQuery());
             return this.ToActionResult(response);
         }
 
@@ -26,6 +26,13 @@ namespace SocialMatchia.Api.Controllers
         public async Task<ActionResult<bool>> InformationAsync([FromBody] UpsertUserInformationCommand command)
         {
             var response = await _mediator.Send(command);
+            return this.ToActionResult(response);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<string>>> PhotoAsync()
+        {
+            var response = await _mediator.Send(new UserPhotoQuery());
             return this.ToActionResult(response);
         }
 
@@ -37,23 +44,18 @@ namespace SocialMatchia.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<bool>> PhotoAsync([FromBody] DeleteUserPhotoCommand command)
+        [Route("{id}")]
+        public async Task<ActionResult<bool>> PhotoAsync([FromRoute] Guid id)
         {
-            var response = await _mediator.Send(command);
+            var response = await _mediator.Send(new DeleteUserPhotoCommand { Id = id });
             return this.ToActionResult(response);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<string>>> PhotoAsync([FromBody] UserPhotoQuery query)
-        {
-            var response = await _mediator.Send(query);
-            return this.ToActionResult(response);
-        }
 
         [HttpGet]
-        public async Task<ActionResult<UserSettingResponse>> SettingAsync([FromBody] UserSettingQuery query)
+        public async Task<ActionResult<UserSettingResponse>> SettingAsync()
         {
-            var response = await _mediator.Send(query);
+            var response = await _mediator.Send(new UserSettingQuery());
             return this.ToActionResult(response);
         }
 
@@ -61,6 +63,13 @@ namespace SocialMatchia.Api.Controllers
         public async Task<ActionResult<bool>> SettingAsync([FromBody] UpsertUserSettingCommand command)
         {
             var response = await _mediator.Send(command);
+            return this.ToActionResult(response);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<UserSocialMediaResponse>>> SocialMediaAsync()
+        {
+            var response = await _mediator.Send(new UserSocialMediaQuery());
             return this.ToActionResult(response);
         }
 
@@ -72,9 +81,10 @@ namespace SocialMatchia.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<UserSocialMediaResponse>> SocialMediaAsync([FromBody] UserSocialMediaQuery query)
+        [Route("{page}")]
+        public async Task<ActionResult<List<UserSearchModel>>?> Search([FromRoute] int page)
         {
-            var response = await _mediator.Send(query);
+            var response = await _mediator.Send(new UserSearchQuery { Page = page });
             return this.ToActionResult(response);
         }
 
@@ -89,14 +99,6 @@ namespace SocialMatchia.Api.Controllers
         public async Task<ActionResult<bool>> LikeAsync([FromBody] UndoLikeCommand command)
         {
             var response = await _mediator.Send(command);
-            return this.ToActionResult(response);
-        }
-
-        [HttpGet]
-        [Route("{page}")]
-        public async Task<ActionResult<List<UserSearchModel>>?> Search([FromRoute] int pageNumber)
-        {
-            var response = await _mediator.Send(new UserSearchQuery { Page = pageNumber });
             return this.ToActionResult(response);
         }
     }

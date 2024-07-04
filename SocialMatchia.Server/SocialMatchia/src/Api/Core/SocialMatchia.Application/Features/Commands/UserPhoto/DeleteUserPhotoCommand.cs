@@ -18,7 +18,7 @@
 
         public async Task<Result<bool>> Handle(DeleteUserPhotoCommand request, CancellationToken cancellationToken)
         {
-            var photo = await _userPhoto.FirstOrDefaultAsync(new UserPhotoSpec(_currentUser.Id), cancellationToken);
+            var photo = await _userPhoto.FirstOrDefaultAsync(new UserPhotoSpec(_currentUser.Id, request.Id), cancellationToken);
 
             if (photo is null) return Result.Success(false);
 

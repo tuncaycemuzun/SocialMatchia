@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\Infrastructure\SocialMatchia.Infrastructure.Persistence\SocialMatchia.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

@@ -27,9 +27,11 @@
 
             var socialMedias = await _socialMediaRepository.ListAsync(new SocialMediaSpec(), cancellationToken);
 
-            foreach (var socialMedia in socialMedias!)
+            var socialMediaIds = socialMedias.Select(sm => sm.Id).ToList();
+
+            foreach (var key in request.Values.Keys)
             {
-                if (!request.Values.ContainsKey(socialMedia.Id))
+                if (!socialMediaIds.Contains(key))
                 {
                     throw new PropertyValidationException("Invalid social media");
                 }
@@ -37,13 +39,13 @@
 
             var userSocialMedias = await _userSocialMedia.ListAsync(new UserSocialMediaSpec(_currentUser.Id), cancellationToken);
 
+            var existMedias = userSocialMedias.Where(x => request.Values.Keys.Contains(x.SocialMediaId)).ToList();
+
             if (userSocialMedias.Count > 0)
             {
-                var existMedias = userSocialMedias.Where(x => request.Values.Select(x => x.Key).Contains(x.Id)).ToList();
-
                 foreach (var item in existMedias)
                 {
-                    item.UserName = request.Values.FirstOrDefault(x => x.Key == item.Id).Value;
+                    item.UserName = request.Values.FirstOrDefault(x => x.Key == item.SocialMediaId).Value;
                 }
 
                 var newSocialMedias = request.Values.Where(x => !existMedias.Select(x => x.SocialMediaId).Contains(x.Key)).ToList();
@@ -79,7 +81,7 @@
 
             await _userSocialMedia.SaveChangesAsync(cancellationToken);
 
-            return Result<bool>.Error("Invalid social media");
+            return Result.Success(true);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class CityQuery : IRequest<Result<List<CityResponse>>>
     {
-        public Guid CountryId { get; set; }
+        public Guid CountryId { get; set; } = new Guid("cda3bbe9-a096-4120-b21d-5d34205b8da4");
     }
 
     public class CityHandler : IRequestHandler<CityQuery, Result<List<CityResponse>>>
@@ -27,5 +27,4 @@
             return Result<List<CityResponse>>.Success(response);
         }
     }
-
 }

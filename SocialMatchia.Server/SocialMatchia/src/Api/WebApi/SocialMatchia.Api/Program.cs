@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SocialMatchia.Api.Filters;
 using SocialMatchia.Api.Middlewares;
@@ -12,6 +13,7 @@ using SocialMatchia.Domain.Models;
 using SocialMatchia.Infrastructure.Persistence.Context;
 using SocialMatchia.Infrastructure.Persistence.Extensions;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,6 +77,21 @@ builder.Services.ConfigureAll<BearerTokenOptions>(option =>
     option.RefreshTokenExpiration = TimeSpan.FromDays(10);
 });
 
+builder.Services.ConfigureAll<TokenValidationParameters>(options =>
+{
+    options.RoleClaimType = "roles";
+    options.NameClaimType = "name";
+    options.ValidateIssuer = false;
+    options.ValidateAudience = false;
+    options.ValidateLifetime = true;
+    options.ClockSkew = TimeSpan.Zero;
+    options.RequireExpirationTime = true;
+    options.RequireSignedTokens = true;
+    options.ValidateIssuerSigningKey = true;
+    options.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!));
+
+});
+
 builder.Services.AddSingleton<CurrentUser>();
 
 var app = builder.Build();
@@ -87,12 +104,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseHttpsRedirection();
-app.UseMiddleware<CurrentUserMiddleware>();
+
+app.MapGroup("/identity").MapIdentityApi<User>();
+
 app.UseCustomException();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGroup("/identity").MapIdentityApi<User>();
+app.UseMiddleware<CurrentUserMiddleware>();
 
 app.MapControllers();
 

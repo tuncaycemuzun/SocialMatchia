@@ -26,7 +26,7 @@
         {
             var nonSearchableUsers = await _like.ListAsync(new NonSearchableUserSpec(_currentUser.Id), cancellationToken);
 
-            var nonSearchableUserIdList = nonSearchableUsers?.Select(x => x.TargetUserId).ToList();
+            var nonSearchableUserIdList = nonSearchableUsers.Select(x => x.TargetUserId).ToList();
 
             var userSetting = await _userSetting.FirstOrDefaultAsync(new UserSettingSpec(_currentUser.Id), cancellationToken);
 
@@ -37,7 +37,9 @@
 
             var userIds = await _userInformation.ListAsync(new UserInformationForSearchSpec(_currentUser.Id, userSetting, nonSearchableUserIdList), cancellationToken);
 
-            var users = await _userInformation.PagedListAsync(new UserInformationByUserIdsSpec(userIds.Select(x => x.Id).ToList()), request.Page, cancellationToken);
+            if (!userIds.Any()) return Result.Success(new List<UserSearchModel>());
+
+            var users = await _userInformation.PagedListAsync(new UserInformationByUserIdsSpec(userIds.Select(x => x.UserId).ToList()), request.Page, cancellationToken);
 
             var photos = await _userPhoto.ListAsync(new UsersPhotoSpec(users.Select(x => x.UserId).ToList()));
 
@@ -45,14 +47,22 @@
 
             foreach (var user in users)
             {
-                var userPhotos = photos?.Where(x => x.UserId == user.UserId).ToList();
+                var userPhotos = photos.Where(x => x.UserId == user.UserId).ToList();
+                var responePhotos = new List<string>();
+
+                foreach (var photo in userPhotos)
+                {
+                    var file = ImageHelper.ConvertImageToBase64(string.Join("/", photo.FilePath, photo.FileName));
+                    if (file is null) continue;
+                    responePhotos.Add(file);
+                }
 
                 result.Add(new UserSearchModel
                 {
                     Id = user.UserId,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Photos = userPhotos?.Select(x => x.FilePath).ToList(),
+                    Photos = responePhotos,
                     City = user.City.Name
                 });
             }
