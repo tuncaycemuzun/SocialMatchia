@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Common;
-using SocialMatchia.Domain.Models.Specifications;
 using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specification;
 using System.Security.Claims;
 
 public class CurrentUserMiddleware

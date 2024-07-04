@@ -8,3 +8,4 @@ global using SocialMatchia.Common.Exceptions;
 global using SocialMatchia.Common.Helpers;
 global using Ardalis.Specification;
 global using SocialMatchia.Common.Features.ResponseModel;
+global using SocialMatchia.Domain.Models.Specification;

@@ -105,5 +105,11 @@ namespace SocialMatchia.Api.Controllers
             });
             return this.ToActionResult(response);
         }
+
+        //[HttpGet]
+        //public async Task<ActionResult<List<UserSearchModel>>> Match()
+        //{
+
+        //}
     }
 }

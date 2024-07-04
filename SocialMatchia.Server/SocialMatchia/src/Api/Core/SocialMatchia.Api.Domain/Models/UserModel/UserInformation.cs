@@ -20,7 +20,7 @@
 
         public ICollection<UserSocialMedia> SocialMedias { get; set; }
 
-        public void SetUserInformation(Guid userId, string firstName, string lastName , Guid cityId, string bio, string website, Guid genderId, DateTime birthDate)
+        public void SetUserInformation(Guid userId, string firstName, string lastName, Guid cityId, string bio, string website, Guid genderId, DateTime birthDate)
         {
             UserId = userId;
             CityId = cityId;

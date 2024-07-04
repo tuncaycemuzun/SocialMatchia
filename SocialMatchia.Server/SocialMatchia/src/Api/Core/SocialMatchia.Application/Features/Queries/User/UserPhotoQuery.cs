@@ -24,7 +24,7 @@
             {
                 var file = ImageHelper.ConvertImageToBase64(string.Join("/", photo.FilePath, photo.FileName));
 
-                if(file == null) continue;
+                if (file == null) continue;
 
                 photos.Add(file);
             }

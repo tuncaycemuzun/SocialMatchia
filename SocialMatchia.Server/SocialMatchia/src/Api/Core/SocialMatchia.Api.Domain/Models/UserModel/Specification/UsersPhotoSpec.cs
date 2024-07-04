@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace SocialMatchia.Domain.Models.Specifications
+namespace SocialMatchia.Domain.Models.Specification
 {
     public class UsersPhotoSpec : Specification<UserPhoto>
     {
