@@ -22,29 +22,29 @@ namespace SocialMatchia.Api.Controllers
             return this.ToActionResult(response);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<bool>> UpsertInformationAsync([FromBody] UpsertUserInformationCommand command)
+        [HttpPut]
+        public async Task<ActionResult<bool>> InformationAsync([FromBody] UpsertUserInformationCommand command)
         {
             var response = await _mediator.Send(command);
             return this.ToActionResult(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult<bool>> CreatePhotoAsync([FromBody] CreateUserPhotoCommand command)
+        public async Task<ActionResult<bool>> PhotoAsync([FromBody] CreateUserPhotoCommand command)
         {
             var response = await _mediator.Send(command);
             return this.ToActionResult(response);
         }
 
         [HttpDelete]
-        public async Task<ActionResult<bool>> DeletePhotoAsync([FromBody] DeleteUserPhotoCommand command)
+        public async Task<ActionResult<bool>> PhotoAsync([FromBody] DeleteUserPhotoCommand command)
         {
             var response = await _mediator.Send(command);
             return this.ToActionResult(response);
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<string>>> PhotosAsync([FromBody] UserPhotoQuery query)
+        public async Task<ActionResult<List<string>>> PhotoAsync([FromBody] UserPhotoQuery query)
         {
             var response = await _mediator.Send(query);
             return this.ToActionResult(response);
@@ -57,16 +57,15 @@ namespace SocialMatchia.Api.Controllers
             return this.ToActionResult(response);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<bool>> UpsertSettingAsync([FromBody] UpsertUserSettingCommand command)
+        [HttpPut]
+        public async Task<ActionResult<bool>> SettingAsync([FromBody] UpsertUserSettingCommand command)
         {
             var response = await _mediator.Send(command);
             return this.ToActionResult(response);
         }
 
-
-        [HttpPost]
-        public async Task<ActionResult<bool>> UpsertSocialMediaAsync([FromBody] UpsertUserSocialMediaCommand command)
+        [HttpPut]
+        public async Task<ActionResult<bool>> SocialMediaAsync([FromBody] UpsertUserSocialMediaCommand command)
         {
             var response = await _mediator.Send(command);
             return this.ToActionResult(response);
@@ -86,8 +85,8 @@ namespace SocialMatchia.Api.Controllers
             return this.ToActionResult(response);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<bool>> UndoLikeAsync([FromBody] UndoLikeCommand command)
+        [HttpDelete]
+        public async Task<ActionResult<bool>> LikeAsync([FromBody] UndoLikeCommand command)
         {
             var response = await _mediator.Send(command);
             return this.ToActionResult(response);

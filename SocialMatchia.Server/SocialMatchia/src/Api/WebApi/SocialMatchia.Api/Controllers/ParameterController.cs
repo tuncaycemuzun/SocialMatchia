@@ -16,28 +16,28 @@ namespace SocialMatchia.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<CityResponse>>> CitiesAsync([FromBody]CityQuery query)
+        public async Task<ActionResult<List<CityResponse>>> CityAsync([FromBody]CityQuery query)
         {
             var response = await _mediator.Send(query);
             return this.ToActionResult(response);
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CountryResponse>>> CountriesAsync()
+        public async Task<ActionResult<List<CountryResponse>>> CountryAsync()
         {
             var response = await _mediator.Send(new CountryQuery());
             return this.ToActionResult(response);
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GenderResponse>>> GendersAsync()
+        public async Task<ActionResult<List<GenderResponse>>> GenderAsync()
         {
             var response = await _mediator.Send(new GenderQuery());
             return this.ToActionResult(response);
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<SocialMediaResponse>>> SocialMediasAsync()
+        public async Task<ActionResult<List<SocialMediaResponse>>> SocialMediaAsync()
         {
             var response = await _mediator.Send(new SocialMediaQuery());
             return this.ToActionResult(response);
