@@ -4,10 +4,11 @@ using Microsoft.Extensions.Hosting;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Helpers;
+using SocialMatchia.Domain.Models;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Commands.UserPhoto
+namespace SocialMatchia.Application.Features.Commands
 {
     public class CreateUserPhotoCommand : IRequest<Result<bool>>
     {
@@ -16,11 +17,11 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
 
     public class CreateUserPhotoHandler : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
     {
-        private readonly IRepository<Domain.Models.UserPhotoModel.UserPhoto> _userPhoto;
+        private readonly IRepository<UserPhoto> _userPhoto;
         private readonly IHostEnvironment _hostEnvironment;
         private readonly CurrentUser _currentUser;
 
-        public CreateUserPhotoHandler(IRepository<Domain.Models.UserPhotoModel.UserPhoto> userPhoto, IHostEnvironment hostEnvironment, CurrentUser currentUser)
+        public CreateUserPhotoHandler(IRepository<UserPhoto> userPhoto, IHostEnvironment hostEnvironment, CurrentUser currentUser)
         {
             _userPhoto = userPhoto ?? throw new ArgumentNullException(nameof(userPhoto));
             _hostEnvironment = hostEnvironment ?? throw new ArgumentNullException(nameof(hostEnvironment));
@@ -39,7 +40,7 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
                 throw new PropertyValidationException("Maximum 7 photos can be upload");
             }
 
-            var userPhotos = new List<Domain.Models.UserPhotoModel.UserPhoto>();
+            var userPhotos = new List<UserPhoto>();
             var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
 
             var userPhotoCount = await _userPhoto.CountAsync(new GetUserPhotosSpec(_currentUser.Id));
@@ -52,7 +53,7 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
 
                     if (!string.IsNullOrEmpty(imageName))
                     {
-                        userPhotos.Add(new Domain.Models.UserPhotoModel.UserPhoto
+                        userPhotos.Add(new UserPhoto
                         {
                             FileName = imageName,
                             FilePath = hostEnvironmentPath,

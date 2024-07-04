@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace SocialMatchia.Domain.Models.ParameterModel.Specification
+namespace SocialMatchia.Domain.Models.Specifications
 {
     public class GetCitiesByCountryIdSpec : Specification<City>
     {

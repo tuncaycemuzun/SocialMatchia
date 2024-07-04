@@ -1,8 +1,4 @@
-﻿using SocialMatchia.Domain.Models.ParameterModel;
-using SocialMatchia.Domain.Models.UserModel;
-using SocialMatchia.Domain.Models.UserSocialMediaModel;
-
-namespace SocialMatchia.Domain.Models.UserInformationModel
+﻿namespace SocialMatchia.Domain.Models
 {
     public class UserInformation : BaseDetailEntity
     {

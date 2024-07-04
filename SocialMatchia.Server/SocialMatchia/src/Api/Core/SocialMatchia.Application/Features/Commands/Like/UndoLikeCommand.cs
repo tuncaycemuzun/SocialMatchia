@@ -2,9 +2,10 @@
 using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.LikeModel.Specifications;
+using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Commands.Like
+namespace SocialMatchia.Application.Features.Commands
 {
     public class UndoLikeCommand : IRequest<Result<bool>>
     {
@@ -13,10 +14,10 @@ namespace SocialMatchia.Application.Features.Commands.Like
 
     public class UndoLikeHandler : IRequestHandler<UndoLikeCommand, Result<bool>>
     {
-        private readonly IRepository<Domain.Models.LikeModel.Like> _like;
+        private readonly IRepository<Like> _like;
         private readonly CurrentUser _currentUser;
 
-        public UndoLikeHandler(IRepository<Domain.Models.LikeModel.Like> like, CurrentUser currentUser, IMediator mediator)
+        public UndoLikeHandler(IRepository<Like> like, CurrentUser currentUser, IMediator mediator)
         {
             _like = like ?? throw new ArgumentNullException(nameof(like));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));

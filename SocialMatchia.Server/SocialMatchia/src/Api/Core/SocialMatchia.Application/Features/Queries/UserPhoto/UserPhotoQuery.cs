@@ -2,9 +2,10 @@
 using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
+using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Queries.UserPhoto
+namespace SocialMatchia.Application.Features.Queries
 {
     public class UserPhotoQuery : IRequest<Result<List<string>>>
     {
@@ -12,10 +13,10 @@ namespace SocialMatchia.Application.Features.Queries.UserPhoto
 
     public class UserPhotoHandler : IRequestHandler<UserPhotoQuery, Result<List<string>>>
     {
-        private readonly IReadRepository<Domain.Models.UserPhotoModel.UserPhoto> _userPhoto;
+        private readonly IReadRepository<UserPhoto> _userPhoto;
         private readonly CurrentUser _currentUser;
 
-        public UserPhotoHandler(IReadRepository<Domain.Models.UserPhotoModel.UserPhoto> userPhoto, CurrentUser currentUser)
+        public UserPhotoHandler(IReadRepository<UserPhoto> userPhoto, CurrentUser currentUser)
         {
             _userPhoto = userPhoto ?? throw new ArgumentNullException(nameof(userPhoto));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));

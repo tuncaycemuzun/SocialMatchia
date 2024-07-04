@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SocialMatchia.Domain.Models.UserModel;
+using SocialMatchia.Domain.Models;
 
 namespace SocialMatchia.Infrastructure.Persistence.EntityConfiguration
 {

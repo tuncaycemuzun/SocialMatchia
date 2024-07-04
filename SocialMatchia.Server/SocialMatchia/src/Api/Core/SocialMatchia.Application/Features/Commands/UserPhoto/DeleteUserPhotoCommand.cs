@@ -2,9 +2,10 @@
 using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
+using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Commands.UserPhoto
+namespace SocialMatchia.Application.Features.Commands
 {
     public class DeleteUserPhotoCommand : IRequest<Result<bool>>
     {
@@ -13,10 +14,10 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
 
     public class DeleteUserPhotoHandler : IRequestHandler<DeleteUserPhotoCommand, Result<bool>>
     {
-        private readonly IRepository<Domain.Models.UserPhotoModel.UserPhoto> _userPhoto;
+        private readonly IRepository<UserPhoto> _userPhoto;
         private readonly CurrentUser _currentUser;
 
-        public DeleteUserPhotoHandler(IRepository<Domain.Models.UserPhotoModel.UserPhoto> userPhoto, CurrentUser currentUser)
+        public DeleteUserPhotoHandler(IRepository<UserPhoto> userPhoto, CurrentUser currentUser)
         {
             _userPhoto = userPhoto ?? throw new ArgumentNullException(nameof(userPhoto));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));

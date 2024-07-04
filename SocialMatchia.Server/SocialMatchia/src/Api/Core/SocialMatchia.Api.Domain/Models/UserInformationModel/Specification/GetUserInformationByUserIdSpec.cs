@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace SocialMatchia.Domain.Models.UserInformationModel.Specification
+namespace SocialMatchia.Domain.Models.Specifications
 {
     public class GetUserInformationByUserIdSpec : Specification<UserInformation>
     {

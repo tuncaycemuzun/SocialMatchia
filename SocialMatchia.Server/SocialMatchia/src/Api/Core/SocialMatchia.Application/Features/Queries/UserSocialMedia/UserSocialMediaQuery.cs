@@ -3,9 +3,10 @@ using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Features.ResponseModel;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.UserSocialMediaModel.Specifications;
+using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Queries.UserSocialMedia
+namespace SocialMatchia.Application.Features.Queries
 {
     public class UserSocialMediaQuery : IRequest<Result<UserSocialMediaResponse>>
     {
@@ -13,10 +14,10 @@ namespace SocialMatchia.Application.Features.Queries.UserSocialMedia
 
     public class UserSocialMediaHandler : IRequestHandler<UserSocialMediaQuery, Result<UserSocialMediaResponse>>
     {
-        private readonly IReadRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> _userSocialMedia;
+        private readonly IReadRepository<UserSocialMedia> _userSocialMedia;
         private readonly CurrentUser _currentUser;
 
-        public UserSocialMediaHandler(IReadRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> userSocialMedia, CurrentUser currentUser)
+        public UserSocialMediaHandler(IReadRepository<UserSocialMedia> userSocialMedia, CurrentUser currentUser)
         {
             _userSocialMedia = userSocialMedia ?? throw new ArgumentNullException(nameof(userSocialMedia));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));

@@ -2,9 +2,10 @@
 using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.UserSettingModel.Specifications;
+using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Commands.UserSetting
+namespace SocialMatchia.Application.Features.Commands
 {
     public class UpsertUserSettingCommand : IRequest<Result<bool>>
     {
@@ -16,10 +17,10 @@ namespace SocialMatchia.Application.Features.Commands.UserSetting
 
     public class UpsertUserSettingHandler : IRequestHandler<UpsertUserSettingCommand, Result<bool>>
     {
-        private readonly IRepository<Domain.Models.UserSettingModel.UserSetting> _userSetting;
+        private readonly IRepository<UserSetting> _userSetting;
         private readonly CurrentUser _currentUser;
 
-        public UpsertUserSettingHandler(IRepository<Domain.Models.UserSettingModel.UserSetting> userSetting, CurrentUser currentUser)
+        public UpsertUserSettingHandler(IRepository<UserSetting> userSetting, CurrentUser currentUser)
         {
             _userSetting = userSetting ?? throw new ArgumentNullException(nameof(_userSetting));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
@@ -31,7 +32,7 @@ namespace SocialMatchia.Application.Features.Commands.UserSetting
 
             var update = userSettings != null ? true : false;
 
-            userSettings ??= new Domain.Models.UserSettingModel.UserSetting { UserId = _currentUser.Id };
+            userSettings ??= new UserSetting { UserId = _currentUser.Id };
 
             userSettings.SetUserSetting(userSettings);
 

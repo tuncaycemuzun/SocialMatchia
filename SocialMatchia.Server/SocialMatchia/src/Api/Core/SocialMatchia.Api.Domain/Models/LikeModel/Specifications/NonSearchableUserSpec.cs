@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace SocialMatchia.Domain.Models.LikeModel.Specifications
+namespace SocialMatchia.Domain.Models.Specifications
 {
     public class NonSearchableUserSpec : Specification<Like>
     {

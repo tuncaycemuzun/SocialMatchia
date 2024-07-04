@@ -2,9 +2,10 @@
 using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.UserInformationModel.Specification;
+using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Commands.UserInformation
+namespace SocialMatchia.Application.Features.Commands
 {
     public class UpsertUserInformationCommand : IRequest<Result<bool>>
     {
@@ -20,10 +21,10 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
 
     public class UpsertUserInformationHandler : IRequestHandler<UpsertUserInformationCommand, Result<bool>>
     {
-        private readonly IRepository<Domain.Models.UserInformationModel.UserInformation> _userInformation;
+        private readonly IRepository<UserInformation> _userInformation;
         private readonly CurrentUser _currentUser;
 
-        public UpsertUserInformationHandler(IRepository<Domain.Models.UserInformationModel.UserInformation> userInformation, CurrentUser currentUser)
+        public UpsertUserInformationHandler(IRepository<UserInformation> userInformation, CurrentUser currentUser)
         {
             _userInformation = userInformation ?? throw new ArgumentNullException(nameof(userInformation));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
@@ -40,7 +41,7 @@ namespace SocialMatchia.Application.Features.Commands.UserInformation
             }
             else
             {
-                await _userInformation.AddAsync(new Domain.Models.UserInformationModel.UserInformation
+                await _userInformation.AddAsync(new UserInformation
                 {
                     UserId = request.UserId,
                     CityId = request.CityId,

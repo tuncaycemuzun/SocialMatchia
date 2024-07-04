@@ -4,11 +4,10 @@ using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.ParameterModel;
-using SocialMatchia.Domain.Models.ParameterModel.Specification;
-using SocialMatchia.Domain.Models.UserSocialMediaModel.Specifications;
+using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
+namespace SocialMatchia.Application.Features.Commands
 {
     public class UpsertUserSocialMediaCommand : IRequest<Result<bool>>
     {
@@ -17,11 +16,11 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
 
     public class UpsertUserSocialMediaHandler : IRequestHandler<UpsertUserSocialMediaCommand, Result<bool>>
     {
-        private readonly IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> _userSocialMedia;
+        private readonly IRepository<UserSocialMedia> _userSocialMedia;
         private readonly IReadRepository<SocialMedia> _socialMediaRepository;
         private readonly CurrentUser _currentUser;
 
-        public UpsertUserSocialMediaHandler(IRepository<Domain.Models.UserSocialMediaModel.UserSocialMedia> userSocialMedia, CurrentUser currentUser, IReadRepository<SocialMedia> socialMediaRepository)
+        public UpsertUserSocialMediaHandler(IRepository<UserSocialMedia> userSocialMedia, CurrentUser currentUser, IReadRepository<SocialMedia> socialMediaRepository)
         {
             _userSocialMedia = userSocialMedia ?? throw new ArgumentNullException(nameof(userSocialMedia));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
@@ -60,7 +59,7 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
 
                 foreach (var item in newSocialMedias)
                 {
-                    userSocialMedias.Add(new Domain.Models.UserSocialMediaModel.UserSocialMedia
+                    userSocialMedias.Add(new UserSocialMedia
                     {
                         UserId = _currentUser.Id,
                         SocialMediaId = item.Key,
@@ -72,11 +71,11 @@ namespace SocialMatchia.Application.Features.Commands.UserSocialMedia
             }
             else
             {
-                var userSocialMedia = new List<Domain.Models.UserSocialMediaModel.UserSocialMedia>();
+                var userSocialMedia = new List<UserSocialMedia>();
 
                 foreach (var item in request.Values)
                 {
-                    userSocialMedia.Add(new Domain.Models.UserSocialMediaModel.UserSocialMedia
+                    userSocialMedia.Add(new UserSocialMedia
                     {
                         UserId = _currentUser.Id,
                         SocialMediaId = item.Key,

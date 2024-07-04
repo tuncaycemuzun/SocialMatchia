@@ -1,7 +1,6 @@
 ﻿using Ardalis.Specification;
-using SocialMatchia.Domain.Models.ParameterModel;
 
-namespace SocialMatchia.Domain.Models.ParameterModel.Specification
+namespace SocialMatchia.Domain.Models.Specifications
 {
     public class GetAllSocialMediaSpec : Specification<SocialMedia>
     {

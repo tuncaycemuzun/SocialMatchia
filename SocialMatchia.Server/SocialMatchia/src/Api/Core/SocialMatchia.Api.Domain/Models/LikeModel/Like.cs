@@ -1,6 +1,4 @@
-﻿using SocialMatchia.Domain.Models.UserModel;
-
-namespace SocialMatchia.Domain.Models.LikeModel
+﻿namespace SocialMatchia.Domain.Models
 {
     public class Like : BaseDetailEntity
     {

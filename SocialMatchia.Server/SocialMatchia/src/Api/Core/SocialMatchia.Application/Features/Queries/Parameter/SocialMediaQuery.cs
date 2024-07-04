@@ -2,9 +2,9 @@
 using MediatR;
 using SocialMatchia.Common.Features.ResponseModel;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.ParameterModel;
+using SocialMatchia.Domain.Models;
 
-namespace SocialMatchia.Application.Features.Queries.Parameter
+namespace SocialMatchia.Application.Features.Queries
 {
     public class SocialMediaQuery : IRequest<Result<List<SocialMediaResponse>>>
     {

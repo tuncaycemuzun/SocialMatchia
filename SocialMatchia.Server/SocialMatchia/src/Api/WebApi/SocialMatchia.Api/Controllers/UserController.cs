@@ -1,16 +1,8 @@
 ﻿using Ardalis.Result.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SocialMatchia.Application.Features.Commands.Like;
-using SocialMatchia.Application.Features.Commands.UserInformation;
-using SocialMatchia.Application.Features.Commands.UserPhoto;
-using SocialMatchia.Application.Features.Commands.UserSetting;
-using SocialMatchia.Application.Features.Commands.UserSocialMedia;
-using SocialMatchia.Application.Features.Queries.UserInformation;
-using SocialMatchia.Application.Features.Queries.UserPhoto;
-using SocialMatchia.Application.Features.Queries.UserSearch;
-using SocialMatchia.Application.Features.Queries.UserSetting;
-using SocialMatchia.Application.Features.Queries.UserSocialMedia;
+using SocialMatchia.Application.Features.Commands;
+using SocialMatchia.Application.Features.Queries;
 using SocialMatchia.Common.Features.ResponseModel;
 
 namespace SocialMatchia.Api.Controllers

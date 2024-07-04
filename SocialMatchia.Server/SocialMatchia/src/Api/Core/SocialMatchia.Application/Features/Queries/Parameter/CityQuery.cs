@@ -1,11 +1,11 @@
 ﻿using Ardalis.Result;
 using MediatR;
+using SocialMatchia.Domain.Models;
 using SocialMatchia.Common.Features.ResponseModel;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.ParameterModel;
-using SocialMatchia.Domain.Models.ParameterModel.Specification;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Queries.Parameter
+namespace SocialMatchia.Application.Features.Queries
 {
     public class CityQuery : IRequest<Result<List<CityResponse>>>
     {

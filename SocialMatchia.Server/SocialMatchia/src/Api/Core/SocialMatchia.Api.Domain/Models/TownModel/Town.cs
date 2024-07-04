@@ -1,6 +1,4 @@
-﻿using SocialMatchia.Domain.Models.ParameterModel;
-
-namespace SocialMatchia.Domain.Models.TownModel
+﻿namespace SocialMatchia.Domain.Models
 {
     public class Town : BaseEntity
     {

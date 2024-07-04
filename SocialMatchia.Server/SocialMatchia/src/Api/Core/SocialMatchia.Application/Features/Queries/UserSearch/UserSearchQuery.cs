@@ -4,13 +4,10 @@ using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Features.ResponseModel;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.LikeModel;
-using SocialMatchia.Domain.Models.LikeModel.Specifications;
-using SocialMatchia.Domain.Models.UserInformationModel.Specification;
-using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
-using SocialMatchia.Domain.Models.UserSettingModel.Specifications;
+using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Queries.UserSearch
+namespace SocialMatchia.Application.Features.Queries
 {
     public class UserSearchQuery : IRequest<Result<List<UserSearchModel>>>
     {
@@ -19,13 +16,13 @@ namespace SocialMatchia.Application.Features.Queries.UserSearch
 
     public class UserSearchHandle : IRequestHandler<UserSearchQuery, Result<List<UserSearchModel>>>
     {
-        private readonly IReadRepository<Domain.Models.UserInformationModel.UserInformation> _userInformation;
-        private readonly IReadRepository<Domain.Models.UserPhotoModel.UserPhoto> _userPhoto;
-        private readonly IReadRepository<Domain.Models.UserSettingModel.UserSetting> _userSetting;
+        private readonly IReadRepository<UserInformation> _userInformation;
+        private readonly IReadRepository<UserPhoto> _userPhoto;
+        private readonly IReadRepository<UserSetting> _userSetting;
         private readonly IReadRepository<Like> _like;
         private readonly CurrentUser _currentUser;
 
-        public UserSearchHandle(CurrentUser currentUser, IReadRepository<Domain.Models.UserInformationModel.UserInformation> userInformation, IReadRepository<Domain.Models.UserPhotoModel.UserPhoto> userPhoto, IReadRepository<Like> like, IReadRepository<Domain.Models.UserSettingModel.UserSetting> userSetting)
+        public UserSearchHandle(CurrentUser currentUser, IReadRepository<UserInformation> userInformation, IReadRepository<UserPhoto> userPhoto, IReadRepository<Like> like, IReadRepository<UserSetting> userSetting)
         {
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
             _userInformation = userInformation ?? throw new ArgumentNullException(nameof(userInformation));

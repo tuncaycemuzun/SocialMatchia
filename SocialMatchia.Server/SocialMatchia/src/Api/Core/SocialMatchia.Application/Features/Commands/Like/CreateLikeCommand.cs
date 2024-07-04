@@ -2,9 +2,10 @@
 using MediatR;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.LikeModel.Specifications;
+using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.Specifications;
 
-namespace SocialMatchia.Application.Features.Commands.Like
+namespace SocialMatchia.Application.Features.Commands
 {
     public class CreateLikeCommand : IRequest<Result<bool>>
     {
@@ -13,10 +14,10 @@ namespace SocialMatchia.Application.Features.Commands.Like
 
     public class CreateLikeHandler : IRequestHandler<CreateLikeCommand, Result<bool>>
     {
-        private readonly IRepository<Domain.Models.LikeModel.Like> _like;
+        private readonly IRepository<Like> _like;
         private readonly CurrentUser _currentUser;
 
-        public CreateLikeHandler(IRepository<Domain.Models.LikeModel.Like> like, CurrentUser currentUser)
+        public CreateLikeHandler(IRepository<Like> like, CurrentUser currentUser)
         {
             _like = like ?? throw new ArgumentNullException(nameof(like));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
@@ -28,7 +29,7 @@ namespace SocialMatchia.Application.Features.Commands.Like
 
             if (hasExistingLike) return Result.Success(true);
 
-            var like = new Domain.Models.LikeModel.Like
+            var like = new Like
             {
                 SourceUserId = _currentUser.Id,
                 TargetUserId = request.TargetUserId,

@@ -3,14 +3,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SocialMatchia.Common;
 using SocialMatchia.Domain.Models;
-using SocialMatchia.Domain.Models.LikeModel;
-using SocialMatchia.Domain.Models.ParameterModel;
-using SocialMatchia.Domain.Models.TownModel;
-using SocialMatchia.Domain.Models.UserInformationModel;
-using SocialMatchia.Domain.Models.UserModel;
-using SocialMatchia.Domain.Models.UserPhotoModel;
-using SocialMatchia.Domain.Models.UserSettingModel;
-using SocialMatchia.Domain.Models.UserSocialMediaModel;
 using SocialMatchia.Infrastructure.Persistence.Seeds;
 
 namespace SocialMatchia.Infrastructure.Persistence.Context;
