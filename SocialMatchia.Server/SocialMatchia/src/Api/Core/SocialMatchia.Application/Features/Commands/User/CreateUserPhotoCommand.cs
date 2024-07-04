@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Hosting;
+using SocialMatchia.Domain.Models.UserModel;
+using SocialMatchia.Domain.Models.UserModel.Specification;
 
 
-namespace SocialMatchia.Application.Features.Commands
+namespace SocialMatchia.Application.Features.Commands.User
 {
     public class CreateUserPhotoCommand : IRequest<Result<bool>>
     {

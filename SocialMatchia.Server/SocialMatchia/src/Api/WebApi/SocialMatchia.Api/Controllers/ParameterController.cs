@@ -1,9 +1,8 @@
 ﻿using Ardalis.Result.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SocialMatchia.Application.Features.Queries;
+using SocialMatchia.Application.Features.Queries.Parameter;
 using SocialMatchia.Common.Features.ResponseModel;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SocialMatchia.Api.Controllers
 {

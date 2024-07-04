@@ -1,4 +1,7 @@
-﻿namespace SocialMatchia.Application.Features.Commands
+﻿using SocialMatchia.Domain.Models.LikeModel;
+using SocialMatchia.Domain.Models.LikeModel.Specifications;
+
+namespace SocialMatchia.Application.Features.Commands.User
 {
     public class CreateLikeCommand : IRequest<Result<bool>>
     {

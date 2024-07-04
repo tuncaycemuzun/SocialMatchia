@@ -2,10 +2,7 @@
 global using MediatR;
 global using SocialMatchia.Common;
 global using SocialMatchia.Common.Interfaces;
-global using SocialMatchia.Domain.Models.Specifications;
-global using SocialMatchia.Domain.Models;
 global using SocialMatchia.Common.Exceptions;
 global using SocialMatchia.Common.Helpers;
 global using Ardalis.Specification;
 global using SocialMatchia.Common.Features.ResponseModel;
-global using SocialMatchia.Domain.Models.Specification;

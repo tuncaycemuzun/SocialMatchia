@@ -1,4 +1,6 @@
-﻿namespace SocialMatchia.Application.Features.Queries
+﻿using SocialMatchia.Domain.Models.ParameterModel;
+
+namespace SocialMatchia.Application.Features.Queries.Parameter
 {
     public class GenderQuery : IRequest<Result<List<GenderResponse>>>
     {
@@ -16,7 +18,7 @@
         public async Task<Result<List<GenderResponse>>> Handle(GenderQuery request, CancellationToken cancellationToken)
         {
             var genders = await _gender.ListAsync();
-            
+
             var response = genders.Select(x => new GenderResponse
             {
                 Id = x.Id,

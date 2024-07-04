@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace SocialMatchia.Domain.Models.Specification
+namespace SocialMatchia.Domain.Models.UserModel.Specification
 {
     public class UserSocialMediaSpec : Specification<UserSocialMedia>
     {

@@ -9,7 +9,7 @@ using SocialMatchia.Api.Middlewares;
 using SocialMatchia.Application.Extensions;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
-using SocialMatchia.Domain.Models;
+using SocialMatchia.Domain.Models.UserModel;
 using SocialMatchia.Infrastructure.Persistence.Context;
 using SocialMatchia.Infrastructure.Persistence.Extensions;
 using System.Reflection;

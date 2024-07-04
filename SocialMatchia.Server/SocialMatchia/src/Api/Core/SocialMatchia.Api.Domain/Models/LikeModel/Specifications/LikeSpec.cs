@@ -1,6 +1,7 @@
 ﻿using Ardalis.Specification;
+using SocialMatchia.Domain.Models.LikeModel;
 
-namespace SocialMatchia.Domain.Models.Specifications
+namespace SocialMatchia.Domain.Models.LikeModel.Specifications
 {
     public class LikeSpec : Specification<Like>
     {

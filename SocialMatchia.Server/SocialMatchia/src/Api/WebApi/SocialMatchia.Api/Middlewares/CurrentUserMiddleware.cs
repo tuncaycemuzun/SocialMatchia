@@ -2,8 +2,8 @@
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models;
-using SocialMatchia.Domain.Models.Specification;
+using SocialMatchia.Domain.Models.UserModel;
+using SocialMatchia.Domain.Models.UserModel.Specification;
 using System.Security.Claims;
 
 public class CurrentUserMiddleware

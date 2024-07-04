@@ -1,8 +1,8 @@
 ﻿using Ardalis.Result.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SocialMatchia.Application.Features.Commands;
-using SocialMatchia.Application.Features.Queries;
+using SocialMatchia.Application.Features.Commands.User;
+using SocialMatchia.Application.Features.Queries.User;
 using SocialMatchia.Common.Features.ResponseModel;
 
 namespace SocialMatchia.Api.Controllers

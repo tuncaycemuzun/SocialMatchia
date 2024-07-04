@@ -1,4 +1,6 @@
-﻿namespace SocialMatchia.Application.Features.Queries
+﻿using SocialMatchia.Domain.Models.ParameterModel;
+
+namespace SocialMatchia.Application.Features.Queries.Parameter
 {
     public class CountryQuery : IRequest<Result<List<CountryResponse>>>
     {

@@ -1,4 +1,7 @@
-﻿namespace SocialMatchia.Application.Features.Queries
+﻿using SocialMatchia.Domain.Models.UserModel;
+using SocialMatchia.Domain.Models.UserModel.Specification;
+
+namespace SocialMatchia.Application.Features.Queries.User
 {
     public class UserSettingQuery : IRequest<Result<UserSettingResponse>>
     {

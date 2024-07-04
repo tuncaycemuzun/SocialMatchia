@@ -1,4 +1,9 @@
-﻿namespace SocialMatchia.Application.Features.Commands
+﻿using SocialMatchia.Domain.Models.ParameterModel;
+using SocialMatchia.Domain.Models.ParameterModel.Specification;
+using SocialMatchia.Domain.Models.UserModel;
+using SocialMatchia.Domain.Models.UserModel.Specification;
+
+namespace SocialMatchia.Application.Features.Commands.User
 {
     public class UpsertUserSocialMediaCommand : IRequest<Result<bool>>
     {
