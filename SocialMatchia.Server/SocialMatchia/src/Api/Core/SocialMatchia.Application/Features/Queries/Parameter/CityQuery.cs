@@ -14,21 +14,23 @@ namespace SocialMatchia.Application.Features.Queries.Parameter
 
     public class CityHandler : IRequestHandler<CityQuery, Result<List<CityResponse>>>
     {
-        private readonly IReadRepository<City> _repository;
+        private readonly IReadRepository<City> _city;
 
-        public CityHandler(IReadRepository<City> repository)
+        public CityHandler(IReadRepository<City> city)
         {
-            _repository = repository;
+            _city = city ?? throw new ArgumentNullException(nameof(city));
         }
 
         public async Task<Result<List<CityResponse>>> Handle(CityQuery request, CancellationToken cancellationToken)
         {
-            var data = await _repository.ListAsync(new GetCitiesByCountryIdSpec(request.CountryId));
+            var data = await _city.ListAsync(new GetCitiesByCountryIdSpec(request.CountryId));
+            
             var response = data.Select(x => new CityResponse
             {
                 Id = x.Id,
                 Name = x.Name
             }).ToList();
+
             return Result<List<CityResponse>>.Success(response);
         }
     }

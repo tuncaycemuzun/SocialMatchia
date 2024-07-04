@@ -1,11 +1,11 @@
 ﻿using Ardalis.Result;
 using MediatR;
 using Microsoft.Extensions.Hosting;
-using SocialMatchia.Application.Features.InternalQueries.UserPhoto;
 using SocialMatchia.Common;
 using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Helpers;
 using SocialMatchia.Common.Interfaces;
+using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
 
 namespace SocialMatchia.Application.Features.Commands.UserPhoto
 {
@@ -16,16 +16,14 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
 
     public class CreateUserPhotoHandler : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
     {
-        private readonly IRepository<Domain.Models.UserPhotoModel.UserPhoto> _repository;
+        private readonly IRepository<Domain.Models.UserPhotoModel.UserPhoto> _userPhoto;
         private readonly IHostEnvironment _hostEnvironment;
-        private readonly IMediator _mediator;
         private readonly CurrentUser _currentUser;
 
-        public CreateUserPhotoHandler(IRepository<Domain.Models.UserPhotoModel.UserPhoto> repository, IHostEnvironment hostEnvironment, IMediator mediator, CurrentUser currentUser)
+        public CreateUserPhotoHandler(IRepository<Domain.Models.UserPhotoModel.UserPhoto> userPhoto, IHostEnvironment hostEnvironment, CurrentUser currentUser)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _userPhoto = userPhoto ?? throw new ArgumentNullException(nameof(userPhoto));
             _hostEnvironment = hostEnvironment ?? throw new ArgumentNullException(nameof(hostEnvironment));
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
         }
 
@@ -44,10 +42,7 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
             var userPhotos = new List<Domain.Models.UserPhotoModel.UserPhoto>();
             var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
 
-            var userPhotoCount = await _mediator.Send(new UserPhotoCountQuery() // TODO: sıralamayı dışardan alacak şekilde geliştirme yap.
-            {
-                UserId = _currentUser.Id
-            }, cancellationToken);
+            var userPhotoCount = await _userPhoto.CountAsync(new GetUserPhotosSpec(_currentUser.Id));
 
             foreach (var photo in request.Photos)
             {
@@ -75,8 +70,8 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
                 return Result.Success(false);
             }
 
-            await _repository.AddRangeAsync(userPhotos, cancellationToken);
-            await _repository.SaveChangesAsync(cancellationToken);
+            await _userPhoto.AddRangeAsync(userPhotos, cancellationToken);
+            await _userPhoto.SaveChangesAsync(cancellationToken);
 
             return Result.Success(true);
         }

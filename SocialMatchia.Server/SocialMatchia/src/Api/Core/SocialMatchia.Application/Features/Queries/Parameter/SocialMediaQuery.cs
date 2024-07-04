@@ -12,16 +12,16 @@ namespace SocialMatchia.Application.Features.Queries.Parameter
 
     public class SocialMediaHandler : IRequestHandler<SocialMediaQuery, Result<List<SocialMediaResponse>>>
     {
-        private readonly IReadRepository<SocialMedia> _repository;
+        private readonly IReadRepository<SocialMedia> _socialMedia;
 
-        public SocialMediaHandler(IReadRepository<SocialMedia> repository)
+        public SocialMediaHandler(IReadRepository<SocialMedia> socialMedia)
         {
-            _repository = repository;
+            _socialMedia = socialMedia ?? throw new ArgumentNullException(nameof(socialMedia));
         }
 
         public async Task<Result<List<SocialMediaResponse>>> Handle(SocialMediaQuery request, CancellationToken cancellationToken)
         {
-            var socialMedias = await _repository.ListAsync();
+            var socialMedias = await _socialMedia.ListAsync();
             
             var response = socialMedias.Select(x => new SocialMediaResponse
             {

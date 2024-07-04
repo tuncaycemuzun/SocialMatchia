@@ -14,18 +14,18 @@ namespace SocialMatchia.Application.Features.Queries.UserInformation
 
     public class UserInformationHandler : IRequestHandler<UserInformationQuery, Result<UserInformationResponse>>
     {
-        private readonly IReadRepository<Domain.Models.UserInformationModel.UserInformation> _repository;
+        private readonly IReadRepository<Domain.Models.UserInformationModel.UserInformation> _userInformation;
         private readonly CurrentUser _currentUser;
 
-        public UserInformationHandler(IReadRepository<Domain.Models.UserInformationModel.UserInformation> repository, CurrentUser currentUser)
+        public UserInformationHandler(IReadRepository<Domain.Models.UserInformationModel.UserInformation> userInformation, CurrentUser currentUser)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _userInformation = userInformation ?? throw new ArgumentNullException(nameof(userInformation));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
         }
 
         public async Task<Result<UserInformationResponse>> Handle(UserInformationQuery request, CancellationToken cancellationToken)
         {
-            var userInformation = await _repository.FirstOrDefaultAsync(new GetUserInformationByUserIdSpec(_currentUser.Id), cancellationToken);
+            var userInformation = await _userInformation.FirstOrDefaultAsync(new GetUserInformationByUserIdSpec(_currentUser.Id), cancellationToken);
 
             if (userInformation is null)
             {

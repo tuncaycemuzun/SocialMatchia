@@ -1,9 +1,8 @@
 ﻿using Ardalis.Result;
 using MediatR;
-using SocialMatchia.Application.Features.InternalQueries.UserPhoto;
 using SocialMatchia.Common;
-using SocialMatchia.Common.Exceptions;
 using SocialMatchia.Common.Interfaces;
+using SocialMatchia.Domain.Models.UserPhotoModel.Specification;
 
 namespace SocialMatchia.Application.Features.Commands.UserPhoto
 {
@@ -14,28 +13,25 @@ namespace SocialMatchia.Application.Features.Commands.UserPhoto
 
     public class DeleteUserPhotoHandler : IRequestHandler<DeleteUserPhotoCommand, Result<bool>>
     {
-        private readonly IRepository<Domain.Models.UserPhotoModel.UserPhoto> _repository;
+        private readonly IRepository<Domain.Models.UserPhotoModel.UserPhoto> _userPhoto;
         private readonly CurrentUser _currentUser;
-        private readonly IMediator _mediator;
 
-        public DeleteUserPhotoHandler(IRepository<Domain.Models.UserPhotoModel.UserPhoto> repository, CurrentUser currentUser, IMediator mediator)
+        public DeleteUserPhotoHandler(IRepository<Domain.Models.UserPhotoModel.UserPhoto> userPhoto, CurrentUser currentUser)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _userPhoto = userPhoto ?? throw new ArgumentNullException(nameof(userPhoto));
             _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         public async Task<Result<bool>> Handle(DeleteUserPhotoCommand request, CancellationToken cancellationToken)
         {
-            var photo = await _mediator.Send(new UserPhotoQuery
-            {
-                UserId = _currentUser.Id,
-            }) ?? throw new NotFoundException("Photo not found");
+            var photo = await _userPhoto.FirstOrDefaultAsync(new GetUserPhotosSpec(_currentUser.Id), cancellationToken);
+
+            if (photo is null) return Result.Success(false);
 
             photo.SetIsDeleted(true);
 
-            await _repository.UpdateAsync(photo, cancellationToken);
-            await _repository.SaveChangesAsync(cancellationToken);
+            await _userPhoto.UpdateAsync(photo, cancellationToken);
+            await _userPhoto.SaveChangesAsync(cancellationToken);
 
             return Result.Success(true);
         }
