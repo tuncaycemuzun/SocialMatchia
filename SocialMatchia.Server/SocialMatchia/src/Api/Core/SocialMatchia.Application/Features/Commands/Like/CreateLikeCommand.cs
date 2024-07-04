@@ -18,7 +18,8 @@
 
         public async Task<Result<bool>> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
         {
-            //TODO: Check if the user has already liked the target user
+            if (request.TargetUserId == _currentUser.Id) Result.Success(false);
+
             var hasExistingLike = await _like.AnyAsync(new LikeSpec(request.TargetUserId, _currentUser.Id), cancellationToken);
 
             if (hasExistingLike) return Result.Success(true);

@@ -96,9 +96,13 @@ namespace SocialMatchia.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<bool>> LikeAsync([FromBody] UndoLikeCommand command)
+        [Route("{id}")]
+        public async Task<ActionResult<bool>> LikeAsync([FromRoute] Guid id)
         {
-            var response = await _mediator.Send(command);
+            var response = await _mediator.Send(new UndoLikeCommand
+            {
+                 TargetUserId = id
+            });
             return this.ToActionResult(response);
         }
     }
