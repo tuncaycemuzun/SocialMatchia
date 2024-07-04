@@ -1,12 +1,5 @@
-﻿using Ardalis.Result;
-using MediatR;
-using Microsoft.Extensions.Hosting;
-using SocialMatchia.Common;
-using SocialMatchia.Common.Exceptions;
-using SocialMatchia.Common.Helpers;
-using SocialMatchia.Domain.Models;
-using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models.Specifications;
+﻿using Microsoft.Extensions.Hosting;
+
 
 namespace SocialMatchia.Application.Features.Commands
 {

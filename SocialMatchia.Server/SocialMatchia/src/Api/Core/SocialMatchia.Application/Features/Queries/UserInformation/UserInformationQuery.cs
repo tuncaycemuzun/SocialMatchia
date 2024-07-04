@@ -1,12 +1,4 @@
-﻿using Ardalis.Result;
-using MediatR;
-using SocialMatchia.Common;
-using SocialMatchia.Common.Features.ResponseModel;
-using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models;
-using SocialMatchia.Domain.Models.Specifications;
-
-namespace SocialMatchia.Application.Features.Queries
+﻿namespace SocialMatchia.Application.Features.Queries
 {
     public class UserInformationQuery : IRequest<Result<UserInformationResponse>>
     {

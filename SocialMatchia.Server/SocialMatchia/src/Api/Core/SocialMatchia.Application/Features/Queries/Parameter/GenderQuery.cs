@@ -1,10 +1,4 @@
-﻿using Ardalis.Result;
-using MediatR;
-using SocialMatchia.Common.Features.ResponseModel;
-using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models;
-
-namespace SocialMatchia.Application.Features.Queries
+﻿namespace SocialMatchia.Application.Features.Queries
 {
     public class GenderQuery : IRequest<Result<List<GenderResponse>>>
     {

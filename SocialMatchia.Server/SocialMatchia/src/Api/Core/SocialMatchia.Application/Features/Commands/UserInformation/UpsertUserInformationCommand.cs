@@ -1,11 +1,4 @@
-﻿using Ardalis.Result;
-using MediatR;
-using SocialMatchia.Common;
-using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models;
-using SocialMatchia.Domain.Models.Specifications;
-
-namespace SocialMatchia.Application.Features.Commands
+﻿namespace SocialMatchia.Application.Features.Commands
 {
     public class UpsertUserInformationCommand : IRequest<Result<bool>>
     {

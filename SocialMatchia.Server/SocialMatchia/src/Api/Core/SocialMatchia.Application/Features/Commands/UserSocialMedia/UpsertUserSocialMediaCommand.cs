@@ -1,13 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.Specification;
-using MediatR;
-using SocialMatchia.Common;
-using SocialMatchia.Common.Exceptions;
-using SocialMatchia.Common.Interfaces;
-using SocialMatchia.Domain.Models;
-using SocialMatchia.Domain.Models.Specifications;
-
-namespace SocialMatchia.Application.Features.Commands
+﻿namespace SocialMatchia.Application.Features.Commands
 {
     public class UpsertUserSocialMediaCommand : IRequest<Result<bool>>
     {
