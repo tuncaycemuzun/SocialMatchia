@@ -2,9 +2,9 @@
 
 namespace SocialMatchia.Domain.Models.Specifications
 {
-    public class GetCitiesByCountryIdSpec : Specification<City>
+    public class CitiesByCountryIdSpec : Specification<City>
     {
-        public GetCitiesByCountryIdSpec(Guid countryId)
+        public CitiesByCountryIdSpec(Guid countryId)
         {
             Query.Where(x => x.CountryId == countryId);
         }

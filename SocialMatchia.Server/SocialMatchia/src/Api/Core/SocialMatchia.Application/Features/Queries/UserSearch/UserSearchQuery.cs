@@ -28,18 +28,18 @@
 
             var nonSearchableUserIdList = nonSearchableUsers?.Select(x => x.TargetUserId).ToList();
 
-            var userSetting = await _userSetting.FirstOrDefaultAsync(new GetUserSettingSpec(_currentUser.Id), cancellationToken);
+            var userSetting = await _userSetting.FirstOrDefaultAsync(new UserSettingSpec(_currentUser.Id), cancellationToken);
 
             if (userSetting is null)
             {
                 throw new NotFoundException("User settings not found");
             }
 
-            var userIds = await _userInformation.ListAsync(new GetUserInformationForSearchSpec(_currentUser.Id, userSetting, nonSearchableUserIdList), cancellationToken);
+            var userIds = await _userInformation.ListAsync(new UserInformationForSearchSpec(_currentUser.Id, userSetting, nonSearchableUserIdList), cancellationToken);
 
-            var users = await _userInformation.PagedListAsync(new GetUserInformationByUserIdsSpec(userIds.Select(x => x.Id).ToList()), request.Page, cancellationToken);
+            var users = await _userInformation.PagedListAsync(new UserInformationByUserIdsSpec(userIds.Select(x => x.Id).ToList()), request.Page, cancellationToken);
 
-            var photos = await _userPhoto.ListAsync(new GetUsersPhotosSpec(users.Select(x => x.UserId).ToList()));
+            var photos = await _userPhoto.ListAsync(new UsersPhotoSpec(users.Select(x => x.UserId).ToList()));
 
             var result = new List<UserSearchModel>();
 

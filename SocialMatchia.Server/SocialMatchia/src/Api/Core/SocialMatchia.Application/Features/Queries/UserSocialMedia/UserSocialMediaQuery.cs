@@ -17,7 +17,7 @@
 
         public async Task<Result<UserSocialMediaResponse>> Handle(UserSocialMediaQuery request, CancellationToken cancellationToken)
         {
-            var response = await _userSocialMedia.FirstOrDefaultAsync(new GetUserSocialMediaSpec(_currentUser.Id), cancellationToken);
+            var response = await _userSocialMedia.FirstOrDefaultAsync(new UserSocialMediaSpec(_currentUser.Id), cancellationToken);
             if (response == null)
             {
                 return Result<UserSocialMediaResponse>.NotFound();

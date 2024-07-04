@@ -17,7 +17,7 @@
 
         public async Task<Result<List<string>>> Handle(UserPhotoQuery request, CancellationToken cancellationToken)
         {
-            var response = await _userPhoto.ListAsync(new GetUserPhotosSpec(_currentUser.Id), cancellationToken);
+            var response = await _userPhoto.ListAsync(new UserPhotoSpec(_currentUser.Id), cancellationToken);
             var photos = new List<string>();
 
             foreach (var photo in response)

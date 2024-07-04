@@ -18,7 +18,7 @@
 
         public async Task<Result<UserInformationResponse>> Handle(UserInformationQuery request, CancellationToken cancellationToken)
         {
-            var userInformation = await _userInformation.FirstOrDefaultAsync(new GetUserInformationByUserIdSpec(_currentUser.Id), cancellationToken);
+            var userInformation = await _userInformation.FirstOrDefaultAsync(new UserInformationByUserIdSpec(_currentUser.Id), cancellationToken);
 
             if (userInformation is null)
             {

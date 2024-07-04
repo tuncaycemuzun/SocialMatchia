@@ -2,9 +2,9 @@
 
 namespace SocialMatchia.Domain.Models.Specifications
 {
-    public class GetUserInformationByUserIdsSpec : Specification<UserInformation>
+    public class UserInformationByUserIdsSpec : Specification<UserInformation>
     {
-        public GetUserInformationByUserIdsSpec(List<Guid> userIds)
+        public UserInformationByUserIdsSpec(List<Guid> userIds)
         {
             Query.Where(x => userIds.Contains(x.UserId)).Include(x => x.City);
         }

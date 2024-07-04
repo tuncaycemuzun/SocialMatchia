@@ -2,9 +2,9 @@
 
 namespace SocialMatchia.Domain.Models.Specifications
 {
-    public class GetUserPhotosSpec : Specification<UserPhoto>
+    public class UserPhotoSpec : Specification<UserPhoto>
     {
-        public GetUserPhotosSpec(Guid userId)
+        public UserPhotoSpec(Guid userId)
         {
             Query.Where(x => x.UserId == userId && x.IsDeleted == false);
         }

@@ -21,7 +21,7 @@
 
         public async Task<Result<bool>> Handle(UpsertUserSettingCommand request, CancellationToken cancellationToken)
         {
-            var userSettings = await _userSetting.FirstOrDefaultAsync(new GetUserSettingSpec(_currentUser.Id), cancellationToken);
+            var userSettings = await _userSetting.FirstOrDefaultAsync(new UserSettingSpec(_currentUser.Id), cancellationToken);
 
             var update = userSettings != null ? true : false;
 

@@ -2,9 +2,9 @@
 
 namespace SocialMatchia.Domain.Models.Specifications
 {
-    public class GetUserInformationForSearchSpec : Specification<UserInformation>
+    public class UserInformationForSearchSpec : Specification<UserInformation>
     {
-        public GetUserInformationForSearchSpec(Guid currentUserId, UserSetting setting, List<Guid>? nonSearchableUserIdList)
+        public UserInformationForSearchSpec(Guid currentUserId, UserSetting setting, List<Guid>? nonSearchableUserIdList)
         {
             if (nonSearchableUserIdList is null)
             {

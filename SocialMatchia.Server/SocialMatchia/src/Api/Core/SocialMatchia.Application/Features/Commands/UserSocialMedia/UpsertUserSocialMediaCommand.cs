@@ -25,7 +25,7 @@
                 throw new PropertyValidationException("Social Media required");
             }
 
-            var socialMedias = await _socialMediaRepository.ListAsync(new GetAllSocialMediaSpec(), cancellationToken);
+            var socialMedias = await _socialMediaRepository.ListAsync(new SocialMediaSpec(), cancellationToken);
 
             foreach (var socialMedia in socialMedias!)
             {
@@ -35,7 +35,7 @@
                 }
             }
 
-            var userSocialMedias = await _userSocialMedia.ListAsync(new GetUserSocialMediaSpec(_currentUser.Id), cancellationToken);
+            var userSocialMedias = await _userSocialMedia.ListAsync(new UserSocialMediaSpec(_currentUser.Id), cancellationToken);
 
             if (userSocialMedias.Count > 0)
             {

@@ -16,7 +16,7 @@
 
         public async Task<Result<List<CityResponse>>> Handle(CityQuery request, CancellationToken cancellationToken)
         {
-            var data = await _city.ListAsync(new GetCitiesByCountryIdSpec(request.CountryId));
+            var data = await _city.ListAsync(new CitiesByCountryIdSpec(request.CountryId));
             
             var response = data.Select(x => new CityResponse
             {

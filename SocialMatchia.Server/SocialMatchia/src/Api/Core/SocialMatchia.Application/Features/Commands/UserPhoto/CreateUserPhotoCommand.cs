@@ -36,7 +36,7 @@ namespace SocialMatchia.Application.Features.Commands
             var userPhotos = new List<UserPhoto>();
             var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "wwwroot", "Folders", "UserPhotos");
 
-            var userPhotoCount = await _userPhoto.CountAsync(new GetUserPhotosSpec(_currentUser.Id));
+            var userPhotoCount = await _userPhoto.CountAsync(new UserPhotoSpec(_currentUser.Id));
 
             foreach (var photo in request.Photos)
             {

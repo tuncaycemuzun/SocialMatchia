@@ -2,7 +2,7 @@
 
 namespace SocialMatchia.Domain.Models.Specifications
 {
-    public class GetAllSocialMediaSpec : Specification<SocialMedia>
+    public class SocialMediaSpec : Specification<SocialMedia>
     {
     }
 }

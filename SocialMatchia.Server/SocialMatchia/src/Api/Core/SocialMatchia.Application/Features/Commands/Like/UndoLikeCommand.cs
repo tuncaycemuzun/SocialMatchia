@@ -18,7 +18,7 @@
 
         public async Task<Result<bool>> Handle(UndoLikeCommand request, CancellationToken cancellationToken)
         {
-            var like = await _like.FirstOrDefaultAsync(new LikeGetSpec(_currentUser.Id, request.TargetUserId), cancellationToken);
+            var like = await _like.FirstOrDefaultAsync(new LikeSpec(_currentUser.Id, request.TargetUserId), cancellationToken);
 
             if (like is null) return Result.Success(true);
 
