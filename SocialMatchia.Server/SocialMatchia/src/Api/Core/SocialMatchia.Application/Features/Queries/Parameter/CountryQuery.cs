@@ -7,18 +7,13 @@ namespace SocialMatchia.Application.Features.Queries.Parameter
 
     }
 
-    public class CountryHandler : IRequestHandler<CountryQuery, Result<List<CountryResponse>>>
+    public class CountryHandler(IReadRepository<Country> country) : IRequestHandler<CountryQuery, Result<List<CountryResponse>>>
     {
-        private readonly IReadRepository<Country> _country;
-
-        public CountryHandler(IReadRepository<Country> country)
-        {
-            _country = country ?? throw new ArgumentNullException(nameof(country));
-        }
+        private readonly IReadRepository<Country> _country = country ?? throw new ArgumentNullException(nameof(country));
 
         public async Task<Result<List<CountryResponse>>> Handle(CountryQuery request, CancellationToken cancellationToken)
         {
-            var countries = await _country.ListAsync();
+            var countries = await _country.ListAsync(cancellationToken);
 
             var response = countries.Select(c => new CountryResponse
             {

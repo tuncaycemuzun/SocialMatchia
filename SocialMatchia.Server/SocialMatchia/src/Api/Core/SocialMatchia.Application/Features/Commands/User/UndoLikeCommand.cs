@@ -8,16 +8,11 @@ namespace SocialMatchia.Application.Features.Commands.User
         public Guid TargetUserId { get; set; }
     }
 
-    public class UndoLikeHandler : IRequestHandler<UndoLikeCommand, Result<bool>>
+    public class UndoLikeHandler(IRepository<Like> like, CurrentUser currentUser)
+        : IRequestHandler<UndoLikeCommand, Result<bool>>
     {
-        private readonly IRepository<Like> _like;
-        private readonly CurrentUser _currentUser;
-
-        public UndoLikeHandler(IRepository<Like> like, CurrentUser currentUser, IMediator mediator)
-        {
-            _like = like ?? throw new ArgumentNullException(nameof(like));
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-        }
+        private readonly IRepository<Like> _like = like ?? throw new ArgumentNullException(nameof(like));
+        private readonly CurrentUser _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
         public async Task<Result<bool>> Handle(UndoLikeCommand request, CancellationToken cancellationToken)
         {

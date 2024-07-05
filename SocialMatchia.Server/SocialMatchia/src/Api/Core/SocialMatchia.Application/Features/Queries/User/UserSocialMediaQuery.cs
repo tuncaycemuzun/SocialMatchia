@@ -7,16 +7,10 @@ namespace SocialMatchia.Application.Features.Queries.User
     {
     }
 
-    public class UserSocialMediaHandler : IRequestHandler<UserSocialMediaQuery, Result<List<UserSocialMediaResponse>>>
+    public class UserSocialMediaHandler(IReadRepository<UserSocialMedia> userSocialMedia, CurrentUser currentUser) : IRequestHandler<UserSocialMediaQuery, Result<List<UserSocialMediaResponse>>>
     {
-        private readonly IReadRepository<UserSocialMedia> _userSocialMedia;
-        private readonly CurrentUser _currentUser;
-
-        public UserSocialMediaHandler(IReadRepository<UserSocialMedia> userSocialMedia, CurrentUser currentUser)
-        {
-            _userSocialMedia = userSocialMedia ?? throw new ArgumentNullException(nameof(userSocialMedia));
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-        }
+        private readonly IReadRepository<UserSocialMedia> _userSocialMedia = userSocialMedia ?? throw new ArgumentNullException(nameof(userSocialMedia));
+        private readonly CurrentUser _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
         public async Task<Result<List<UserSocialMediaResponse>>> Handle(UserSocialMediaQuery request, CancellationToken cancellationToken)
         {

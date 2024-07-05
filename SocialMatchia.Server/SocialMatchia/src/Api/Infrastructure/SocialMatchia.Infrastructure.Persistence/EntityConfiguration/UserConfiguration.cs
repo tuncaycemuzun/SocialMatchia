@@ -9,6 +9,7 @@ namespace SocialMatchia.Infrastructure.Persistence.EntityConfiguration
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.Property(r => r.Id).ValueGeneratedOnAdd();
+            
             builder.ToTable("Users");
         }
     }

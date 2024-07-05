@@ -8,16 +8,10 @@ namespace SocialMatchia.Application.Features.Commands.User
         public required Guid TargetUserId { get; set; }
     }
 
-    public class CreateLikeHandler : IRequestHandler<CreateLikeCommand, Result<bool>>
+    public class CreateLikeHandler(IRepository<Like> like, CurrentUser currentUser) : IRequestHandler<CreateLikeCommand, Result<bool>>
     {
-        private readonly IRepository<Like> _like;
-        private readonly CurrentUser _currentUser;
-
-        public CreateLikeHandler(IRepository<Like> like, CurrentUser currentUser)
-        {
-            _like = like ?? throw new ArgumentNullException(nameof(like));
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-        }
+        private readonly IRepository<Like> _like = like ?? throw new ArgumentNullException(nameof(like));
+        private readonly CurrentUser _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
         public async Task<Result<bool>> Handle(CreateLikeCommand request, CancellationToken cancellationToken)
         {

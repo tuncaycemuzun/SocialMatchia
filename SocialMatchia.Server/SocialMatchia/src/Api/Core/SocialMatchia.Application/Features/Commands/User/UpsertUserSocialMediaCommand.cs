@@ -10,18 +10,14 @@ namespace SocialMatchia.Application.Features.Commands.User
         public required Dictionary<Guid, string> Values { get; set; }
     }
 
-    public class UpsertUserSocialMediaHandler : IRequestHandler<UpsertUserSocialMediaCommand, Result<bool>>
+    public class UpsertUserSocialMediaHandler(
+        IRepository<UserSocialMedia> userSocialMedia,
+        CurrentUser currentUser,
+        IReadRepository<SocialMedia> socialMediaRepository)
+        : IRequestHandler<UpsertUserSocialMediaCommand, Result<bool>>
     {
-        private readonly IRepository<UserSocialMedia> _userSocialMedia;
-        private readonly IReadRepository<SocialMedia> _socialMediaRepository;
-        private readonly CurrentUser _currentUser;
-
-        public UpsertUserSocialMediaHandler(IRepository<UserSocialMedia> userSocialMedia, CurrentUser currentUser, IReadRepository<SocialMedia> socialMediaRepository)
-        {
-            _userSocialMedia = userSocialMedia ?? throw new ArgumentNullException(nameof(userSocialMedia));
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-            _socialMediaRepository = socialMediaRepository;
-        }
+        private readonly IRepository<UserSocialMedia> _userSocialMedia = userSocialMedia ?? throw new ArgumentNullException(nameof(userSocialMedia));
+        private readonly CurrentUser _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
         public async Task<Result<bool>> Handle(UpsertUserSocialMediaCommand request, CancellationToken cancellationToken)
         {
@@ -30,7 +26,7 @@ namespace SocialMatchia.Application.Features.Commands.User
                 throw new PropertyValidationException("Social Media required");
             }
 
-            var socialMedias = await _socialMediaRepository.ListAsync(new SocialMediaSpec(), cancellationToken);
+            var socialMedias = await socialMediaRepository.ListAsync(new SocialMediaSpec(), cancellationToken);
 
             var socialMediaIds = socialMedias.Select(sm => sm.Id).ToList();
 
@@ -81,7 +77,7 @@ namespace SocialMatchia.Application.Features.Commands.User
                     });
                 }
 
-                await _userSocialMedia.AddRangeAsync(userSocialMedia);
+                await _userSocialMedia.AddRangeAsync(userSocialMedia, cancellationToken);
             }
 
             await _userSocialMedia.SaveChangesAsync(cancellationToken);

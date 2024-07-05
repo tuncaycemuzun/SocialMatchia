@@ -15,6 +15,8 @@ using SocialMatchia.Infrastructure.Persistence.Extensions;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using MediatR;
+using SocialMatchia.Application.Features.Commands.User;
 
 var builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -116,3 +118,4 @@ app.UseMiddleware<CurrentUserMiddleware>();
 app.MapControllers();
 
 app.Run();
+

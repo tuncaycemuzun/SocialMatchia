@@ -16,9 +16,13 @@ namespace SocialMatchia.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CityResponse>>> CityAsync()
+        [Route("{countryId}")]
+        public async Task<ActionResult<List<CityResponse>>> CityAsync([FromRoute] Guid countryId)
         {
-            var response = await _mediator.Send(new CityQuery());
+            var response = await _mediator.Send(new CityQuery
+            {
+                CountryId = countryId
+            });
             return this.ToActionResult(response);
         }
 

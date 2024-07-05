@@ -6,18 +6,13 @@ namespace SocialMatchia.Application.Features.Queries.Parameter
     {
     }
 
-    public class GenderHandler : IRequestHandler<GenderQuery, Result<List<GenderResponse>>>
+    public class GenderHandler(IReadRepository<Gender> gender) : IRequestHandler<GenderQuery, Result<List<GenderResponse>>>
     {
-        private readonly IReadRepository<Gender> _gender;
-
-        public GenderHandler(IReadRepository<Gender> gender)
-        {
-            _gender = gender ?? throw new ArgumentNullException(nameof(gender));
-        }
+        private readonly IReadRepository<Gender> _gender = gender ?? throw new ArgumentNullException(nameof(gender));
 
         public async Task<Result<List<GenderResponse>>> Handle(GenderQuery request, CancellationToken cancellationToken)
         {
-            var genders = await _gender.ListAsync();
+            var genders = await _gender.ListAsync(cancellationToken);
 
             var response = genders.Select(x => new GenderResponse
             {

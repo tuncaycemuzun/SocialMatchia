@@ -10,18 +10,15 @@ namespace SocialMatchia.Application.Features.Commands.User
         public required List<string> Photos { get; set; }
     }
 
-    public class CreateUserPhotoHandler : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
+    public class CreateUserPhotoHandler(
+        IRepository<UserPhoto> userPhoto,
+        IHostEnvironment hostEnvironment,
+        CurrentUser currentUser)
+        : IRequestHandler<CreateUserPhotoCommand, Result<bool>>
     {
-        private readonly IRepository<UserPhoto> _userPhoto;
-        private readonly IHostEnvironment _hostEnvironment;
-        private readonly CurrentUser _currentUser;
-
-        public CreateUserPhotoHandler(IRepository<UserPhoto> userPhoto, IHostEnvironment hostEnvironment, CurrentUser currentUser)
-        {
-            _userPhoto = userPhoto ?? throw new ArgumentNullException(nameof(userPhoto));
-            _hostEnvironment = hostEnvironment ?? throw new ArgumentNullException(nameof(hostEnvironment));
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-        }
+        private readonly IRepository<UserPhoto> _userPhoto = userPhoto ?? throw new ArgumentNullException(nameof(userPhoto));
+        private readonly IHostEnvironment _hostEnvironment = hostEnvironment ?? throw new ArgumentNullException(nameof(hostEnvironment));
+        private readonly CurrentUser _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
         public async Task<Result<bool>> Handle(CreateUserPhotoCommand request, CancellationToken cancellationToken)
         {
@@ -38,7 +35,7 @@ namespace SocialMatchia.Application.Features.Commands.User
             var userPhotos = new List<UserPhoto>();
             var hostEnvironmentPath = string.Join("/", _hostEnvironment.ContentRootPath + "/wwwroot", "Folders", "UserPhotos");
 
-            var userPhotoCount = await _userPhoto.CountAsync(new UserPhotosSpec(_currentUser.Id));
+            var userPhotoCount = await _userPhoto.CountAsync(new UserPhotosSpec(_currentUser.Id), cancellationToken);
 
             foreach (var photo in request.Photos)
             {

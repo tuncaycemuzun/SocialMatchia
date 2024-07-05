@@ -24,8 +24,6 @@ public class CurrentUserMiddleware
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-                var signInManager = scope.ServiceProvider.GetRequiredService<SignInManager<User>>();
-                var userInformation = scope.ServiceProvider.GetRequiredService<IReadRepository<UserInformation>>();
 
                 var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var currentUser = context.RequestServices.GetRequiredService<CurrentUser>();
@@ -35,33 +33,39 @@ public class CurrentUserMiddleware
                     currentUser.Id = new Guid(userId);
                 }
 
-                var hasUserInfo = context.User.FindFirstValue("HasUserInfo");
+                //var hasUserInfo = context.User.FindFirstValue("HasUserInfo");
 
-                if (hasUserInfo is null)
-                {
-                    var hasUserInfoInTable = await userInformation.AnyAsync(new UserInformationByUserIdSpec(currentUser.Id));
+                //if (hasUserInfo is null)
+                //{
+                //    var hasUserInfoInTable = await userInformation.AnyAsync(new UserInformationByUserIdSpec(currentUser.Id));
 
-                    if (hasUserInfoInTable == false)
-                    {
-                        var hasUserInformationUpdateRoute = context.Request.Path.Value?.Contains("information", StringComparison.OrdinalIgnoreCase);
-                        var method = context.Request.Method;
+                //    if (hasUserInfoInTable == false)
+                //    {
+                //        var hasUserInformationUpdateRoute = context.Request.Path.Value?.Contains("information", StringComparison.OrdinalIgnoreCase);
+                //        var method = context.Request.Method;
 
-                        if (hasUserInformationUpdateRoute != true && method != "PUT")
-                        {
-                            throw new NotFoundException("Hesap bilgilerinizi düzenlemeniz gerekmektedir");
-                        }
-                    }
-                    else
-                    {
-                        var user = await userManager.FindByIdAsync(currentUserId.ToString());
-                        if (user is not null)
-                        {
-                            await userManager.AddClaimAsync(user, new Claim("HasUserInfo", "true"));
-                            var identity = (ClaimsIdentity)context.User.Identity!;
-                            identity.AddClaim(new Claim("HasUserInfo", "true"));
-                        }
-                    }
-                }
+                //        if (hasUserInformationUpdateRoute != true && method != "PUT")
+                //        {
+                //            throw new NotFoundException("Hesap bilgilerinizi düzenlemeniz gerekmektedir");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        var user = await userManager.FindByIdAsync(currentUserId.ToString());
+                //        if (user is not null)
+                //        {
+                //            var claims = await userManager.GetClaimsAsync(user);
+
+                //            if (!claims.Any(x => x.Type == "HasUserInfo"))
+                //            {
+                //                await userManager.AddClaimAsync(user, new Claim("HasUserInfo", "true"));
+                //                var identity = (ClaimsIdentity)context.User.Identity!;
+                //                identity.AddClaim(new Claim("HasUserInfo", "true"));
+                //                context.User.Claims.Append(new Claim("HasUserInfo", "true"));
+                //            }
+                //        }
+                //    }
+                //}
             }
         }
 

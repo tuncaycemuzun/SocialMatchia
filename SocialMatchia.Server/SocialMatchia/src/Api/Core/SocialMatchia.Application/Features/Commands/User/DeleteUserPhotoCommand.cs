@@ -8,16 +8,11 @@ namespace SocialMatchia.Application.Features.Commands.User
         public required Guid Id { get; set; }
     }
 
-    public class DeleteUserPhotoHandler : IRequestHandler<DeleteUserPhotoCommand, Result<bool>>
+    public class DeleteUserPhotoHandler(IRepository<UserPhoto> userPhoto, CurrentUser currentUser)
+        : IRequestHandler<DeleteUserPhotoCommand, Result<bool>>
     {
-        private readonly IRepository<UserPhoto> _userPhoto;
-        private readonly CurrentUser _currentUser;
-
-        public DeleteUserPhotoHandler(IRepository<UserPhoto> userPhoto, CurrentUser currentUser)
-        {
-            _userPhoto = userPhoto ?? throw new ArgumentNullException(nameof(userPhoto));
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-        }
+        private readonly IRepository<UserPhoto> _userPhoto = userPhoto ?? throw new ArgumentNullException(nameof(userPhoto));
+        private readonly CurrentUser _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
         public async Task<Result<bool>> Handle(DeleteUserPhotoCommand request, CancellationToken cancellationToken)
         {

@@ -7,16 +7,10 @@ namespace SocialMatchia.Application.Features.Queries.User
     {
 
     }
-    public class UserSettingHandler : IRequestHandler<UserSettingQuery, Result<UserSettingResponse>>
+    public class UserSettingHandler(IReadRepository<UserSetting> userSetting, CurrentUser currentUser) : IRequestHandler<UserSettingQuery, Result<UserSettingResponse>>
     {
-        private readonly IReadRepository<UserSetting> _userSetting;
-        private readonly CurrentUser _currentUser;
-
-        public UserSettingHandler(IReadRepository<UserSetting> userSetting, CurrentUser currentUser)
-        {
-            _userSetting = userSetting ?? throw new ArgumentNullException(nameof(userSetting));
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-        }
+        private readonly IReadRepository<UserSetting> _userSetting = userSetting ?? throw new ArgumentNullException(nameof(userSetting));
+        private readonly CurrentUser _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
         public async Task<Result<UserSettingResponse>> Handle(UserSettingQuery request, CancellationToken cancellationToken)
         {

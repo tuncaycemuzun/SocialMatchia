@@ -1,27 +1,20 @@
-﻿using SocialMatchia.Domain.Models.UserModel;
-using SocialMatchia.Domain.Models.UserModel.Specification;
+﻿using SocialMatchia.Domain.Models.UserModel.Specification;
 
 namespace SocialMatchia.Application.Features.Queries.User
 {
     public class UserInformationQuery : IRequest<Result<UserInformationResponse>>
     {
-
+        public Guid? UserId { get; set; }
     }
 
-    public class UserInformationHandler : IRequestHandler<UserInformationQuery, Result<UserInformationResponse>>
+    public class UserInformationHandler(IReadRepository<Domain.Models.UserModel.User> user, CurrentUser currentUser) : IRequestHandler<UserInformationQuery, Result<UserInformationResponse>>
     {
-        private readonly IReadRepository<UserInformation> _userInformation;
-        private readonly CurrentUser _currentUser;
-
-        public UserInformationHandler(IReadRepository<UserInformation> userInformation, CurrentUser currentUser)
-        {
-            _userInformation = userInformation ?? throw new ArgumentNullException(nameof(userInformation));
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-        }
+        private readonly IReadRepository<Domain.Models.UserModel.User> _user = user ?? throw new ArgumentNullException(nameof(user));
+        private readonly CurrentUser _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
         public async Task<Result<UserInformationResponse>> Handle(UserInformationQuery request, CancellationToken cancellationToken)
         {
-            var userInformation = await _userInformation.FirstOrDefaultAsync(new UserInformationByUserIdSpec(_currentUser.Id), cancellationToken);
+            var userInformation = await _user.FirstOrDefaultAsync(new UserInformationByUserIdSpec(request.UserId ?? _currentUser.Id), cancellationToken);
 
             if (userInformation is null)
             {
@@ -30,14 +23,14 @@ namespace SocialMatchia.Application.Features.Queries.User
 
             var response = new UserInformationResponse
             {
-                UserId = userInformation.UserId,
-                CityId = userInformation.CityId,
-                Bio = userInformation.Bio,
-                Website = userInformation.Website,
-                GenderId = userInformation.GenderId,
+                UserId = userInformation.Id,
+                CityId = userInformation.CityId!.Value,
+                Bio = userInformation.Bio!,
+                Website = userInformation.Website!,
+                GenderId = userInformation.GenderId!.Value,
                 BirthDate = userInformation.BirthDate,
-                FirstName = userInformation.FirstName,
-                LastName = userInformation.LastName,
+                FirstName = userInformation.FirstName!,
+                LastName = userInformation.LastName!,
                 CityName = userInformation.City.Name,
                 GenderName = userInformation.Gender.Name
             };

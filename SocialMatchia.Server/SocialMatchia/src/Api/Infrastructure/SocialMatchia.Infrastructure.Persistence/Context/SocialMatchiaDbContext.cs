@@ -25,7 +25,6 @@ public class SocialMatchiaDbContext : IdentityDbContext<User, IdentityRole<Guid>
     public DbSet<Country> Countries { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Town> Towns { get; set; }
-    public DbSet<UserInformation> UserInformations { get; set; }
     public DbSet<Gender> Genders { get; set; }
     public DbSet<Like> Likes { get; set; }
     public DbSet<UserSetting> UserSettings { get; set; }
@@ -33,7 +32,7 @@ public class SocialMatchiaDbContext : IdentityDbContext<User, IdentityRole<Guid>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
+        
         builder.ApplyConfigurationsFromAssembly(typeof(SocialMatchiaDbContext).Assembly);
 
         builder.Seed();

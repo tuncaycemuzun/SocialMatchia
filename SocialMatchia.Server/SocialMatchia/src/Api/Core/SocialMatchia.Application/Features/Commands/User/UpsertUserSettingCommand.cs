@@ -11,16 +11,10 @@ namespace SocialMatchia.Application.Features.Commands.User
         public Guid GenderId { get; set; }
     }
 
-    public class UpsertUserSettingHandler : IRequestHandler<UpsertUserSettingCommand, Result<bool>>
+    public class UpsertUserSettingHandler(IRepository<UserSetting> userSetting, CurrentUser currentUser) : IRequestHandler<UpsertUserSettingCommand, Result<bool>>
     {
-        private readonly IRepository<UserSetting> _userSetting;
-        private readonly CurrentUser _currentUser;
-
-        public UpsertUserSettingHandler(IRepository<UserSetting> userSetting, CurrentUser currentUser)
-        {
-            _userSetting = userSetting ?? throw new ArgumentNullException(nameof(_userSetting));
-            _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
-        }
+        private readonly IRepository<UserSetting> _userSetting = userSetting ?? throw new ArgumentNullException(nameof(userSetting));
+        private readonly CurrentUser _currentUser = currentUser ?? throw new ArgumentNullException(nameof(currentUser));
 
         public async Task<Result<bool>> Handle(UpsertUserSettingCommand request, CancellationToken cancellationToken)
         {

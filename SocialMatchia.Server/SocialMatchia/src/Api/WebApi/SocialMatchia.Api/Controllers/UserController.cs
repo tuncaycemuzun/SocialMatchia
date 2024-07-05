@@ -1,5 +1,6 @@
 ﻿using Ardalis.Result.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialMatchia.Application.Features.Commands.User;
 using SocialMatchia.Application.Features.Queries.User;
@@ -15,10 +16,29 @@ namespace SocialMatchia.Api.Controllers
             _mediator = mediator;
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult<bool>> RegisterAsync([FromBody] CreateUserCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return this.ToActionResult(response);
+        }
+
         [HttpGet]
         public async Task<ActionResult<UserInformationResponse>> InformationAsync()
         {
             var response = await _mediator.Send(new UserInformationQuery());
+            return this.ToActionResult(response);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<UserInformationResponse>> InformationAsync([FromRoute] Guid id)
+        {
+            var response = await _mediator.Send(new UserInformationQuery
+            {
+                UserId = id
+            });
             return this.ToActionResult(response);
         }
 
