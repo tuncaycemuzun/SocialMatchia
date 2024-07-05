@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
     width: '20%',
     height: 300,
     resizeMode: 'cover',
-    opacity: 0.5,
     borderRadius: 10
   },
   title: {

@@ -11,7 +11,8 @@ export default function Router() {
 		<NavigationContainer>
 			<Stack.Navigator
 				screenOptions={{
-					headerShown: false
+					headerShown: false,
+					animation: 'slide_from_right',
 				}}
 				initialRouteName='Onboard'>
 				<Stack.Screen name="SignUp" component={SignUp} />
