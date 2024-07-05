@@ -42,6 +42,7 @@ const data = [
   }
 ];
 
+
 const Onboard = ({ navigation }: any) => {
   const [currentStep, setCurrentStep] = useState(0);
   const swiperRef = useRef<Swiper>(null);
@@ -80,7 +81,7 @@ const Onboard = ({ navigation }: any) => {
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
             <TouchableOpacity style={styles.button} onPress={handleNext}>
-              <Text style={styles.buttonText}>Next</Text>
+              <Text style={styles.buttonText}>{data.length == i + 1 ? 'Create an account' : 'Next'}</Text>
             </TouchableOpacity>
           </View>
         ))}
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    gap:15
+    gap: 15
   },
   image: {
     width: '70%',
