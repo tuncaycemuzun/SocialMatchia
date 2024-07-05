@@ -26,13 +26,13 @@ const SignUp = () => {
         </View>
         <View style={styles.providers}>
           <View style={styles.provider}>
-            <FontAwesomeIcon icon={faFacebook} size={30} color={colors.facebook} />
+            <FontAwesomeIcon icon={faFacebook} size={30} color={colors.red} />
           </View>
           <View style={styles.provider}>
-            <FontAwesomeIcon icon={faGoogle} size={30} color={colors.google} />
+            <FontAwesomeIcon icon={faGoogle} size={30} color={colors.red} />
           </View>
           <View style={styles.provider}>
-            <FontAwesomeIcon icon={faAppStore} size={30} color={colors.apple} />
+            <FontAwesomeIcon icon={faAppStore} size={30} color={colors.red} />
           </View>
         </View>
         <View style={styles.bottomContainer}>
