@@ -1,7 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
+
 import { colors } from '../utils';
+import { Button } from '../components';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
 
 export enum OnboardSteps {
   Algorithm = 'ALGORITHM',
@@ -44,7 +47,11 @@ const data = [
 ];
 
 
-const Onboard = ({ navigation }: any) => {
+interface OnboardProps {
+  navigation: NavigationProp<ParamListBase>;
+}
+
+const Onboard = ({ navigation }: OnboardProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const swiperRef = useRef<Swiper>(null);
 
@@ -81,15 +88,15 @@ const Onboard = ({ navigation }: any) => {
             </View>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
-            <TouchableOpacity style={styles.button} onPress={handleNext}>
+            <Button style={styles.button} onPress={handleNext}>
               <Text style={styles.buttonText}>{data.length == i + 1 ? 'Create an account' : 'Next'}</Text>
-            </TouchableOpacity>
+            </Button>
           </View>
         ))}
       </Swiper>
-      <TouchableOpacity style={styles.signIn} onPress={() => navigation.navigate('SignIn')}>
+      <Button style={styles.signIn} onPress={() => navigation.navigate('SignIn')}>
         <Text style={styles.signInText}>Already have an account? <Text style={styles.signInLink}>Sign In</Text></Text>
-      </TouchableOpacity>
+      </Button>
     </View>
   );
 };

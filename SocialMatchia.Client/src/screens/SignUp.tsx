@@ -1,24 +1,27 @@
 import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import { NavigationProp, ParamListBase } from '@react-navigation/native'
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faFacebook, faGoogle, faAppStore } from '@fortawesome/free-brands-svg-icons'
 
 import { colors } from '../utils'
+import { Button } from '../components'
 
-const SignUp = () => {
+interface SignUpProps {
+  navigation: NavigationProp<ParamListBase>;
+}
 
-
-  const navigation = useNavigation()
+const SignUp = ({ navigation }: SignUpProps) => {
+  console.log(typeof (navigation))
   return (
     <View style={styles.container}>
       <View style={styles.signUpInfoContainer}>
         <Image style={styles.logo} source={require('../assets/images/logo.png')}></Image>
         <Text style={styles.boldText}>Sign up to continue</Text>
-        <TouchableOpacity style={styles.button}>
+        <Button style={styles.button}>
           <Text style={styles.buttonText}>Continue with email</Text>
-        </TouchableOpacity>
+        </Button>
       </View>
       <View style={styles.otherInfoContainer}>
         <View style={styles.otherOptionContainer}>
@@ -36,12 +39,12 @@ const SignUp = () => {
           </View>
         </View>
         <View style={styles.bottomContainer}>
-          <TouchableOpacity>
+          <Button>
             <Text style={styles.bottomText}>Term of use</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
+          </Button>
+          <Button>
             <Text style={styles.bottomText}>Privacy Policy</Text>
-          </TouchableOpacity>
+          </Button>
         </View>
       </View>
     </View>
