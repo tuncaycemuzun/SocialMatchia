@@ -9,17 +9,6 @@ const globalStyles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal:20
   },
-  textColor: {
-    color: "black",
-  },
-  textInput: {
-    borderWidth: 1,
-    borderColor: colors.frenchGray,
-    padding: 14,
-    width: "100%",
-    borderRadius: 10,
-    color:colors.black,
-  }
 });
 
 export default globalStyles;

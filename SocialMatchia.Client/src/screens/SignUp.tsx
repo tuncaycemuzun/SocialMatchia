@@ -13,7 +13,6 @@ interface SignUpProps {
 }
 
 const SignUp = ({ navigation }: SignUpProps) => {
-  console.log(typeof (navigation))
   return (
     <View style={styles.container}>
       <View style={styles.signUpInfoContainer}>
@@ -21,6 +20,9 @@ const SignUp = ({ navigation }: SignUpProps) => {
         <Text style={styles.boldText}>Sign up to continue</Text>
         <Button style={styles.button}>
           <Text style={styles.buttonText}>Continue with email</Text>
+        </Button>
+        <Button style={styles.signIn} onPress={() => navigation.navigate('SignIn')}>
+          <Text style={styles.signInText}> Don't have an account? <Text style={styles.signInLink}>Sign In</Text></Text>
         </Button>
       </View>
       <View style={styles.otherInfoContainer}>
@@ -126,7 +128,19 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     color: colors.red
-  }
+  },
+  signIn: {
+    left: 0,
+    right: 0,
+    alignItems: 'center'
+  },
+  signInText: {
+    fontSize: 14
+  },
+  signInLink: {
+    color: colors.red,
+    fontWeight: 'bold'
+  },
 })
 
 export default SignUp
