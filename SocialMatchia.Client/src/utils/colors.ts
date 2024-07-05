@@ -1,10 +1,12 @@
 const colors = {
-  ghostWhite: '#f5f6fb',
-  frenchGray: '#bcbfce',
-  midnightBlue: '#342e76',
-  royalBlue: '#4582E5',
-  ultraViolet: '#555574',
-  black: '#000000',
+  red: '#ff5252',
+  lightGray: '#d3d3d3',
+  white: '#ffffff',
+
+
+  facebook: '#3b5998',
+  google: '#db4437',
+  apple: '#000000' 
 }
 
 export default colors;

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
+import { colors } from '../utils';
 
 export enum OnboardSteps {
   Algorithm = 'ALGORITHM',
@@ -96,6 +97,7 @@ const Onboard = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.white
   },
   slide: {
     paddingTop: 50,
@@ -136,13 +138,13 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   button: {
-    backgroundColor: '#ff5252',
+    backgroundColor: colors.red,
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5
   },
   buttonText: {
-    color: 'white'
+    color: colors.white
   },
   signIn: {
     position: 'absolute',
@@ -155,21 +157,21 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   signInLink: {
-    color: '#ff5252',
+    color: colors.red,
     fontWeight: 'bold'
   },
   pagination: {
     bottom: 60
   },
   activeDot: {
-    backgroundColor: '#ff5252',
+    backgroundColor: colors.red,
     width: 8,
     height: 8,
     borderRadius: 4,
     margin: 3
   },
   dot: {
-    backgroundColor: '#d3d3d3',
+    backgroundColor: colors.lightGray,
     width: 8,
     height: 8,
     borderRadius: 4,
