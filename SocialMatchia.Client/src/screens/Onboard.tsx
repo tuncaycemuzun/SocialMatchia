@@ -55,7 +55,7 @@ const Onboard = ({ navigation }: any) => {
     if (swiperRef.current && currentStep < data.length - 1) {
       swiperRef.current.scrollBy(1);
     } else if (currentStep === data.length - 1) {
-      console.log('form ekranına yönlendir');
+      navigation.navigate('SignUp');
     }
   };
 
