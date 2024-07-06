@@ -6,8 +6,8 @@ import Modal from 'react-native-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
-import { Button } from '@components';
 import { Colors } from '@utils';
+import { Button } from 'react-native-paper';
 
 interface ChoosePhotoModalProps {
   isModalVisible: boolean;
@@ -48,12 +48,12 @@ const ChoosePhotoModal = ({ isModalVisible, setModalVisible }: ChoosePhotoModalP
       <View style={styles.modal}>
         <View style={styles.modalHeader}>
           <Text style={styles.subTitle}>Choose an option</Text>
-          <Button style={styles.modalClose} onPress={toggleModal}>
+          <Button style={styles.modalClose} onPress={()=>toggleModal()}>
             <FontAwesomeIcon icon={faClose}></FontAwesomeIcon>
           </Button>
         </View>
         <View style={styles.cameraActions}>
-          <Button style={styles.cameraActionItem} onPress={handleTakePhoto}><Text style={{ color: Colors.red.main, fontWeight: 'bold' }}>Take photo</Text></Button>
+          <Button style={styles.cameraActionItem} onPress={()=>handleTakePhoto()}><Text style={{ color: Colors.red.main, fontWeight: 'bold' }}>Take photo</Text></Button>
           <Button style={[styles.cameraActionItem, { borderStyle: 'dashed', borderWidth: 2, borderColor: Colors.red.main }]} onPress={handleChooseFromLibrary}><Text style={{ color: Colors.red.main, fontWeight: 'bold' }}>Choose from library</Text></Button>
         </View>
       </View>
@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
   modalClose: {
     borderWidth: 1,
     borderColor: Colors.lightGray,
-    padding: 5,
-    borderRadius: 10
+    borderRadius: 10,
+    width: 20,
   },
   cameraActions: {
     flexDirection: 'column',

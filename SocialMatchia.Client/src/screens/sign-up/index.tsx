@@ -134,7 +134,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   signInText: {
-    fontSize: 14
+    fontSize: 14,
+    color: Colors.black
   },
   signInLink: {
     color: Colors.red.main,

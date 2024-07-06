@@ -21,7 +21,7 @@ const EmailSignUp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 40,
+    padding: 30,
     backgroundColor: Colors.white
   }
 })

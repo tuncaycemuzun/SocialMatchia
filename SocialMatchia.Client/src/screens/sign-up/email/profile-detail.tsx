@@ -1,13 +1,14 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useWizard } from 'react-use-wizard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCamera, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Button, TextInput } from 'react-native-paper';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 import { ChoosePhotoModal } from '@components';
 import { Colors } from '@utils';
-import { Button } from 'react-native-paper';
-
 
 const ProfileDetail = () => {
   const { nextStep } = useWizard();
@@ -16,69 +17,119 @@ const ProfileDetail = () => {
   const toggleModal = () => {
     setModalVisible(prevState => !prevState);
   };
+
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required('First name is required'),
+    lastName: Yup.string().required('Last name is required'),
+    birthday: Yup.string().required('Birthday date is required'),
+  });
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Profile details</Text>
-      <View style={styles.photoContainer}>
-        <Button style={styles.photo} onPress={()=>toggleModal()}>
-          <FontAwesomeIcon icon={faPlus} size={30} color={Colors.lightGray} />
-          <View style={styles.camera}>
-            <FontAwesomeIcon icon={faCamera} size={15} color={Colors.white} />
+      <TouchableOpacity style={styles.photoContainer} onPress={toggleModal}>
+        <FontAwesomeIcon icon={faPlus} size={30} color={Colors.lightGray} />
+      </TouchableOpacity>
+      <Formik
+        initialValues={{ firstName: '', lastName: '', birthday: '' }}
+        validationSchema={validationSchema}
+        onSubmit={(values) => {
+          console.log(values);
+          nextStep();
+        }}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+          <View style={{ flex: 3, gap: 20, width: '100%' }}>
+            <TextInput
+              mode='outlined'
+              label="First name"
+              onChangeText={handleChange('firstName')}
+              onBlur={handleBlur('firstName')}
+              value={values.firstName}
+            />
+            {touched.firstName && errors.firstName && <Text style={styles.error}>{errors.firstName}</Text>}
+            <TextInput
+              mode='outlined'
+              label="Last name"
+              onChangeText={handleChange('lastName')}
+              onBlur={handleBlur('lastName')}
+              value={values.lastName}
+            />
+            {touched.lastName && errors.lastName && <Text style={styles.error}>{errors.lastName}</Text>}
+            <TouchableOpacity onPress={() => { /* Date picker logic */ }}>
+              <View style={styles.dateButton}>
+                <FontAwesomeIcon icon={faCalendar} size={20} color={Colors.red.main} />
+                <Text style={styles.dateButtonText}>Choose birthday date</Text>
+              </View>
+            </TouchableOpacity>
+            {touched.birthday && errors.birthday && <Text style={styles.error}>{errors.birthday}</Text>}
+            <Button mode="contained" style={styles.confirmButton} onPress={() => handleSubmit()}>
+              <Text style={styles.buttonText}>Confirm</Text>
+            </Button>
           </View>
-        </Button>
-      </View>
-      <View style={styles.personnelInfo}>
-        
-      </View>
-      <Button onPress={()=>nextStep()}><Text>Next</Text></Button>
+        )}
+      </Formik>
       <ChoosePhotoModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap:40,
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    gap: 20
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
   },
   photoContainer: {
-    width: '100%',
-    height: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    position: 'relative'
-  },
-  photo: {
-    width: 100,
-    height: 100,
-    borderRadius: 30,
-    backgroundColor: Colors.white,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderWidth: 2,
     borderColor: Colors.lightGray,
+    borderRadius: 10,
+    width: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
   },
-  camera: {
-    position: 'absolute',
-    bottom: -5,
-    right: -5,
+  input: {
+    height: 50,
+    width: '100%',
+    borderColor: Colors.lightGray,
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  dateButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.white,
+    borderColor: Colors.red.main,
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+  },
+  dateButtonText: {
+    color: Colors.red.main,
+    marginLeft: 10,
+  },
+  confirmButton: {
     backgroundColor: Colors.red.main,
-    padding: 8,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: Colors.white
+    borderRadius: 10,
+    paddingVertical: 10,
   },
-  personnelInfo:{
-    flex:1,
-    backgroundColor:'red'
-  }
-})
+  buttonText: {
+    color: Colors.white,
+    fontWeight: 'bold',
+  },
+  error: {
+    color: 'red',
+    fontSize: 12,
+  },
+});
 
-ProfileDetail.displayName = "ProfileDetail"
-export default ProfileDetail
+ProfileDetail.displayName = "ProfileDetail";
+export default ProfileDetail;
