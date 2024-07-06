@@ -23,7 +23,8 @@
     "react-native-screens": "^3.32.0",
     "react-native-svg": "^14.1.0",
     "react-native-swipe-gestures": "^1.0.5",
-    "react-native-swiper": "^1.6.0"
+    "react-native-swiper": "^1.6.0",
+    "react-native-toast-message": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
