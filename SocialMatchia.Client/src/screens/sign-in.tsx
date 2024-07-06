@@ -2,11 +2,12 @@ import React from 'react';
 import { Image, KeyboardAvoidingView, Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
-import { TextInput, Button } from 'react-native-paper';
+import { Button, Icon } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { Colors } from '@utils';
+import { TextInput } from '@components';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -57,12 +58,6 @@ const SignIn = () => {
                 onBlur={handleBlur('password')}
                 value={values.password}
                 error={touched.password && !!errors.password}
-                right={
-                  <TextInput.Icon
-                    icon={isPasswordVisible ? "eye-off" : "eye"}
-                    onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-                  />
-                }
               />
               {touched.password && errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
               <Button style={styles.button} onPress={() => handleSubmit()}>

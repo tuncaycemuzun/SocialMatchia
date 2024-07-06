@@ -3,11 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useWizard } from 'react-use-wizard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCalendar, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Button, TextInput } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { ChoosePhotoModal } from '@components';
+import { ChoosePhotoModal, TextInput } from '@components';
 import { Colors } from '@utils';
 
 const ProfileDetail = () => {
@@ -41,7 +41,6 @@ const ProfileDetail = () => {
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
           <View style={{ flex: 3, gap: 20, width: '100%' }}>
             <TextInput
-              mode='outlined'
               label="First name"
               onChangeText={handleChange('firstName')}
               onBlur={handleBlur('firstName')}
@@ -49,7 +48,6 @@ const ProfileDetail = () => {
             />
             {touched.firstName && errors.firstName && <Text style={styles.error}>{errors.firstName}</Text>}
             <TextInput
-              mode='outlined'
               label="Last name"
               onChangeText={handleChange('lastName')}
               onBlur={handleBlur('lastName')}
