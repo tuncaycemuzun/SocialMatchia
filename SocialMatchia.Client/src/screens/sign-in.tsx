@@ -1,20 +1,17 @@
 import React from 'react'
-import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native'
-import { NavigationProp, ParamListBase } from '@react-navigation/native'
+import { Image, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, View } from 'react-native'
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-import { Colors } from '../utils';
-import { Button } from '../components';
+import { Colors } from '@utils';
+import { Button } from '@components';
 import Toast from 'react-native-toast-message';
 
-interface SignInProps {
-  navigation: NavigationProp<ParamListBase>;
-}
-
-const SignIn = ({ navigation }: SignInProps) => {
+const SignIn = () => {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(true)
-
+  const navigation = useNavigation<NavigationProp<ParamListBase>>()
+  
   const handleClick = () => {
     console.log("test")
     Toast.show({
@@ -28,7 +25,7 @@ const SignIn = ({ navigation }: SignInProps) => {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Image style={styles.logo} source={require('../assets/images/logo.png')}></Image>
+        <Image style={styles.logo} source={require('@assets/images/logo.png')}></Image>
         <Text style={styles.boldText}>Sign in to continue</Text>
         <View style={styles.inputContainer}>
           <TextInput placeholder="Email" style={styles.input}></TextInput>
