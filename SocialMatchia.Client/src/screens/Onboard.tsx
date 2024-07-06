@@ -1,12 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
+
 import Swiper from 'react-native-swiper';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
-import { Colors } from '../utils';
-import { Button } from '../components';
-import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { Colors } from '@utils';
+import { Button } from '@components';
 
-export enum OnboardSteps {
+enum OnboardSteps {
   Algorithm = 'ALGORITHM',
   Matches = 'MATCHES',
   Premium = 'PREMIUM'
@@ -46,14 +47,10 @@ const data = [
   }
 ];
 
-
-interface OnboardProps {
-  navigation: NavigationProp<ParamListBase>;
-}
-
-const Onboard = ({ navigation }: OnboardProps) => {
+const Onboard = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const swiperRef = useRef<Swiper>(null);
+  const navigation = useNavigation<NavigationProp<ParamListBase>>()
 
   const onIndexChanged = (index: number) => {
     setCurrentStep(index);
