@@ -13,6 +13,7 @@ module.exports = {
           '@services': './src/services'
         }
       }
-    ]
+    ],
+    'react-native-paper/babel'
   ]
 };

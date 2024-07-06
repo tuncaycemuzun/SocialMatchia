@@ -26,6 +26,9 @@ const ProfileDetail = () => {
           </View>
         </Button>
       </View>
+      <View style={styles.personnelInfo}>
+        
+      </View>
       <Button onPress={nextStep}><Text>Next</Text></Button>
       <ChoosePhotoModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
     </View>
@@ -34,7 +37,8 @@ const ProfileDetail = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    gap:40,
   },
   title: {
     fontSize: 24,
@@ -69,6 +73,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.white
   },
+  personnelInfo:{
+    flex:1,
+    backgroundColor:'red'
+  }
 })
 
 ProfileDetail.displayName = "ProfileDetail"
