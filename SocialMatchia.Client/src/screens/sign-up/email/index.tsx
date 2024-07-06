@@ -7,8 +7,8 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Modal from "react-native-modal";
 import { Wizard, useWizard } from 'react-use-wizard';
 
-import { Button } from '../../../components';
-import { Colors } from '../../../utils';
+import { Button } from '@components';
+import { Colors } from '@utils';
 
 const EmailSignUp = () => {
   return (
