@@ -1,16 +1,16 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import { Button } from 'react-native-paper';
 
 import { useWizard } from 'react-use-wizard';
 
-import { Button } from '@components';
 
 const Gender = () => {
   const { nextStep } = useWizard();
   return (
     <View>
       <Text>Gender</Text>
-      <Button onPress={nextStep}><Text>Next</Text></Button>
+      <Button onPress={()=>nextStep()}><Text>Next</Text></Button>
     </View>
   )
 }

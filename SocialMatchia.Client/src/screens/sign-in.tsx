@@ -1,15 +1,12 @@
 import React from 'react';
 import { Image, KeyboardAvoidingView, Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Toast from 'react-native-toast-message';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { Colors } from '@utils';
-import { Button } from '@components';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -68,15 +65,15 @@ const SignIn = () => {
                 }
               />
               {touched.password && errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
-              <Button style={styles.button} onPress={()=>handleSubmit()}>
+              <Button style={styles.button} onPress={() => handleSubmit()}>
                 <Text style={styles.buttonText}>Sign In</Text>
               </Button>
             </View>
           )}
         </Formik>
-        <TouchableOpacity style={styles.signUp} onPress={() => navigation.navigate("SignUp")}>
+        <Button style={styles.signUp} onPress={() => navigation.navigate("SignUp")}>
           <Text style={styles.signUpText}> Don't have an account? <Text style={styles.signUpLink}>Sign Up</Text></Text>
-        </TouchableOpacity>
+        </Button>
       </View>
     </KeyboardAvoidingView>
   );
@@ -116,7 +113,6 @@ const styles = StyleSheet.create({
     height: 50,
     minWidth: '100%',
     backgroundColor: Colors.red.main,
-    borderRadius:10,
     borderWidth: 0,
     alignItems: 'center',
     justifyContent: 'center',

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faFacebook, faGoogle, faAppStore } from '@fortawesome/free-brands-svg-icons'
 
 import { Colors } from '@utils'
-import { Button } from '@components'
+import { Button } from 'react-native-paper'
 
 
 

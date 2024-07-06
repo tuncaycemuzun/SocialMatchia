@@ -4,8 +4,9 @@ import { useWizard } from 'react-use-wizard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCamera, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { Button, ChoosePhotoModal } from '@components';
+import { ChoosePhotoModal } from '@components';
 import { Colors } from '@utils';
+import { Button } from 'react-native-paper';
 
 
 const ProfileDetail = () => {
@@ -19,7 +20,7 @@ const ProfileDetail = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Profile details</Text>
       <View style={styles.photoContainer}>
-        <Button style={styles.photo} onPress={toggleModal}>
+        <Button style={styles.photo} onPress={()=>toggleModal()}>
           <FontAwesomeIcon icon={faPlus} size={30} color={Colors.lightGray} />
           <View style={styles.camera}>
             <FontAwesomeIcon icon={faCamera} size={15} color={Colors.white} />
@@ -29,7 +30,7 @@ const ProfileDetail = () => {
       <View style={styles.personnelInfo}>
         
       </View>
-      <Button onPress={nextStep}><Text>Next</Text></Button>
+      <Button onPress={()=>nextStep()}><Text>Next</Text></Button>
       <ChoosePhotoModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
     </View>
   )

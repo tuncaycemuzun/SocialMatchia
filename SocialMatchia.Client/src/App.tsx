@@ -3,7 +3,6 @@ import { SafeAreaView } from 'react-native';
 import { PaperProvider, MD3LightTheme as DefaultTheme, } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 import Router from './router';
-import { Colors } from '@utils';
 
 const theme = {
   ...DefaultTheme,

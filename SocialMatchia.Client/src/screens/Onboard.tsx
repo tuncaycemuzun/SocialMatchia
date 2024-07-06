@@ -5,7 +5,7 @@ import Swiper from 'react-native-swiper';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
 import { Colors } from '@utils';
-import { Button } from '@components';
+import { Button } from 'react-native-paper';
 
 enum OnboardSteps {
   Algorithm = 'ALGORITHM',
@@ -85,7 +85,7 @@ const Onboard = () => {
             </View>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
-            <Button style={styles.button} onPress={handleNext}>
+            <Button style={styles.button} onPress={()=>handleNext()}>
               <Text style={styles.buttonText}>{data.length == i + 1 ? 'Create an account' : 'Next'}</Text>
             </Button>
           </View>
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 20,
-    gap: 10
+    gap: 25
   },
   imageContainer: {
     flexDirection: 'row',
@@ -133,17 +133,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginVertical: 10
   },
   description: {
     fontSize: 16,
     textAlign: 'center',
-    marginBottom: 20
   },
   button: {
     backgroundColor: Colors.red.main,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
     borderRadius: 5
   },
   buttonText: {
@@ -157,7 +153,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   signInText: {
-    fontSize: 14
+    fontSize: 14,
+    color: Colors.black
   },
   signInLink: {
     color: Colors.red.main,
