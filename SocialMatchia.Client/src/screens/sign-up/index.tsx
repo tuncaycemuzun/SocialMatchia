@@ -1,14 +1,12 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
+import { Link, NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faFacebook, faGoogle, faAppStore } from '@fortawesome/free-brands-svg-icons'
 
 import { Colors } from '@utils'
-import { Button } from 'react-native-paper'
-
-
+import { Button } from '@components'
 
 const SignUp = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>()
@@ -17,12 +15,12 @@ const SignUp = () => {
       <View style={styles.signUpInfoContainer}>
         <Image style={styles.logo} source={require('@assets/images/logo.png')}></Image>
         <Text style={styles.boldText}>Sign up to continue</Text>
-        <Button style={styles.button} onPress={() => navigation.navigate("EmailSignUp")}>
+        <Button style={styles.button}  onPress={() => navigation.navigate("EmailSignUp")}>
           <Text style={styles.buttonText}>Continue with email</Text>
         </Button>
-        <Button style={styles.signIn} onPress={() => navigation.navigate('SignIn')}>
-          <Text style={styles.signInText}> Don't have an account? <Text style={styles.signInLink}>Sign In</Text></Text>
-        </Button>
+        <Link to="/SignIn">
+          <Text style={styles.signInText}>Already have an account? <Text style={styles.signInLink}>Sign In</Text></Text>
+        </Link>
       </View>
       <View style={styles.otherInfoContainer}>
         <View style={styles.otherOptionContainer}>
@@ -40,12 +38,12 @@ const SignUp = () => {
           </View>
         </View>
         <View style={styles.bottomContainer}>
-          <Button>
+          <View>
             <Text style={styles.bottomText}>Term of use</Text>
-          </Button>
-          <Button>
+          </View>
+          <View>
             <Text style={styles.bottomText}>Privacy Policy</Text>
-          </Button>
+          </View>
         </View>
       </View>
     </View>
@@ -74,12 +72,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   button: {
-    height: 50,
     width: '100%',
     backgroundColor: Colors.red.main,
     borderRadius: 15,
-    alignItems: 'center',
+    padding: 15,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,

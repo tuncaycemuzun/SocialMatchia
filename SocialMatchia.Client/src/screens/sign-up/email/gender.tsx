@@ -1,6 +1,6 @@
+import { Button } from '@components';
 import React from 'react'
 import { View, Text } from 'react-native'
-import { Button } from 'react-native-paper';
 
 import { useWizard } from 'react-use-wizard';
 

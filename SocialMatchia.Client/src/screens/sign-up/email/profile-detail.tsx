@@ -3,11 +3,10 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useWizard } from 'react-use-wizard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCalendar, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { ChoosePhotoModal, TextInput } from '@components';
+import { ChoosePhotoModal, TextInput, Button } from '@components';
 import { Colors } from '@utils';
 
 const ProfileDetail = () => {
@@ -61,7 +60,7 @@ const ProfileDetail = () => {
               </View>
             </TouchableOpacity>
             {touched.birthday && errors.birthday && <Text style={styles.error}>{errors.birthday}</Text>}
-            <Button mode="contained" style={styles.confirmButton} onPress={() => handleSubmit()}>
+            <Button onPress={() => handleSubmit()}>
               <Text style={styles.buttonText}>Confirm</Text>
             </Button>
           </View>
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   photoContainer: {
-    flex: 1,
+    minHeight: 150,
     borderWidth: 2,
     borderColor: Colors.lightGray,
     borderRadius: 10,
@@ -113,11 +112,6 @@ const styles = StyleSheet.create({
   dateButtonText: {
     color: Colors.red.main,
     marginLeft: 10,
-  },
-  confirmButton: {
-    backgroundColor: Colors.red.main,
-    borderRadius: 10,
-    paddingVertical: 10,
   },
   buttonText: {
     color: Colors.white,

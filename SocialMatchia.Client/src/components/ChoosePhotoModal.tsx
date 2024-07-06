@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 import { Colors } from '@utils';
-import { Button } from 'react-native-paper';
+import { Button } from '@components';
+
 
 interface ChoosePhotoModalProps {
   isModalVisible: boolean;
@@ -48,13 +49,18 @@ const ChoosePhotoModal = ({ isModalVisible, setModalVisible }: ChoosePhotoModalP
       <View style={styles.modal}>
         <View style={styles.modalHeader}>
           <Text style={styles.subTitle}>Choose an option</Text>
-          <Button style={styles.modalClose} onPress={()=>toggleModal()}>
-            <FontAwesomeIcon icon={faClose}></FontAwesomeIcon>
+          <Button style={styles.modalClose} onPress={() => toggleModal()}>
+            <FontAwesomeIcon icon={faClose} size={20} color={Colors.lightGray} />
           </Button>
+
         </View>
         <View style={styles.cameraActions}>
-          <Button style={styles.cameraActionItem} onPress={()=>handleTakePhoto()}><Text style={{ color: Colors.red.main, fontWeight: 'bold' }}>Take photo</Text></Button>
-          <Button style={[styles.cameraActionItem, { borderStyle: 'dashed', borderWidth: 2, borderColor: Colors.red.main }]} onPress={handleChooseFromLibrary}><Text style={{ color: Colors.red.main, fontWeight: 'bold' }}>Choose from library</Text></Button>
+          <Button style={styles.cameraActionItem} onPress={() => handleTakePhoto()}>
+            <Text style={{ color: Colors.red.main, fontWeight: 'bold' }}>Take photo</Text>
+          </Button>
+          <Button style={[styles.cameraActionItem, { borderStyle: 'dashed', borderWidth: 2, borderColor: Colors.red.main }]} onPress={() => handleChooseFromLibrary()}>
+            <Text style={{ color: Colors.red.main, fontWeight: 'bold' }}>Choose from library</Text>
+          </Button>
         </View>
       </View>
     </Modal>
@@ -74,6 +80,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   modalHeader: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
@@ -81,8 +88,12 @@ const styles = StyleSheet.create({
   modalClose: {
     borderWidth: 1,
     borderColor: Colors.lightGray,
+    backgroundColor: Colors.white,
     borderRadius: 10,
-    width: 20,
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   cameraActions: {
     flexDirection: 'column',

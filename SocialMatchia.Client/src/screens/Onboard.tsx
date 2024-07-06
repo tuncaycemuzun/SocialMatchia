@@ -2,10 +2,10 @@ import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
 import Swiper from 'react-native-swiper';
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { Link, NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
 import { Colors } from '@utils';
-import { Button } from 'react-native-paper';
+import { Button } from '@components';
 
 enum OnboardSteps {
   Algorithm = 'ALGORITHM',
@@ -85,15 +85,15 @@ const Onboard = () => {
             </View>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
-            <Button style={styles.button} onPress={()=>handleNext()}>
+            <Button style={styles.button} onPress={handleNext}>
               <Text style={styles.buttonText}>{data.length == i + 1 ? 'Create an account' : 'Next'}</Text>
             </Button>
           </View>
         ))}
       </Swiper>
-      <Button style={styles.signIn} onPress={() => navigation.navigate('SignIn')}>
-        <Text style={styles.signInText}>Already have an account? <Text style={styles.signInLink}>Sign In</Text></Text>
-      </Button>
+      <Link to="/SignIn" style={styles.signIn}>
+        <Text>Already have an account? <Text style={{ fontWeight: 'bold', color: Colors.red.main }}>Sign In</Text></Text>
+      </Link>
     </View>
   );
 };
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
+    padding: 10,
     backgroundColor: Colors.red.main,
     borderRadius: 5
   },
@@ -150,15 +151,9 @@ const styles = StyleSheet.create({
     bottom: 20,
     left: 0,
     right: 0,
-    alignItems: 'center'
-  },
-  signInText: {
-    fontSize: 14,
-    color: Colors.black
-  },
-  signInLink: {
-    color: Colors.red.main,
-    fontWeight: 'bold'
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign:'center'
   },
   pagination: {
     bottom: 60

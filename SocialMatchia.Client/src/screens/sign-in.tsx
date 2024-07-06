@@ -1,13 +1,12 @@
 import React from 'react';
 import { Image, KeyboardAvoidingView, Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { Link, NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
-import { Button, Icon } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { Colors } from '@utils';
-import { TextInput } from '@components';
+import { Button, TextInput } from '@components';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -60,15 +59,15 @@ const SignIn = () => {
                 error={touched.password && !!errors.password}
               />
               {touched.password && errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
-              <Button style={styles.button} onPress={() => handleSubmit()}>
+              <Button onPress={() => handleSubmit()}>
                 <Text style={styles.buttonText}>Sign In</Text>
               </Button>
             </View>
           )}
         </Formik>
-        <Button style={styles.signUp} onPress={() => navigation.navigate("SignUp")}>
+        <Link to="/SignUp" style={styles.signUp}>
           <Text style={styles.signUpText}> Don't have an account? <Text style={styles.signUpLink}>Sign Up</Text></Text>
-        </Button>
+        </Link>
       </View>
     </KeyboardAvoidingView>
   );
