@@ -1,22 +1,21 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-import { NavigationProp, ParamListBase } from '@react-navigation/native'
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faFacebook, faGoogle, faAppStore } from '@fortawesome/free-brands-svg-icons'
 
-import { Colors } from '../../utils'
-import { Button } from '../../components'
+import { Colors } from '@utils'
+import { Button } from '@components'
 
-interface SignUpProps {
-  navigation: NavigationProp<ParamListBase>;
-}
 
-const SignUp = ({ navigation }: SignUpProps) => {
+
+const SignUp = () => {
+  const navigation = useNavigation<NavigationProp<ParamListBase>>()
   return (
     <View style={styles.container}>
       <View style={styles.signUpInfoContainer}>
-        <Image style={styles.logo} source={require('../../assets/images/logo.png')}></Image>
+        <Image style={styles.logo} source={require('@assets/images/logo.png')}></Image>
         <Text style={styles.boldText}>Sign up to continue</Text>
         <Button style={styles.button} onPress={() => navigation.navigate("EmailSignUp")}>
           <Text style={styles.buttonText}>Continue with email</Text>
