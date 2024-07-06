@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
 
-import { colors } from '../utils';
+import { Colors } from '../utils';
 import { Button } from '../components';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 
@@ -104,7 +104,7 @@ const Onboard = ({ navigation }: OnboardProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white
+    backgroundColor: Colors.white
   },
   slide: {
     paddingTop: 50,
@@ -144,13 +144,13 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   button: {
-    backgroundColor: colors.red,
+    backgroundColor: Colors.red.main,
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5
   },
   buttonText: {
-    color: colors.white
+    color: Colors.white
   },
   signIn: {
     position: 'absolute',
@@ -163,21 +163,21 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   signInLink: {
-    color: colors.red,
+    color: Colors.red.main,
     fontWeight: 'bold'
   },
   pagination: {
     bottom: 60
   },
   activeDot: {
-    backgroundColor: colors.red,
+    backgroundColor: Colors.red.main,
     width: 8,
     height: 8,
     borderRadius: 4,
     margin: 3
   },
   dot: {
-    backgroundColor: colors.lightGray,
+    backgroundColor: Colors.lightGray,
     width: 8,
     height: 8,
     borderRadius: 4,
