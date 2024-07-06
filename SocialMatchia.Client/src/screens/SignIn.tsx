@@ -4,7 +4,7 @@ import { NavigationProp, ParamListBase } from '@react-navigation/native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-import { colors } from '../utils';
+import { Colors } from '../utils';
 import { Button } from '../components';
 import Toast from 'react-native-toast-message';
 
@@ -40,7 +40,7 @@ const SignIn = ({ navigation }: SignInProps) => {
               top: 15,
               zIndex: 10
             }} onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
-              <FontAwesomeIcon icon={isPasswordVisible ? faEye : faEyeSlash} size={20} color={colors.lightGray} />
+              <FontAwesomeIcon icon={isPasswordVisible ? faEye : faEyeSlash} size={20} color={Colors.lightGray} />
             </Button>
             <Text style={{ color: 'black' }}>
               {isPasswordVisible}
@@ -61,7 +61,7 @@ const SignIn = ({ navigation }: SignInProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     paddingHorizontal: 40,
     gap: 40,
     alignItems: 'center',
@@ -82,22 +82,22 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: '100%',
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
     borderWidth: 1,
-    borderColor: colors.lightGray,
+    borderColor: Colors.lightGray,
     borderRadius: 10,
     padding: 10,
   },
   button: {
     height: 50,
     width: '100%',
-    backgroundColor: colors.red,
+    backgroundColor: Colors.red.main,
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
-    color: colors.white,
+    color: Colors.white,
     fontWeight: 'bold',
   },
   signUp: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   signUpLink: {
-    color: colors.red,
+    color: Colors.red.main,
     fontWeight: 'bold'
   },
 })
