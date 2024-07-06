@@ -185,4 +185,5 @@ const styles = StyleSheet.create({
   }
 });
 
+Onboard.displayName = 'Onboard';
 export default Onboard;
