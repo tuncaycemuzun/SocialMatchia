@@ -73,7 +73,7 @@ const ProfileDetail = () => {
           )}
         </View>
         <Formik
-          initialValues={{firstName: '', lastName: '', birthday: ''}}
+          initialValues={{firstName: '', lastName: '', birthday: new Date().setFullYear(new Date().getFullYear() - 18)}}
           validationSchema={validationSchema}
           onSubmit={(values, {setSubmitting}) => {
             if (selectedPhotos.length === 0) {
@@ -111,7 +111,7 @@ const ProfileDetail = () => {
                 <TouchableOpacity onPress={toggleDatePicker}>
                   <TextInput
                     label="Doğum Tarihi"
-                    value={values.birthday}
+                    value={new Date(values.birthday).toLocaleDateString()}
                     editable={false}
                   />
                 </TouchableOpacity>
@@ -120,7 +120,7 @@ const ProfileDetail = () => {
                     value={new Date(values.birthday)}
                     mode="date"
                     display="default"
-
+                    minimumDate={new Date(new Date().setFullYear(new Date().getFullYear() - 18))}
                     onChange={(event, selectedDate) => {
                       setDatePickerVisible(false);
                       console.log(selectedDate)

@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   backButton: {
-    marginBottom: 20,
+    position: 'absolute',
   },
   title: {
     fontSize: 24,
