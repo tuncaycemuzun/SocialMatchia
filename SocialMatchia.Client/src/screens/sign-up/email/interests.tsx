@@ -1,34 +1,53 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { useWizard } from 'react-use-wizard';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { 
-  faChevronLeft, faCamera, faShoppingBag, faMicrophone, 
-  faYinYang, faUtensils, faTableTennis, faRunning, faSwimmer, 
-  faPalette, faPlane, faMountain, faMusic, faGlassWhiskey, faGamepad 
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from 'react-native';
+import {useWizard} from 'react-use-wizard';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faChevronLeft,
+  faCamera,
+  faShoppingBag,
+  faMicrophone,
+  faYinYang,
+  faUtensils,
+  faTableTennis,
+  faRunning,
+  faSwimmer,
+  faPalette,
+  faPlane,
+  faMountain,
+  faMusic,
+  faGlassWhiskey,
+  faGamepad,
 } from '@fortawesome/free-solid-svg-icons';
-import { Colors, Fonts } from '@utils';
-import { Button } from '@components';
+import {Colors, Fonts} from '@utils';
+import {Button} from '@components';
 
 const interests = [
-  { name: 'Photography', icon: faCamera },
-  { name: 'Shopping', icon: faShoppingBag },
-  { name: 'Karaoke', icon: faMicrophone },
-  { name: 'Yoga', icon: faYinYang },
-  { name: 'Cooking', icon: faUtensils },
-  { name: 'Tennis', icon: faTableTennis },
-  { name: 'Run', icon: faRunning },
-  { name: 'Swimming', icon: faSwimmer },
-  { name: 'Art', icon: faPalette },
-  { name: 'Traveling', icon: faPlane },
-  { name: 'Extreme', icon: faMountain },
-  { name: 'Music', icon: faMusic },
-  { name: 'Drink', icon: faGlassWhiskey },
-  { name: 'Video games', icon: faGamepad },
+  {name: 'Photography', icon: faCamera},
+  {name: 'Shopping', icon: faShoppingBag},
+  {name: 'Karaoke', icon: faMicrophone},
+  {name: 'Yoga', icon: faYinYang},
+  {name: 'Cooking', icon: faUtensils},
+  {name: 'Tennis', icon: faTableTennis},
+  {name: 'Run', icon: faRunning},
+  {name: 'Swimming', icon: faSwimmer},
+  {name: 'Art', icon: faPalette},
+  {name: 'Traveling', icon: faPlane},
+  {name: 'Extreme', icon: faMountain},
+  {name: 'Music', icon: faMusic},
+  {name: 'Drink', icon: faGlassWhiskey},
+  {name: 'Video games', icon: faGamepad},
 ];
 
 const Interests = () => {
-  const { previousStep, nextStep } = useWizard();
+  const {previousStep, nextStep} = useWizard();
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
   const toggleInterest = (interest: string) => {
@@ -42,46 +61,59 @@ const Interests = () => {
   const handleContinue = () => {
     if (selectedInterests.length > 0) {
       nextStep();
+    } else {
+      Alert.alert('Error', 'Please select at least one interest');
     }
   };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={previousStep} style={styles.backButton}>
-        <FontAwesomeIcon icon={faChevronLeft} size={20} color={Colors.black} />
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          size={20}
+          color={Colors.red.main}
+        />
       </TouchableOpacity>
       <Text style={styles.title}>Your interests</Text>
-      <Text style={styles.subtitle}>Select a few of your interests and let everyone know what you're passionate about.</Text>
+      <Text style={styles.subtitle}>
+        Select a few of your interests and let everyone know what you're
+        passionate about.
+      </Text>
       <ScrollView contentContainerStyle={styles.interestsContainer}>
         {interests.map((interest, index) => (
           <TouchableOpacity
             key={interest.name}
             style={[
               styles.interestButton,
-              selectedInterests.includes(interest.name) && styles.selectedInterest,
-              index % 2 === 0 ? { marginRight: '2%' } : { marginLeft: '2%' },
+              selectedInterests.includes(interest.name) &&
+                styles.selectedInterest,
+              index % 2 === 0 ? {marginRight: '2%'} : {marginLeft: '2%'},
             ]}
-            onPress={() => toggleInterest(interest.name)}
-          >
+            onPress={() => toggleInterest(interest.name)}>
             <FontAwesomeIcon
               icon={interest.icon}
               size={20}
-              color={selectedInterests.includes(interest.name) ? Colors.white : Colors.red.main}
+              color={
+                selectedInterests.includes(interest.name)
+                  ? Colors.white
+                  : Colors.red.main
+              }
             />
-            <Text style={[
-              styles.interestText,
-              selectedInterests.includes(interest.name) && styles.selectedInterestText,
-            ]}>
+            <Text
+              style={[
+                styles.interestText,
+                selectedInterests.includes(interest.name) &&
+                  styles.selectedInterestText,
+              ]}>
               {interest.name}
             </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <View style={styles.buttonContainer}>
-        <Button onPress={handleContinue} disabled={selectedInterests.length === 0}>
-          <Text style={styles.buttonText}>Continue</Text>
-        </Button>
-      </View>
+      <Button style={styles.continueButton} onPress={() => handleContinue()}>
+        <Text style={styles.buttonText}>Continue</Text>
+      </Button>
     </View>
   );
 };
@@ -90,16 +122,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    padding: 20,
   },
   backButton: {
     position: 'absolute',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: Colors.lightGray,
   },
   title: {
+    marginTop: 70,
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
     fontFamily: Fonts.bold,
+    color: Colors.black,
   },
   subtitle: {
     fontSize: 16,
@@ -145,8 +183,11 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontWeight: 'bold',
   },
-  buttonContainer: {
-    marginTop: 'auto',
+  continueButton: {
+    backgroundColor: Colors.red.main,
+    borderRadius: 8,
+    padding: 15,
+    alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,
@@ -156,5 +197,5 @@ const styles = StyleSheet.create({
   },
 });
 
-Interests.displayName = "Interests";
+Interests.displayName = 'Interests';
 export default Interests;

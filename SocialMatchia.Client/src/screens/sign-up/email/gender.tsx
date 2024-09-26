@@ -29,7 +29,7 @@ const GenderSelection = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={previousStep} style={styles.backButton}>
-        <FontAwesomeIcon icon={faChevronLeft} size={20} color={Colors.black} />
+        <FontAwesomeIcon icon={faChevronLeft} size={20} color={Colors.red.main} />
       </TouchableOpacity>
       <Text style={styles.title}>Ben bir</Text>
       <View style={styles.optionsContainer}>
@@ -68,16 +68,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    padding: 20,
   },
   backButton: {
     position: 'absolute',
+    borderStyle:'solid',
+    borderWidth:1,
+    padding:10,
+    borderRadius:10,
+    borderColor: Colors.lightGray,
   },
   title: {
+    marginTop: 70,
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 30,
     fontFamily: Fonts.bold,
+    color: Colors.black,
   },
   optionsContainer: {
     marginBottom: 30,

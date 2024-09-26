@@ -10,19 +10,29 @@ import {
 } from 'react-native';
 import {useWizard} from 'react-use-wizard';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faChevronLeft, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronLeft,
+  faPlus,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {ChoosePhotoModal, TextInput, Button} from '@components';
 import {Colors, Fonts} from '@utils';
+import {useNavigation} from '@react-navigation/native';
 
 const ProfileDetail = () => {
-  const {nextStep, previousStep} = useWizard();
+  const {nextStep} = useWizard();
   const [isPhotoModalVisible, setPhotoModalVisible] = React.useState(false);
   const [selectedPhotos, setSelectedPhotos] = React.useState<any[]>([]);
   const [isDatePickerVisible, setDatePickerVisible] = React.useState(false);
+  const navigation = useNavigation();
+
+  const goBack = () => {
+    navigation.goBack();
+  };
 
   const toggleModal = () => {
     setPhotoModalVisible(prevState => !prevState);
@@ -38,42 +48,28 @@ const ProfileDetail = () => {
     birthday: Yup.date().required('Doğum tarihi gereklidir'),
   });
 
-  const removePhoto = (index:number) => {
+  const removePhoto = (index: number) => {
     setSelectedPhotos(prevPhotos => prevPhotos.filter((_, i) => i !== index));
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={previousStep} style={styles.backButton}>
-        <FontAwesomeIcon icon={faChevronLeft} size={20} color={Colors.black} />
+      <TouchableOpacity onPress={goBack} style={styles.backButton}>
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          size={20}
+          color={Colors.red.main}
+        />
       </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Text style={styles.title}>Profil detayları</Text>
-        <View style={styles.photosContainer}>
-          {selectedPhotos.map((photo, index) => (
-            <View key={index} style={styles.photoWrapper}>
-              <Image source={{uri: photo.uri}} style={styles.photo} />
-              <TouchableOpacity
-                style={styles.removePhotoButton}
-                onPress={() => removePhoto(index)}>
-                <FontAwesomeIcon icon={faTimes} size={15} color={Colors.white} />
-              </TouchableOpacity>
-            </View>
-          ))}
-          {selectedPhotos.length < 6 && (
-            <TouchableOpacity 
-              style={[
-                styles.addPhotoButton,
-                selectedPhotos.length === 0 && styles.photoContainerError
-              ]} 
-              onPress={toggleModal}
-            >
-              <FontAwesomeIcon icon={faPlus} size={30} color={Colors.lightGray} />
-            </TouchableOpacity>
-          )}
-        </View>
+
         <Formik
-          initialValues={{firstName: '', lastName: '', birthday: new Date().setFullYear(new Date().getFullYear() - 18)}}
+          initialValues={{
+            firstName: '',
+            lastName: '',
+            birthday: new Date().setFullYear(new Date().getFullYear() - 18),
+          }}
           validationSchema={validationSchema}
           onSubmit={(values, {setSubmitting}) => {
             if (selectedPhotos.length === 0) {
@@ -120,17 +116,53 @@ const ProfileDetail = () => {
                     value={new Date(values.birthday)}
                     mode="date"
                     display="default"
-                    minimumDate={new Date(new Date().setFullYear(new Date().getFullYear() - 18))}
+                    minimumDate={
+                      new Date(
+                        new Date().setFullYear(new Date().getFullYear() - 18),
+                      )
+                    }
                     onChange={(event, selectedDate) => {
                       setDatePickerVisible(false);
-                      console.log(selectedDate)
+                      console.log(selectedDate);
                       if (selectedDate) {
                         setFieldValue('birthday', selectedDate);
                       }
                     }}
                   />
                 )}
+                <View style={styles.photosContainer}>
+                  {selectedPhotos.map((photo, index) => (
+                    <View key={index} style={styles.photoWrapper}>
+                      <Image source={{uri: photo.uri}} style={styles.photo} />
+                      <TouchableOpacity
+                        style={styles.removePhotoButton}
+                        onPress={() => removePhoto(index)}>
+                        <FontAwesomeIcon
+                          icon={faTimes}
+                          size={15}
+                          color={Colors.white}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+                  {selectedPhotos.length < 6 && (
+                    <TouchableOpacity
+                      style={[
+                        styles.addPhotoButton,
+                        selectedPhotos.length === 0 &&
+                          styles.photoContainerError,
+                      ]}
+                      onPress={toggleModal}>
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        size={30}
+                        color={Colors.lightGray}
+                      />
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
+
               <View style={styles.buttonContainer}>
                 <Button
                   onPress={() => handleSubmit()}
@@ -146,8 +178,8 @@ const ProfileDetail = () => {
       <ChoosePhotoModal
         isModalVisible={isPhotoModalVisible}
         setModalVisible={setPhotoModalVisible}
-        onPhotoSelect={(photos) => {
-          setSelectedPhotos((prevPhotos : any) => {
+        onPhotoSelect={photos => {
+          setSelectedPhotos((prevPhotos: any) => {
             const newPhotos = [...prevPhotos, ...photos];
             return newPhotos.slice(0, 6);
           });
@@ -165,27 +197,33 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    alignItems: 'center',
-    padding: 20,
   },
   backButton: {
     position: 'absolute',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: Colors.lightGray,
+    zIndex: 100,
   },
   title: {
+    marginTop: 70,
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
     fontFamily: Fonts.bold,
+    color: Colors.black,
   },
   photosContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     marginBottom: 20,
-    gap:10
+    gap: 10,
   },
   photoWrapper: {
-    gap:5,
+    gap: 5,
   },
   photo: {
     width: 100,
@@ -215,7 +253,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
-    flex:1,
+    flex: 1,
     justifyContent: 'space-between',
   },
   inputContainer: {
@@ -245,7 +283,7 @@ const styles = StyleSheet.create({
   },
   photoContainerError: {
     borderColor: Colors.red.main,
-  }
+  },
 });
 
 ProfileDetail.displayName = 'ProfileDetail';
