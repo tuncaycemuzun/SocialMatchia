@@ -8,23 +8,23 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import {useWizard} from 'react-use-wizard';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import { useWizard } from 'react-use-wizard';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
   faChevronLeft,
   faPlus,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import {Formik} from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import {ChoosePhotoModal, TextInput, Button} from '@components';
-import {Colors, Fonts} from '@utils';
-import {useNavigation} from '@react-navigation/native';
+import { ChoosePhotoModal, TextInput, Button } from '@components';
+import { Colors } from '@utils';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileDetail = () => {
-  const {nextStep} = useWizard();
+  const { nextStep } = useWizard();
   const [isPhotoModalVisible, setPhotoModalVisible] = React.useState(false);
   const [selectedPhotos, setSelectedPhotos] = React.useState<any[]>([]);
   const [isDatePickerVisible, setDatePickerVisible] = React.useState(false);
@@ -71,7 +71,7 @@ const ProfileDetail = () => {
             birthday: new Date().setFullYear(new Date().getFullYear() - 18),
           }}
           validationSchema={validationSchema}
-          onSubmit={(values, {setSubmitting}) => {
+          onSubmit={(values, { setSubmitting }) => {
             if (selectedPhotos.length === 0) {
               setSubmitting(false);
               return;
@@ -123,7 +123,6 @@ const ProfileDetail = () => {
                     }
                     onChange={(event, selectedDate) => {
                       setDatePickerVisible(false);
-                      console.log(selectedDate);
                       if (selectedDate) {
                         setFieldValue('birthday', selectedDate);
                       }
@@ -133,7 +132,7 @@ const ProfileDetail = () => {
                 <View style={styles.photosContainer}>
                   {selectedPhotos.map((photo, index) => (
                     <View key={index} style={styles.photoWrapper}>
-                      <Image source={{uri: photo.uri}} style={styles.photo} />
+                      <Image source={{ uri: photo.uri }} style={styles.photo} />
                       <TouchableOpacity
                         style={styles.removePhotoButton}
                         onPress={() => removePhoto(index)}>
@@ -150,7 +149,7 @@ const ProfileDetail = () => {
                       style={[
                         styles.addPhotoButton,
                         selectedPhotos.length === 0 &&
-                          styles.photoContainerError,
+                        styles.photoContainerError,
                       ]}
                       onPress={toggleModal}>
                       <FontAwesomeIcon
@@ -183,6 +182,7 @@ const ProfileDetail = () => {
             const newPhotos = [...prevPhotos, ...photos];
             return newPhotos.slice(0, 6);
           });
+          setPhotoModalVisible(false)
         }}
         maxPhotos={6 - selectedPhotos.length}
       />
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    fontFamily: Fonts.bold,
+    fontFamily: 'bold',
     color: Colors.black,
   },
   photosContainer: {
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     color: Colors.red.main,
     fontSize: 12,
     marginTop: 5,
-    fontFamily: Fonts.regular,
+    fontFamily: 'bold',
   },
   buttonContainer: {
     backgroundColor: Colors.white,
@@ -278,8 +278,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: Colors.white,
     fontSize: 16,
-    fontWeight: 'bold',
-    fontFamily: Fonts.bold,
+    fontWeight: 'bold'
   },
   photoContainerError: {
     borderColor: Colors.red.main,

@@ -26,7 +26,7 @@ import {
   faGlassWhiskey,
   faGamepad,
 } from '@fortawesome/free-solid-svg-icons';
-import {Colors, Fonts} from '@utils';
+import {Colors} from '@utils';
 import {Button} from '@components';
 
 const interests = [
@@ -136,14 +136,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    fontFamily: Fonts.bold,
     color: Colors.black,
   },
   subtitle: {
     fontSize: 16,
     color: Colors.black,
     marginBottom: 20,
-    fontFamily: Fonts.regular,
+    fontWeight: 'bold',
   },
   interestsContainer: {
     flexDirection: 'row',
@@ -176,7 +175,7 @@ const styles = StyleSheet.create({
   interestText: {
     fontSize: 14,
     color: Colors.black,
-    fontFamily: Fonts.regular,
+    fontWeight: 'bold',
     marginLeft: 8,
   },
   selectedInterestText: {
@@ -193,7 +192,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: Fonts.bold,
   },
 });
 

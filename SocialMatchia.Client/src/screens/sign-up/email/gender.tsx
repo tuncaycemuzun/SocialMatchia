@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useWizard } from 'react-use-wizard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { Colors, Fonts } from '@utils';
+import { Colors } from '@utils';
 import { Button } from '@components';
 
 const GenderSelection = () => {
@@ -11,8 +11,8 @@ const GenderSelection = () => {
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
 
   const genderOptions = [
-    { label: 'Kadın', value: 'woman' },
-    { label: 'Erkek', value: 'man' },
+    { label: 'Kadınım', value: 'woman' },
+    { label: 'Erkeğim', value: 'man' },
     { label: 'Başka bir seçenek', value: 'other' },
   ];
 
@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 30,
-    fontFamily: Fonts.bold,
     color: Colors.black,
   },
   optionsContainer: {
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 16,
     color: Colors.black,
-    fontFamily: Fonts.regular,
+    fontWeight: 'bold',
   },
   selectedOptionText: {
     color: Colors.white,
@@ -122,7 +121,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: Fonts.bold,
   },
 });
 

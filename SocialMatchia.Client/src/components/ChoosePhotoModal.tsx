@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Modal from 'react-native-modal';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faClose} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 
-import {Colors} from '@utils';
-import {Button} from '@components';
+import { Colors } from '@utils';
+import { Button } from '@components';
 
 interface ChoosePhotoModalProps {
   isModalVisible: boolean;
@@ -22,11 +22,18 @@ const ChoosePhotoModal = ({
   onPhotoSelect,
   maxPhotos,
 }: ChoosePhotoModalProps) => {
+  
   const toggleModal = () => {
     setModalVisible(false);
   };
+
   const handleTakePhoto = () => {
-    launchCamera({mediaType: 'photo', saveToPhotos: true}, response => {
+    launchCamera({
+      mediaType: 'photo',
+      saveToPhotos: true,
+      cameraType: 'front',
+      includeBase64: true,
+    }, response => {
       if (response.assets) {
         console.log('Photo URI: ', response.assets[0].uri);
         onPhotoSelect(response.assets);
@@ -35,10 +42,13 @@ const ChoosePhotoModal = ({
   };
 
   const handleChooseFromLibrary = () => {
-    launchImageLibrary({mediaType: 'photo'}, response => {
+    launchImageLibrary({
+      mediaType: 'photo',
+      selectionLimit: 6,
+      includeBase64 : true,
+    }, response => {
       if (response.assets) {
-        console.log('Photo URI: ', response.assets[0].uri);
-        onPhotoSelect(response.assets);
+        onPhotoSelect(response.assets)
       }
     });
   };
@@ -48,7 +58,7 @@ const ChoosePhotoModal = ({
       animationIn={'slideInUp'}
       animationOut="slideOutDown"
       coverScreen={true}
-      style={{flex: 1}}
+      style={{ flex: 1 }}
       backdropOpacity={0.6}
       onSwipeComplete={() => setModalVisible(false)}
       swipeDirection="down"
@@ -73,7 +83,7 @@ const ChoosePhotoModal = ({
           <Button
             style={styles.cameraActionItem}
             onPress={() => handleTakePhoto()}>
-            <Text style={{color: Colors.red.main, fontWeight: 'bold'}}>
+            <Text style={{ color: Colors.red.main, fontWeight: 'bold' }}>
               Take photo
             </Text>
           </Button>
@@ -87,7 +97,7 @@ const ChoosePhotoModal = ({
               },
             ]}
             onPress={() => handleChooseFromLibrary()}>
-            <Text style={{color: Colors.red.main, fontWeight: 'bold'}}>
+            <Text style={{ color: Colors.red.main, fontWeight: 'bold' }}>
               Choose from library
             </Text>
           </Button>

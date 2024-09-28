@@ -6,18 +6,18 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useWizard} from 'react-use-wizard';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
-import {Formik} from 'formik';
+import { useWizard } from 'react-use-wizard';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import {TextInput, Button} from '@components';
-import {Colors, Fonts} from '@utils';
+import { TextInput, Button } from '@components';
+import { Colors } from '@utils';
 import { useNavigation } from '@react-navigation/native';
 
 const EmailAndPassword = () => {
-  const {nextStep,previousStep} = useWizard();
+  const { previousStep } = useWizard();
   const navigation = useNavigation();
 
   const validationSchema = Yup.object().shape({
@@ -46,7 +46,7 @@ const EmailAndPassword = () => {
             rePassword: '',
           }}
           validationSchema={validationSchema}
-          onSubmit={(values, {setSubmitting}) => {
+          onSubmit={(values, { setSubmitting }) => {
             navigation.navigate("Home" as never)
           }}>
           {({
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    fontFamily: Fonts.bold,
     color: Colors.black,
   },
   formContainer: {

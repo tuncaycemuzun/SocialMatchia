@@ -1,5 +1,5 @@
-export {default as EmailAndPassword} from './email-password';
-export {default as Email} from './email';
-export {default as Gender} from './gender';
-export {default as ProfileDetail} from './profile-detail';
-export {default as Interests} from './interests';
+export {default as EmailAndPassword} from './EmailPassword';
+export {default as Email} from './Email';
+export {default as Gender} from './Gender';
+export {default as ProfileDetail} from './ProfileDetail';
+export {default as Interests} from './Interests';

@@ -13,7 +13,6 @@ enum OnboardSteps {
   Premium = 'PREMIUM'
 }
 
-
 const images = [
   require('../assets/images/onboard/girl1.png'),
   require('../assets/images/onboard/girl2.png'),
@@ -144,7 +143,9 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   buttonText: {
-    color: Colors.white
+    color: Colors.white,
+    fontWeight: 'bold',
+    padding:5
   },
   signIn: {
     position: 'absolute',
