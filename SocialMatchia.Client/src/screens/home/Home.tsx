@@ -1,14 +1,13 @@
 import { Colors, Dimensions } from '@utils';
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Header } from './components';
+import { View,  StyleSheet } from 'react-native'
+import { Header, Swipe } from './components';
 
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Header>
-
-      </Header>
+      <Header/>
+      <Swipe/>
     </View>
   )
 }
@@ -17,7 +16,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    padding: Dimensions.large
+    padding: Dimensions.large,
+    gap: Dimensions.large,
   },
 });
 
