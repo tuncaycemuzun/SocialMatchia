@@ -14,7 +14,7 @@ export default function Router() {
 					headerShown: false,
 					animation: 'slide_from_right',
 				}}
-				initialRouteName='Onboard'>
+				initialRouteName='Home'>
 				<Stack.Screen name="SignUp" component={SignUp} />
 				<Stack.Screen name="SignIn" component={SignIn} />
 				<Stack.Screen name="Onboard" component={Onboard} />
