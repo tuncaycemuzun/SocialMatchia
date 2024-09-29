@@ -27,7 +27,7 @@ const GenderSelection = () => {
 
   return (
     <View style={styles.container}>
-      <BackButton onClick={previousStep} />
+      <BackButton onPress={previousStep} />
       <Text style={styles.title}>Ben bir</Text>
       <View style={styles.optionsContainer}>
         {genderOptions.map((option) => (

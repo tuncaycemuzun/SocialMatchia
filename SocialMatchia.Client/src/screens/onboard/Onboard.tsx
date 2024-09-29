@@ -14,9 +14,9 @@ enum OnboardSteps {
 }
 
 const images = [
-  require('../assets/images/onboard/girl1.png'),
-  require('../assets/images/onboard/girl2.png'),
-  require('../assets/images/onboard/girl3.png')
+  require('@assets/images/onboard/girl1.png'),
+  require('@assets/images/onboard/girl2.png'),
+  require('@assets/images/onboard/girl3.png')
 ];
 
 const data = [

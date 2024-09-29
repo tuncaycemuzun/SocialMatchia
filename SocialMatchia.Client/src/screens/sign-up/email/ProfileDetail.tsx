@@ -55,7 +55,7 @@ const ProfileDetail = () => {
 
   return (
     <View style={styles.container}>
-      <BackButton onClick={goBack} />
+      <BackButton onPress={goBack} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Text style={styles.title}>Profil detayları</Text>
 
@@ -63,10 +63,11 @@ const ProfileDetail = () => {
           initialValues={{
             firstName: '',
             lastName: '',
-            birthday: new Date().setFullYear(new Date().getFullYear() - 18),
+            birthday: new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
           }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
+            console.log(values)
             if (selectedPhotos.length === 0) {
               setSubmitting(false);
               return;

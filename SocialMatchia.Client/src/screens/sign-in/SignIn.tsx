@@ -48,7 +48,6 @@ const SignIn = () => {
                 value={values.email}
                 error={touched.email && !!errors.email}
               />
-              {touched.email && errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
               <TextInput
                 mode="outlined"
                 label="Password"
@@ -58,7 +57,6 @@ const SignIn = () => {
                 value={values.password}
                 error={touched.password && !!errors.password}
               />
-              {touched.password && errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
               <Button onPress={() => handleSubmit()}>
                 <Text style={styles.buttonText}>Sign In</Text>
               </Button>

@@ -69,7 +69,7 @@ const Interests = () => {
 
   return (
     <View style={styles.container}>
-      <BackButton onClick={previousStep} />
+      <BackButton onPress={previousStep} />
       <Text style={styles.title}>Your interests</Text>
       <Text style={styles.subtitle}>
         Select a few of your interests and let everyone know what you're

@@ -28,7 +28,7 @@ const EmailAndPassword = () => {
 
   return (
     <View style={styles.container}>
-      <BackButton onClick={previousStep} />
+      <BackButton onPress={previousStep} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Text style={styles.title}>E-posta ve Şifre</Text>
         <Formik
