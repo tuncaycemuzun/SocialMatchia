@@ -28,7 +28,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Colors, Dimensions } from '@utils';
 import { Button } from '@components';
-import { BackButton } from './components';
+import { BackButton, Title } from './components';
 
 const interests = [
   { name: 'Photography', icon: faCamera },
@@ -70,11 +70,7 @@ const Interests = () => {
   return (
     <View style={styles.container}>
       <BackButton onPress={previousStep} />
-      <Text style={styles.title}>Your interests</Text>
-      <Text style={styles.subtitle}>
-        Select a few of your interests and let everyone know what you're
-        passionate about.
-      </Text>
+      <Title title='Your interests' subTitle="Select a few of your interests and let everyone know what you're passionate about." />
       <ScrollView contentContainerStyle={styles.interestsContainer}>
         {interests.map((interest, index) => (
           <TouchableOpacity
@@ -117,19 +113,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-  },
-  title: {
-    marginTop: 70,
-    fontSize: Dimensions.large,
-    fontWeight: 'bold',
-    marginBottom: Dimensions.medium,
-    fontFamily: 'bold',
-    color: Colors.black,
-  },
-  subtitle: {
-    fontSize: Dimensions.medium,
-    color: Colors.black,
-    marginBottom: 20,
   },
   interestsContainer: {
     flexDirection: 'row',

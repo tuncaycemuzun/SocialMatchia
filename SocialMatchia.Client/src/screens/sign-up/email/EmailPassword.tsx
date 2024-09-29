@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 import { TextInput, Button } from '@components';
 import { Colors } from '@utils';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
-import { BackButton } from './components';
+import { BackButton, Title } from './components';
 import Toast from 'react-native-toast-message';
 
 const EmailAndPassword = () => {
@@ -31,7 +31,7 @@ const EmailAndPassword = () => {
     <View style={styles.container}>
       <BackButton onPress={previousStep} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>E-posta ve Şifre</Text>
+        <Title title="E-mail and password" />
         <Formik
           initialValues={{
             email: '',
@@ -58,7 +58,7 @@ const EmailAndPassword = () => {
             <View style={styles.formContainer}>
               <View style={styles.inputContainer}>
                 <TextInput
-                  label="E-posta"
+                  label="E-mail"
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
                   value={values.email}
@@ -66,7 +66,7 @@ const EmailAndPassword = () => {
                   errorMessage={errors.email}
                 />
                 <TextInput
-                  label="Şifre"
+                  label="Password"
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
                   value={values.password}
@@ -75,7 +75,7 @@ const EmailAndPassword = () => {
                   secureTextEntry
                 />
                 <TextInput
-                  label="Şifre Tekrarı"
+                  label="Re-Password"
                   onChangeText={handleChange('rePassword')}
                   onBlur={handleBlur('rePassword')}
                   value={values.rePassword}
@@ -88,7 +88,7 @@ const EmailAndPassword = () => {
                 <Button
                   onPress={() => handleSubmit()}
                   style={styles.registerButton}>
-                  <Text style={styles.buttonText}>Kayıt Ol</Text>
+                  <Text style={styles.buttonText}>Register</Text>
                 </Button>
               </View>
             </View>

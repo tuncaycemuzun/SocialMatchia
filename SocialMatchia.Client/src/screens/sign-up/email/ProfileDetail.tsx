@@ -22,7 +22,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { ChoosePhotoModal, TextInput, Button } from '@components';
 import { Colors, Dimensions } from '@utils';
 import { useNavigation } from '@react-navigation/native';
-import { BackButton } from './components';
+import { BackButton, Title } from './components';
 
 const ProfileDetail = () => {
   const { nextStep } = useWizard();
@@ -57,8 +57,7 @@ const ProfileDetail = () => {
     <View style={styles.container}>
       <BackButton onPress={goBack} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>Profile Detail</Text>
-
+        <Title title='Profile Detail'/>
         <Formik
           initialValues={{
             firstName: '',
@@ -164,7 +163,7 @@ const ProfileDetail = () => {
                 <Button
                   onPress={() => handleSubmit()}
                   style={styles.confirmButton}>
-                  <Text style={styles.buttonText}>Confirm</Text>
+                  <Text style={styles.buttonText}>Continue</Text>
                 </Button>
               </View>
             </View>
@@ -195,14 +194,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-  },
-  title: {
-    marginTop: 70,
-    fontSize: Dimensions.large,
-    fontWeight: 'bold',
-    marginBottom: Dimensions.medium,
-    fontFamily: 'bold',
-    color: Colors.black,
   },
   photosContainer: {
     flexDirection: 'row',

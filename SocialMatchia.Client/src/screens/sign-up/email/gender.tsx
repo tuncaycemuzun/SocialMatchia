@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useWizard } from 'react-use-wizard';
 import { Colors, Dimensions } from '@utils';
 import { Button } from '@components';
-import { BackButton } from './components';
+import { BackButton, Title } from './components';
 
 const GenderSelection = () => {
   const { previousStep, nextStep } = useWizard();
@@ -28,7 +28,7 @@ const GenderSelection = () => {
   return (
     <View style={styles.container}>
       <BackButton onPress={previousStep} />
-      <Text style={styles.title}>I'm a</Text>
+      <Title title="I'm a"/>
       <View>
         {genderOptions.map((option) => (
           <TouchableOpacity
@@ -54,7 +54,7 @@ const GenderSelection = () => {
           disabled={!selectedGender}
           style={styles.continueButton}
         >
-          <Text style={styles.buttonText}>Devam Et</Text>
+          <Text style={styles.buttonText}>Continue</Text>
         </Button>
       </View>
     </View>
