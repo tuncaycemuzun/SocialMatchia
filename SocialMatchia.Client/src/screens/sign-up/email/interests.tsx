@@ -102,7 +102,7 @@ const Interests = () => {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <Button style={styles.continueButton} onPress={() => handleContinue()}>
+      <Button onPress={() => handleContinue()}>
         <Text style={styles.buttonText}>Continue</Text>
       </Button>
     </View>
@@ -150,12 +150,6 @@ const styles = StyleSheet.create({
   selectedInterestText: {
     color: Colors.white,
     fontWeight: 'bold',
-  },
-  continueButton: {
-    backgroundColor: Colors.red.main,
-    borderRadius: Dimensions.xSmall,
-    padding: Dimensions.normal,
-    alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,

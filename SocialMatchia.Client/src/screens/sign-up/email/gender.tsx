@@ -28,7 +28,7 @@ const GenderSelection = () => {
   return (
     <View style={styles.container}>
       <BackButton onPress={previousStep} />
-      <Title title="I'm a"/>
+      <Title title="I'm a" />
       <View>
         {genderOptions.map((option) => (
           <TouchableOpacity
@@ -51,9 +51,7 @@ const GenderSelection = () => {
       <View style={styles.buttonContainer}>
         <Button
           onPress={handleContinue}
-          disabled={!selectedGender}
-          style={styles.continueButton}
-        >
+          disabled={!selectedGender}>
           <Text style={styles.buttonText}>Continue</Text>
         </Button>
       </View>
@@ -97,12 +95,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 'auto',
     width: '100%',
-  },
-  continueButton: {
-    backgroundColor: Colors.red.main,
-    borderRadius: Dimensions.xSmall,
-    padding: Dimensions.normal,
-    alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,

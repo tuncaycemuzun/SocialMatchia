@@ -86,8 +86,7 @@ const EmailAndPassword = () => {
               </View>
               <View style={styles.buttonContainer}>
                 <Button
-                  onPress={() => handleSubmit()}
-                  style={styles.registerButton}>
+                  onPress={() => handleSubmit()}>
                   <Text style={styles.buttonText}>Register</Text>
                 </Button>
               </View>
@@ -135,12 +134,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '100%',
     marginBottom: 20,
-  },
-  registerButton: {
-    backgroundColor: Colors.red.main,
-    borderRadius: 8,
-    padding: 15,
-    alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,

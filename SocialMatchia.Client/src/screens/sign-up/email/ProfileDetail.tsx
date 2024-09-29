@@ -161,8 +161,7 @@ const ProfileDetail = () => {
 
               <View>
                 <Button
-                  onPress={() => handleSubmit()}
-                  style={styles.confirmButton}>
+                  onPress={() => handleSubmit()}>
                   <Text style={styles.buttonText}>Continue</Text>
                 </Button>
               </View>
@@ -236,12 +235,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     gap: Dimensions.small,
-  },
-  confirmButton: {
-    backgroundColor: Colors.red.main,
-    borderRadius: 8,
-    padding: Dimensions.medium,
-    alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,
