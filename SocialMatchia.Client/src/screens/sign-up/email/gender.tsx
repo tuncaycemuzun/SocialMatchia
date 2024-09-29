@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useWizard } from 'react-use-wizard';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Colors } from '@utils';
 import { Button } from '@components';
+import { BackButton } from './components';
 
 const GenderSelection = () => {
   const { previousStep, nextStep } = useWizard();
@@ -28,9 +27,7 @@ const GenderSelection = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={previousStep} style={styles.backButton}>
-        <FontAwesomeIcon icon={faChevronLeft} size={20} color={Colors.red.main} />
-      </TouchableOpacity>
+      <BackButton onClick={previousStep} />
       <Text style={styles.title}>Ben bir</Text>
       <View style={styles.optionsContainer}>
         {genderOptions.map((option) => (
@@ -52,8 +49,8 @@ const GenderSelection = () => {
         ))}
       </View>
       <View style={styles.buttonContainer}>
-        <Button 
-          onPress={handleContinue} 
+        <Button
+          onPress={handleContinue}
           disabled={!selectedGender}
           style={styles.continueButton}
         >
@@ -69,14 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
-  backButton: {
-    position: 'absolute',
-    borderStyle:'solid',
-    borderWidth:1,
-    padding:10,
-    borderRadius:10,
-    borderColor: Colors.lightGray,
-  },
+
   title: {
     marginTop: 70,
     fontSize: 24,

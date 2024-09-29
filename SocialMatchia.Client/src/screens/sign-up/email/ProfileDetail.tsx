@@ -22,6 +22,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { ChoosePhotoModal, TextInput, Button } from '@components';
 import { Colors } from '@utils';
 import { useNavigation } from '@react-navigation/native';
+import { BackButton } from './components';
 
 const ProfileDetail = () => {
   const { nextStep } = useWizard();
@@ -54,13 +55,7 @@ const ProfileDetail = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={goBack} style={styles.backButton}>
-        <FontAwesomeIcon
-          icon={faChevronLeft}
-          size={20}
-          color={Colors.red.main}
-        />
-      </TouchableOpacity>
+      <BackButton onClick={goBack} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Text style={styles.title}>Profil detayları</Text>
 
@@ -95,14 +90,16 @@ const ProfileDetail = () => {
                   onChangeText={handleChange('firstName')}
                   onBlur={handleBlur('firstName')}
                   value={values.firstName}
-                  error={touched.firstName && errors.firstName}
+                  touched={touched.firstName}
+                  errorMessage={errors.firstName}
                 />
                 <TextInput
                   label="Soyad"
                   onChangeText={handleChange('lastName')}
                   onBlur={handleBlur('lastName')}
                   value={values.lastName}
-                  error={touched.lastName && errors.lastName}
+                  touched={touched.lastName}
+                  errorMessage={errors.lastName}
                 />
                 <TouchableOpacity onPress={toggleDatePicker}>
                   <TextInput

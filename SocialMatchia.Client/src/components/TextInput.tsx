@@ -6,10 +6,11 @@ import { Colors } from '@utils';
 interface CustomTextInputProps extends PaperTextInputProps {
   backgroundColor?: string;
   secureTextEntry?: boolean;
-  error?: boolean | string;
+  errorMessage?: string;
+  touched?: boolean;
 }
 
-const CustomTextInput: React.FC<CustomTextInputProps> = ({ backgroundColor, mode = 'outlined', style, error, ...props }) => {
+const CustomTextInput: React.FC<CustomTextInputProps> = ({ backgroundColor, mode = 'outlined', style, errorMessage, touched, ...props }) => {
   return (
     <PaperTextInput
       mode={mode}
@@ -19,10 +20,9 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({ backgroundColor, mode
         colors: {
           primary: Colors.lightBlue,
           error: Colors.red.main,
-          underlineColor: 'transparent',
         },
       }}
-      error={!!error}
+      error={!!errorMessage && touched}
       {...props}
     />
   );

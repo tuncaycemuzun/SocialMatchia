@@ -28,6 +28,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {Colors} from '@utils';
 import {Button} from '@components';
+import { BackButton } from './components';
 
 const interests = [
   {name: 'Photography', icon: faCamera},
@@ -68,13 +69,7 @@ const Interests = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={previousStep} style={styles.backButton}>
-        <FontAwesomeIcon
-          icon={faChevronLeft}
-          size={20}
-          color={Colors.red.main}
-        />
-      </TouchableOpacity>
+      <BackButton onClick={previousStep} />
       <Text style={styles.title}>Your interests</Text>
       <Text style={styles.subtitle}>
         Select a few of your interests and let everyone know what you're
