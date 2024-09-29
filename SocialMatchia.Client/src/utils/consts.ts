@@ -3,6 +3,7 @@ const Dimensions = {
   small: 12,
   normal: 14,
   medium: 16,
+  ml : 20,
   large: 24,
   xLarge: 32,
   xxLarge: 40,
