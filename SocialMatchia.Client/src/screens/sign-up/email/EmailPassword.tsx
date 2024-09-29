@@ -13,6 +13,7 @@ import { TextInput, Button } from '@components';
 import { Colors } from '@utils';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import { BackButton } from './components';
+import Toast from 'react-native-toast-message';
 
 const EmailAndPassword = () => {
   const { previousStep } = useWizard();
@@ -39,7 +40,12 @@ const EmailAndPassword = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
-            navigation.navigate("Home")
+            Toast.show({
+              type: 'success',
+              text1: 'Success',
+              text2: 'You have successfully registered. You can log in now! 💁'
+            });
+            navigation.navigate("SignIn");
           }}>
           {({
             handleChange,

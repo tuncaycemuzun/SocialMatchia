@@ -5,7 +5,7 @@ import { Link, NavigationProp, ParamListBase, useNavigation } from '@react-navig
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faFacebook, faGoogle, faAppStore } from '@fortawesome/free-brands-svg-icons'
 
-import { Colors } from '@utils'
+import { Colors, Dimensions } from '@utils'
 import { Button } from '@components'
 
 const SignUp = () => {
@@ -54,38 +54,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 40,
+    padding: Dimensions.xxLarge,
   },
   signUpInfoContainer: {
     flex: 2,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 50,
-    gap: 40,
+    paddingTop: Dimensions.xxxLarge,
+    gap: Dimensions.xxLarge,
   },
   logo: {
     height: 150,
     resizeMode: 'contain',
   },
   boldText: {
-    fontSize: 16,
+    fontSize: Dimensions.medium,
     fontWeight: 'bold',
   },
   button: {
     width: '100%',
     backgroundColor: Colors.red.main,
-    borderRadius: 15,
-    padding: 15,
+    borderRadius: Dimensions.medium,
+    padding: Dimensions.medium,
     justifyContent: 'center',
     alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,
     fontWeight: 'bold',
+    fontSize: Dimensions.medium,  
   },
   otherInfoContainer: {
     flex: 1,
-    gap: 40,
+    gap: Dimensions.xxLarge,
   },
   otherOptionContainer: {
     borderBottomColor: 'black',
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   otherOptionText: {
     position: 'absolute',
     backgroundColor: 'white',
-    paddingHorizontal: 10,
+    paddingHorizontal: Dimensions.xSmall,
     top: -10,
     left: '50%',
     transform: [{ translateX: -50 }],
@@ -105,14 +106,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 20,
-    paddingHorizontal: 20,
+    gap: Dimensions.medium,
+    paddingHorizontal: Dimensions.medium,
   },
   provider: {
     borderWidth: 1,
     borderColor: Colors.lightGray,
-    borderRadius: 10,
-    padding: 10
+    borderRadius: Dimensions.xSmall,
+    padding: Dimensions.small
   },
   bottomContainer: {
     display: 'flex',
@@ -120,11 +121,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     flex: 1,
-    paddingHorizontal: 20,
-    gap: 10
+    paddingHorizontal: Dimensions.medium
   },
   bottomText: {
-    color: Colors.red.main
+    color: Colors.red.main,
+    fontSize: Dimensions.normal,
   },
   signIn: {
     left: 0,
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   signInText: {
-    fontSize: 14,
+    fontSize: Dimensions.normal,
     color: Colors.black
   },
   signInLink: {

@@ -20,7 +20,7 @@ import * as Yup from 'yup';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { ChoosePhotoModal, TextInput, Button } from '@components';
-import { Colors } from '@utils';
+import { Colors, Dimensions } from '@utils';
 import { useNavigation } from '@react-navigation/native';
 import { BackButton } from './components';
 
@@ -57,7 +57,7 @@ const ProfileDetail = () => {
     <View style={styles.container}>
       <BackButton onPress={goBack} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>Profil detayları</Text>
+        <Text style={styles.title}>Profile Detail</Text>
 
         <Formik
           initialValues={{
@@ -87,7 +87,7 @@ const ProfileDetail = () => {
             <View style={styles.formContainer}>
               <View style={styles.inputContainer}>
                 <TextInput
-                  label="Ad"
+                  label="Name"
                   onChangeText={handleChange('firstName')}
                   onBlur={handleBlur('firstName')}
                   value={values.firstName}
@@ -95,7 +95,7 @@ const ProfileDetail = () => {
                   errorMessage={errors.firstName}
                 />
                 <TextInput
-                  label="Soyad"
+                  label="Surname"
                   onChangeText={handleChange('lastName')}
                   onBlur={handleBlur('lastName')}
                   value={values.lastName}
@@ -104,7 +104,7 @@ const ProfileDetail = () => {
                 />
                 <TouchableOpacity onPress={toggleDatePicker}>
                   <TextInput
-                    label="Doğum Tarihi"
+                    label="Birthday"
                     value={new Date(values.birthday).toLocaleDateString()}
                     editable={false}
                   />
@@ -129,7 +129,7 @@ const ProfileDetail = () => {
                 )}
                 <View style={styles.photosContainer}>
                   {selectedPhotos.map((photo, index) => (
-                    <View key={index} style={styles.photoWrapper}>
+                    <View key={index}>
                       <Image source={{ uri: photo.uri }} style={styles.photo} />
                       <TouchableOpacity
                         style={styles.removePhotoButton}
@@ -160,11 +160,11 @@ const ProfileDetail = () => {
                 </View>
               </View>
 
-              <View style={styles.buttonContainer}>
+              <View>
                 <Button
                   onPress={() => handleSubmit()}
                   style={styles.confirmButton}>
-                  <Text style={styles.buttonText}>Onayla</Text>
+                  <Text style={styles.buttonText}>Confirm</Text>
                 </Button>
               </View>
             </View>
@@ -196,20 +196,11 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
   },
-  backButton: {
-    position: 'absolute',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    borderColor: Colors.lightGray,
-    zIndex: 100,
-  },
   title: {
     marginTop: 70,
-    fontSize: 24,
+    fontSize: Dimensions.large,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: Dimensions.medium,
     fontFamily: 'bold',
     color: Colors.black,
   },
@@ -217,25 +208,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginBottom: 20,
-    gap: 10,
-  },
-  photoWrapper: {
-    gap: 5,
+    gap: Dimensions.normal,
+    marginTop: Dimensions.normal,
   },
   photo: {
     width: 100,
     height: 100,
-    borderRadius: 10,
+    borderRadius: Dimensions.small,
   },
   removePhotoButton: {
     position: 'absolute',
     top: -5,
     right: -5,
     backgroundColor: Colors.red.main,
-    borderRadius: 15,
-    width: 25,
-    height: 25,
+    borderRadius: Dimensions.normal,
+    width: Dimensions.large,
+    height: Dimensions.large,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -244,7 +232,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderWidth: 2,
     borderColor: Colors.lightGray,
-    borderRadius: 10,
+    borderRadius: Dimensions.small,
     alignItems: 'center',
     justifyContent: 'center',
     margin: 5,
@@ -256,26 +244,17 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: '100%',
-    gap: 10,
-  },
-  errorText: {
-    color: Colors.red.main,
-    fontSize: 12,
-    marginTop: 5,
-    fontFamily: 'bold',
-  },
-  buttonContainer: {
-    backgroundColor: Colors.white,
+    gap: Dimensions.small,
   },
   confirmButton: {
     backgroundColor: Colors.red.main,
     borderRadius: 8,
-    padding: 15,
+    padding: Dimensions.medium,
     alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,
-    fontSize: 16,
+    fontSize: Dimensions.medium,
     fontWeight: 'bold'
   },
   photoContainerError: {

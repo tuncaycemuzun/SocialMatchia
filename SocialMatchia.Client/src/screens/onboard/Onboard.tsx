@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { Link, NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
-import { Colors } from '@utils';
+import { Colors, Dimensions } from '@utils';
 import { Button } from '@components';
 
 enum OnboardSteps {
@@ -107,45 +107,46 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 20,
-    gap: 25
+    padding: Dimensions.xLarge,
+    gap: Dimensions.xLarge
   },
   imageContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    gap: 15
+    gap: Dimensions.large
   },
   image: {
     width: '70%',
     height: 400,
     resizeMode: 'cover',
-    borderRadius: 10
+    borderRadius: Dimensions.small
   },
   passiveImage: {
     width: '20%',
     height: 300,
     resizeMode: 'cover',
-    borderRadius: 10
+    borderRadius: Dimensions.small
   },
   title: {
-    fontSize: 24,
+    fontSize: Dimensions.large,
     fontWeight: 'bold',
   },
   description: {
-    fontSize: 16,
+    fontSize: Dimensions.medium,
     textAlign: 'center',
   },
   button: {
-    padding: 10,
+    padding: Dimensions.xSmall,
     backgroundColor: Colors.red.main,
-    borderRadius: 5
+    borderRadius: Dimensions.small
   },
   buttonText: {
     color: Colors.white,
     fontWeight: 'bold',
-    padding:5
+    fontSize: Dimensions.medium,  
+    padding: Dimensions.xSmall
   },
   signIn: {
     position: 'absolute',
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     right: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    textAlign:'center'
+    textAlign: 'center'
   },
   pagination: {
     bottom: 60

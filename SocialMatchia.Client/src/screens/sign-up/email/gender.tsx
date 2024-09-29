@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useWizard } from 'react-use-wizard';
-import { Colors } from '@utils';
+import { Colors, Dimensions } from '@utils';
 import { Button } from '@components';
 import { BackButton } from './components';
 
@@ -10,9 +10,9 @@ const GenderSelection = () => {
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
 
   const genderOptions = [
-    { label: 'Kadınım', value: 'woman' },
-    { label: 'Erkeğim', value: 'man' },
-    { label: 'Başka bir seçenek', value: 'other' },
+    { label: 'Man', value: 'woman' },
+    { label: 'Woman', value: 'man' },
+    { label: 'Other', value: 'other' },
   ];
 
   const handleGenderSelect = (value: string) => {
@@ -28,8 +28,8 @@ const GenderSelection = () => {
   return (
     <View style={styles.container}>
       <BackButton onPress={previousStep} />
-      <Text style={styles.title}>Ben bir</Text>
-      <View style={styles.optionsContainer}>
+      <Text style={styles.title}>I'm a</Text>
+      <View>
         {genderOptions.map((option) => (
           <TouchableOpacity
             key={option.value}
@@ -66,30 +66,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
-
   title: {
     marginTop: 70,
-    fontSize: 24,
+    fontSize: Dimensions.large,
     fontWeight: 'bold',
-    marginBottom: 30,
+    marginBottom: Dimensions.medium,
+    fontFamily: 'bold',
     color: Colors.black,
-  },
-  optionsContainer: {
-    marginBottom: 30,
   },
   optionButton: {
     borderWidth: 1,
     borderColor: Colors.lightGray,
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 10,
+    borderRadius: Dimensions.xSmall,
+    padding: Dimensions.normal,
+    marginBottom: Dimensions.medium,
   },
   selectedOption: {
     backgroundColor: Colors.red.main,
     borderColor: Colors.red.main,
   },
   optionText: {
-    fontSize: 16,
+    fontSize: Dimensions.medium,
     color: Colors.black,
     fontWeight: 'bold',
   },
@@ -103,13 +100,13 @@ const styles = StyleSheet.create({
   },
   continueButton: {
     backgroundColor: Colors.red.main,
-    borderRadius: 8,
-    padding: 15,
+    borderRadius: Dimensions.xSmall,
+    padding: Dimensions.normal,
     alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,
-    fontSize: 16,
+    fontSize: Dimensions.medium,
     fontWeight: 'bold',
   },
 });

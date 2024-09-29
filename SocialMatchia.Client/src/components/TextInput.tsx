@@ -30,8 +30,9 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({ backgroundColor, mode
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
   },
 });
 
+CustomTextInput.displayName = 'CustomTextInput';
 export default CustomTextInput;

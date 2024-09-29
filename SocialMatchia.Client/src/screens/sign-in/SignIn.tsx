@@ -5,7 +5,7 @@ import Toast from 'react-native-toast-message';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { Colors } from '@utils';
+import { Colors, Dimensions } from '@utils';
 import { Button, TextInput } from '@components';
 
 const SignInSchema = Yup.object().shape({
@@ -21,7 +21,7 @@ const SignIn = () => {
     Toast.show({
       type: 'success',
       text1: 'Success',
-      text2: 'You have successfully signed in!'
+      text2: 'You have successfully signed in! 💁'
     });
     navigation.navigate('Home');
   };
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    paddingHorizontal: 40,
-    gap: 40,
+    paddingHorizontal: Dimensions.xxLarge,
+    gap: Dimensions.xxLarge,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -85,33 +85,23 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   boldText: {
-    fontSize: 16,
+    fontSize: Dimensions.medium,
     fontWeight: 'bold',
   },
   inputContainer: {
     width: '100%',
-    gap: 20,
-  },
-  input: {
-    height: 50,
-    width: '100%',
-    backgroundColor: Colors.white,
-    borderWidth: 1,
-    borderColor: Colors.lightGray,
-    borderRadius: 10,
-    padding: 10,
+    gap: Dimensions.medium,
   },
   button: {
-    height: 50,
     minWidth: '100%',
     backgroundColor: Colors.red.main,
-    borderWidth: 0,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
     color: Colors.white,
     fontWeight: 'bold',
+    fontSize: Dimensions.medium
   },
   signUp: {
     left: 0,
@@ -119,20 +109,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signUpText: {
-    fontSize: 14,
+    fontSize: Dimensions.normal,
   },
   signUpLink: {
     color: Colors.red.main,
     fontWeight: 'bold',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 12,
-    marginTop: -15,
-    marginBottom: 10,
-    textAlign: 'left',
-    alignSelf: 'stretch',
-  },
+  }
 });
 
 SignIn.displayName = 'SignIn';

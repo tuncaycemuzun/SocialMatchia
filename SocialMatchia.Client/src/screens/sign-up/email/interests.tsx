@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,8 +7,8 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import {useWizard} from 'react-use-wizard';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import { useWizard } from 'react-use-wizard';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
   faChevronLeft,
   faCamera,
@@ -26,29 +26,29 @@ import {
   faGlassWhiskey,
   faGamepad,
 } from '@fortawesome/free-solid-svg-icons';
-import {Colors} from '@utils';
-import {Button} from '@components';
+import { Colors, Dimensions } from '@utils';
+import { Button } from '@components';
 import { BackButton } from './components';
 
 const interests = [
-  {name: 'Photography', icon: faCamera},
-  {name: 'Shopping', icon: faShoppingBag},
-  {name: 'Karaoke', icon: faMicrophone},
-  {name: 'Yoga', icon: faYinYang},
-  {name: 'Cooking', icon: faUtensils},
-  {name: 'Tennis', icon: faTableTennis},
-  {name: 'Run', icon: faRunning},
-  {name: 'Swimming', icon: faSwimmer},
-  {name: 'Art', icon: faPalette},
-  {name: 'Traveling', icon: faPlane},
-  {name: 'Extreme', icon: faMountain},
-  {name: 'Music', icon: faMusic},
-  {name: 'Drink', icon: faGlassWhiskey},
-  {name: 'Video games', icon: faGamepad},
+  { name: 'Photography', icon: faCamera },
+  { name: 'Shopping', icon: faShoppingBag },
+  { name: 'Karaoke', icon: faMicrophone },
+  { name: 'Yoga', icon: faYinYang },
+  { name: 'Cooking', icon: faUtensils },
+  { name: 'Tennis', icon: faTableTennis },
+  { name: 'Run', icon: faRunning },
+  { name: 'Swimming', icon: faSwimmer },
+  { name: 'Art', icon: faPalette },
+  { name: 'Traveling', icon: faPlane },
+  { name: 'Extreme', icon: faMountain },
+  { name: 'Music', icon: faMusic },
+  { name: 'Drink', icon: faGlassWhiskey },
+  { name: 'Video games', icon: faGamepad },
 ];
 
 const Interests = () => {
-  const {previousStep, nextStep} = useWizard();
+  const { previousStep, nextStep } = useWizard();
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
   const toggleInterest = (interest: string) => {
@@ -82,8 +82,8 @@ const Interests = () => {
             style={[
               styles.interestButton,
               selectedInterests.includes(interest.name) &&
-                styles.selectedInterest,
-              index % 2 === 0 ? {marginRight: '2%'} : {marginLeft: '2%'},
+              styles.selectedInterest,
+              index % 2 === 0 ? { marginRight: '2%' } : { marginLeft: '2%' },
             ]}
             onPress={() => toggleInterest(interest.name)}>
             <FontAwesomeIcon
@@ -99,7 +99,7 @@ const Interests = () => {
               style={[
                 styles.interestText,
                 selectedInterests.includes(interest.name) &&
-                  styles.selectedInterestText,
+                styles.selectedInterestText,
               ]}>
               {interest.name}
             </Text>
@@ -118,41 +118,32 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
-  backButton: {
-    position: 'absolute',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    borderColor: Colors.lightGray,
-  },
   title: {
     marginTop: 70,
-    fontSize: 24,
+    fontSize: Dimensions.large,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: Dimensions.medium,
+    fontFamily: 'bold',
     color: Colors.black,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: Dimensions.medium,
     color: Colors.black,
     marginBottom: 20,
-    fontWeight: 'bold',
   },
   interestsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
-    marginBottom: 20,
   },
   interestButton: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.lightGray,
-    borderRadius: 20,
-    padding: 10,
-    marginBottom: 10,
+    borderRadius: Dimensions.normal,
+    padding: Dimensions.small,
+    marginBottom: Dimensions.small,
     width: '48%',
   },
   selectedInterest: {
@@ -168,10 +159,10 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   interestText: {
-    fontSize: 14,
+    fontSize: Dimensions.normal,
     color: Colors.black,
     fontWeight: 'bold',
-    marginLeft: 8,
+    marginLeft: Dimensions.xSmall,
   },
   selectedInterestText: {
     color: Colors.white,
@@ -179,13 +170,13 @@ const styles = StyleSheet.create({
   },
   continueButton: {
     backgroundColor: Colors.red.main,
-    borderRadius: 8,
-    padding: 15,
+    borderRadius: Dimensions.xSmall,
+    padding: Dimensions.normal,
     alignItems: 'center',
   },
   buttonText: {
     color: Colors.white,
-    fontSize: 16,
+    fontSize: Dimensions.medium,
     fontWeight: 'bold',
   },
 });

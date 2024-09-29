@@ -6,7 +6,7 @@ import Modal from 'react-native-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
-import { Colors } from '@utils';
+import { Colors, Dimensions } from '@utils';
 import { Button } from '@components';
 
 interface ChoosePhotoModalProps {
@@ -22,7 +22,6 @@ const ChoosePhotoModal = ({
   onPhotoSelect,
   maxPhotos,
 }: ChoosePhotoModalProps) => {
-  
   const toggleModal = () => {
     setModalVisible(false);
   };
@@ -45,7 +44,7 @@ const ChoosePhotoModal = ({
     launchImageLibrary({
       mediaType: 'photo',
       selectionLimit: 6,
-      includeBase64 : true,
+      includeBase64: true,
     }, response => {
       if (response.assets) {
         onPhotoSelect(response.assets)
@@ -109,18 +108,18 @@ const ChoosePhotoModal = ({
 
 const styles = StyleSheet.create({
   modal: {
-    height: 320,
+    height: 'auto',
     backgroundColor: 'white',
-    padding: 20,
-    gap: 20,
-    borderRadius: 10,
+    padding: Dimensions.large,
+    gap: Dimensions.xLarge,
+    borderRadius: Dimensions.small,
   },
   subTitle: {
-    fontSize: 20,
+    fontSize: Dimensions.large,
     fontWeight: 'bold',
   },
   maxPhotosInfo: {
-    fontSize: 14,
+    fontSize: Dimensions.medium,
     color: Colors.lightGray,
     marginTop: 5,
   },
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.lightGray,
     backgroundColor: Colors.white,
-    borderRadius: 10,
+    borderRadius: Dimensions.small,
     width: 30,
     height: 30,
     justifyContent: 'center',
@@ -144,13 +143,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 20,
+    gap: Dimensions.large,
   },
   cameraActionItem: {
     justifyContent: 'center',
     backgroundColor: '#fdecee',
-    padding: 10,
-    borderRadius: 5,
+    padding: Dimensions.medium,
+    borderRadius: Dimensions.small,
     height: 100,
     width: '100%',
     alignItems: 'center',
