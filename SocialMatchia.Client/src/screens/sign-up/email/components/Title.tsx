@@ -18,7 +18,7 @@ const Title = (props: TitleProps) => {
 
 const styles = StyleSheet.create({
   title: {
-    marginTop: 70,
+    marginTop: Dimensions.medium,
     fontSize: Dimensions.large,
     fontWeight: 'bold',
     marginBottom: Dimensions.medium,

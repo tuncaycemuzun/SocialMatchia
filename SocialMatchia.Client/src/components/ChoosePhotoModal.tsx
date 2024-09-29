@@ -34,7 +34,6 @@ const ChoosePhotoModal = ({
       includeBase64: true,
     }, response => {
       if (response.assets) {
-        console.log('Photo URI: ', response.assets[0].uri);
         onPhotoSelect(response.assets);
       }
     });

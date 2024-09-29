@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
@@ -10,7 +9,6 @@ import {
 import { useWizard } from 'react-use-wizard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
-  faChevronLeft,
   faCamera,
   faShoppingBag,
   faMicrophone,
@@ -27,8 +25,8 @@ import {
   faGamepad,
 } from '@fortawesome/free-solid-svg-icons';
 import { Colors, Dimensions } from '@utils';
-import { Button } from '@components';
-import { BackButton, Title } from './components';
+import { Button, BackButton, Text } from '@components';
+import { Title } from './components';
 
 const interests = [
   { name: 'Photography', icon: faCamera },
@@ -92,6 +90,7 @@ const Interests = () => {
               }
             />
             <Text
+              fontWeight='bold'
               style={[
                 styles.interestText,
                 selectedInterests.includes(interest.name) &&
@@ -142,9 +141,6 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   interestText: {
-    fontSize: Dimensions.normal,
-    color: Colors.black,
-    fontWeight: 'bold',
     marginLeft: Dimensions.xSmall,
   },
   selectedInterestText: {

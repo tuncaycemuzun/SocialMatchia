@@ -1,2 +1,2 @@
-export {default as BackButton} from './BackButton';
+export {BackButton} from '@components';
 export {default as Title} from './Title';

@@ -18,13 +18,12 @@ const BackButton = (props: BackButtonProps) => {
 
 const styles = StyleSheet.create({
   backButton: {
-    position: 'absolute',
     borderStyle: 'solid',
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
     borderColor: Colors.lightGray,
-    zIndex:99
+    width: 42,
   },
 })
 

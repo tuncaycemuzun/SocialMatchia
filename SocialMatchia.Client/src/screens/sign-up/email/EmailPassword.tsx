@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
 } from 'react-native';
@@ -9,10 +8,10 @@ import { useWizard } from 'react-use-wizard';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { TextInput, Button } from '@components';
-import { Colors } from '@utils';
+import { TextInput, Button, BackButton, Text } from '@components';
+import { Colors, Dimensions } from '@utils';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
-import { BackButton, Title } from './components';
+import { Title } from './components';
 import Toast from 'react-native-toast-message';
 
 const EmailAndPassword = () => {
@@ -87,7 +86,7 @@ const EmailAndPassword = () => {
               <View style={styles.buttonContainer}>
                 <Button
                   onPress={() => handleSubmit()}>
-                  <Text style={styles.buttonText}>Register</Text>
+                  <Text color={Colors.white} fontWeight='bold' fontSize={Dimensions.medium}>Register</Text>
                 </Button>
               </View>
             </View>

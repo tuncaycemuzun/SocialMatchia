@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useWizard } from 'react-use-wizard';
 import { Colors, Dimensions } from '@utils';
-import { Button } from '@components';
-import { BackButton, Title } from './components';
+import { Button, BackButton, Text } from '@components';
+import { Title } from './components';
 
 const GenderSelection = () => {
   const { previousStep, nextStep } = useWizard();
@@ -39,10 +39,7 @@ const GenderSelection = () => {
             ]}
             onPress={() => handleGenderSelect(option.value)}
           >
-            <Text style={[
-              styles.optionText,
-              selectedGender === option.value && styles.selectedOptionText,
-            ]}>
+            <Text fontWeight='bold' style={[selectedGender === option.value && styles.selectedOptionText]}>
               {option.label}
             </Text>
           </TouchableOpacity>
@@ -52,7 +49,7 @@ const GenderSelection = () => {
         <Button
           onPress={handleContinue}
           disabled={!selectedGender}>
-          <Text style={styles.buttonText}>Continue</Text>
+          <Text fontSize={Dimensions.medium} color={Colors.white} fontWeight='bold'>Continue</Text>
         </Button>
       </View>
     </View>
@@ -83,11 +80,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.red.main,
     borderColor: Colors.red.main,
   },
-  optionText: {
-    fontSize: Dimensions.medium,
-    color: Colors.black,
-    fontWeight: 'bold',
-  },
   selectedOptionText: {
     color: Colors.white,
     fontWeight: 'bold',
@@ -95,11 +87,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 'auto',
     width: '100%',
-  },
-  buttonText: {
-    color: Colors.white,
-    fontSize: Dimensions.medium,
-    fontWeight: 'bold',
   },
 });
 

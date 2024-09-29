@@ -1,12 +1,12 @@
 import React from 'react';
-import { Image, KeyboardAvoidingView, Platform, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { Link, NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { Colors, Dimensions } from '@utils';
-import { Button, TextInput } from '@components';
+import { Button, TextInput, Text } from '@components';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -58,13 +58,13 @@ const SignIn = () => {
                 error={touched.password && !!errors.password}
               />
               <Button onPress={() => handleSubmit()}>
-                <Text style={styles.buttonText}>Sign In</Text>
+                <Text fontWeight='bold' color={Colors.white} fontSize={Dimensions.medium}>Sign In</Text>
               </Button>
             </View>
           )}
         </Formik>
         <Link to="/SignUp" style={styles.signUp}>
-          <Text style={styles.signUpText}> Don't have an account? <Text style={styles.signUpLink}>Sign Up</Text></Text>
+          <Text> Don't have an account? <Text color={Colors.red.main} fontWeight='bold'>Sign Up</Text></Text>
         </Link>
       </View>
     </KeyboardAvoidingView>
@@ -98,22 +98,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonText: {
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: Dimensions.medium
-  },
   signUp: {
     left: 0,
     right: 0,
     alignItems: 'center',
-  },
-  signUpText: {
-    fontSize: Dimensions.normal,
-  },
-  signUpLink: {
-    color: Colors.red.main,
-    fontWeight: 'bold',
   }
 });
 

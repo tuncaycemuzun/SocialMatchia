@@ -1,17 +1,14 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
-  Modal,
   ScrollView,
   Image,
 } from 'react-native';
 import { useWizard } from 'react-use-wizard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
-  faChevronLeft,
   faPlus,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
@@ -19,10 +16,10 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { ChoosePhotoModal, TextInput, Button } from '@components';
+import { ChoosePhotoModal, TextInput, Button, BackButton, Text } from '@components';
 import { Colors, Dimensions } from '@utils';
 import { useNavigation } from '@react-navigation/native';
-import { BackButton, Title } from './components';
+import { Title } from './components';
 
 const ProfileDetail = () => {
   const { nextStep } = useWizard();
@@ -57,7 +54,7 @@ const ProfileDetail = () => {
     <View style={styles.container}>
       <BackButton onPress={goBack} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Title title='Profile Detail'/>
+        <Title title='Profile Detail' />
         <Formik
           initialValues={{
             firstName: '',
@@ -66,12 +63,10 @@ const ProfileDetail = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(values)
             if (selectedPhotos.length === 0) {
               setSubmitting(false);
               return;
             }
-            console.log(values, selectedPhotos);
             nextStep();
           }}>
           {({
@@ -162,7 +157,7 @@ const ProfileDetail = () => {
               <View>
                 <Button
                   onPress={() => handleSubmit()}>
-                  <Text style={styles.buttonText}>Continue</Text>
+                  <Text color={Colors.white} fontWeight='bold' fontSize={Dimensions.medium}>Continue</Text>
                 </Button>
               </View>
             </View>
@@ -235,11 +230,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     gap: Dimensions.small,
-  },
-  buttonText: {
-    color: Colors.white,
-    fontSize: Dimensions.medium,
-    fontWeight: 'bold'
   },
   photoContainerError: {
     borderColor: Colors.red.main,

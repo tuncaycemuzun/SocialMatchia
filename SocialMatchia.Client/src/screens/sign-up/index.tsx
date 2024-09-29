@@ -1,12 +1,12 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 import { Link, NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faFacebook, faGoogle, faAppStore } from '@fortawesome/free-brands-svg-icons'
 
 import { Colors, Dimensions } from '@utils'
-import { Button } from '@components'
+import { Button, Text } from '@components'
 
 const SignUp = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>()
@@ -14,12 +14,12 @@ const SignUp = () => {
     <View style={styles.container}>
       <View style={styles.signUpInfoContainer}>
         <Image style={styles.logo} source={require('@assets/images/logo.png')}></Image>
-        <Text style={styles.boldText}>Sign up to continue</Text>
-        <Button style={styles.button}  onPress={() => navigation.navigate("EmailSignUp")}>
-          <Text style={styles.buttonText}>Continue with email</Text>
+        <Text fontWeight='bold' fontSize={Dimensions.medium}>Sign up to continue</Text>
+        <Button style={styles.button} onPress={() => navigation.navigate("EmailSignUp")}>
+          <Text fontWeight='bold' color={Colors.white} fontSize={Dimensions.medium}>Continue with email</Text>
         </Button>
         <Link to="/SignIn">
-          <Text style={styles.signInText}>Already have an account? <Text style={styles.signInLink}>Sign In</Text></Text>
+          <Text>Already have an account? <Text color={Colors.red.main} fontWeight='bold'>Sign In</Text></Text>
         </Link>
       </View>
       <View style={styles.otherInfoContainer}>
@@ -39,10 +39,10 @@ const SignUp = () => {
         </View>
         <View style={styles.bottomContainer}>
           <View>
-            <Text style={styles.bottomText}>Term of use</Text>
+            <Text color={Colors.red.main}>Term of use</Text>
           </View>
           <View>
-            <Text style={styles.bottomText}>Privacy Policy</Text>
+            <Text color={Colors.red.main}>Privacy Policy</Text>
           </View>
         </View>
       </View>
@@ -67,10 +67,6 @@ const styles = StyleSheet.create({
     height: 150,
     resizeMode: 'contain',
   },
-  boldText: {
-    fontSize: Dimensions.medium,
-    fontWeight: 'bold',
-  },
   button: {
     width: '100%',
     backgroundColor: Colors.red.main,
@@ -78,11 +74,6 @@ const styles = StyleSheet.create({
     padding: Dimensions.medium,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  buttonText: {
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: Dimensions.medium,  
   },
   otherInfoContainer: {
     flex: 1,
@@ -123,23 +114,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: Dimensions.medium
   },
-  bottomText: {
-    color: Colors.red.main,
-    fontSize: Dimensions.normal,
-  },
   signIn: {
     left: 0,
     right: 0,
     alignItems: 'center'
-  },
-  signInText: {
-    fontSize: Dimensions.normal,
-    color: Colors.black
-  },
-  signInLink: {
-    color: Colors.red.main,
-    fontWeight: 'bold'
-  },
+  }
 })
 
 SignUp.displayName = 'SignUp'

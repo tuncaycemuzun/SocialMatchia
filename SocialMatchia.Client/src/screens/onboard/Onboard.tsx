@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 
 import Swiper from 'react-native-swiper';
 import { Link, NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
 import { Colors, Dimensions } from '@utils';
-import { Button } from '@components';
+import { Button, Text } from '@components';
 
 enum OnboardSteps {
   Algorithm = 'ALGORITHM',
@@ -82,16 +82,16 @@ const Onboard = () => {
               <Image source={item.primaryImage} style={styles.image} />
               <Image source={item.secondImage} style={styles.passiveImage} />
             </View>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.description}>{item.description}</Text>
+            <Text fontSize={Dimensions.large} fontWeight='bold'>{item.title}</Text>
+            <Text fontSize={Dimensions.medium} textAlign='center'>{item.description}</Text>
             <Button style={styles.button} onPress={handleNext}>
-              <Text style={styles.buttonText}>{data.length == i + 1 ? 'Create an account' : 'Next'}</Text>
+              <Text fontWeight='bold' color={Colors.white} padding={Dimensions.xSmall}>{data.length == i + 1 ? 'Create an account' : 'Next'}</Text>
             </Button>
           </View>
         ))}
       </Swiper>
       <Link to="/SignIn" style={styles.signIn}>
-        <Text>Already have an account? <Text style={{ fontWeight: 'bold', color: Colors.red.main }}>Sign In</Text></Text>
+        <Text>Already have an account? <Text fontWeight='bold' color={Colors.red.main}>Sign In</Text></Text>
       </Link>
     </View>
   );
@@ -129,24 +129,10 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     borderRadius: Dimensions.small
   },
-  title: {
-    fontSize: Dimensions.large,
-    fontWeight: 'bold',
-  },
-  description: {
-    fontSize: Dimensions.medium,
-    textAlign: 'center',
-  },
   button: {
     padding: Dimensions.xSmall,
     backgroundColor: Colors.red.main,
     borderRadius: Dimensions.small
-  },
-  buttonText: {
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: Dimensions.medium,  
-    padding: Dimensions.xSmall
   },
   signIn: {
     position: 'absolute',
