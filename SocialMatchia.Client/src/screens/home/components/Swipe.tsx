@@ -2,8 +2,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 
 import Swiper from 'react-native-swiper';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHeart, faTimes, faStar } from '@fortawesome/free-solid-svg-icons';
 
-import { Text } from '@components';
+import { Button, Text } from '@components';
 import { Colors, Dimensions } from '@utils';
 
 
@@ -97,7 +99,17 @@ const Swipe = () => {
         }
       </View>
       <View style={styles.actionContainer}>
-        {/* <Text>{user.name}</Text> */}
+        <Button style={styles.actionButton}>
+          <FontAwesomeIcon icon={faTimes} size={Dimensions.xLarge} color={Colors.orange.main} />
+        </Button>
+
+        <Button style={[styles.actionButton, { backgroundColor: Colors.red.main }]}>
+          <FontAwesomeIcon icon={faStar} size={Dimensions.xxxLarge} color={Colors.white} />
+        </Button>
+
+        <Button style={styles.actionButton}>
+          <FontAwesomeIcon icon={faHeart} size={Dimensions.xLarge} color={Colors.purple.main} />
+        </Button>
       </View>
     </View>
   );
@@ -106,7 +118,6 @@ const Swipe = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: Dimensions.large,
   },
   imageContainer: {
     flex: 6,
@@ -114,7 +125,9 @@ const styles = StyleSheet.create({
   },
   actionContainer: {
     flex: 1,
-    backgroundColor: Colors.lightBlue,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     borderRadius: Dimensions.large,
   },
   activeDot: {
@@ -142,6 +155,12 @@ const styles = StyleSheet.create({
   slide: {
     flex: 1
   },
+  actionButton: {
+    backgroundColor: Colors.white,
+    padding: Dimensions.medium,
+    borderRadius: Dimensions.xxLarge,
+    elevation: 2
+  }
 });
 
 Swipe.displayName = 'Swipe';
