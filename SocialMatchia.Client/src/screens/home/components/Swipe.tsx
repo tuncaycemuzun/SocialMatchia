@@ -7,7 +7,6 @@ import { faHeart, faTimes, faStar } from '@fortawesome/free-solid-svg-icons';
 import { Button, Text } from '@components';
 import { Colors, Dimensions } from '@utils';
 
-
 const users: any = [
   {
     id: 1,
@@ -18,31 +17,27 @@ const users: any = [
       require('@assets/images/users/woman2.png'),
       require('@assets/images/users/man.png'),
     ],
-    locationInfo: "1 km",
-    job: "Professional Model"
+    locationInfo: '1 km',
+    job: 'Professional Model',
   },
   {
     id: 2,
     name: 'Bred Jackson',
     age: 25,
-    images: [
-      require('@assets/images/users/man.png')
-    ],
+    images: [require('@assets/images/users/man.png')],
     job: 'Photographer',
   },
 ];
 
 const Swipe = () => {
-  const [currentUser, setCurrentUser] = useState(0);
+  const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [currentPhotoStep, setCurrentPhotoStep] = useState(0);
-  const [user, setUser] = useState(users[currentUser]);
-  const [showUserInfo, setShowUserInfo] = useState(user ? true : false);
-
+  const [user, setUser] = useState(users[currentUserIndex]);
 
   useEffect(() => {
-    setUser(users[currentUser]);
-    setShowUserInfo(true);
-  }, [currentUser]);
+    setUser(users[currentUserIndex]);
+    setCurrentPhotoStep(0);
+  }, [currentUserIndex]);
 
   const changePhotoIndex = (decrement: boolean) => {
     if (decrement && currentPhotoStep > 0) {
@@ -52,6 +47,23 @@ const Swipe = () => {
     }
   };
 
+  const like = () => {
+    const userId = user.id;
+    console.log(`Liked user with ID: ${userId}`);
+    setCurrentUserIndex((prevIndex) => (prevIndex + 1) % users.length);
+  };
+
+  const superlike = () => {
+    const userId = user.id;
+    console.log(`Superliked user with ID: ${userId}`);
+    setCurrentUserIndex((prevIndex) => (prevIndex + 1) % users.length);
+  };
+
+  const dislike = () => {
+    const userId = user.id;
+    console.log(`Disliked user with ID: ${userId}`);
+    setCurrentUserIndex((prevIndex) => (prevIndex + 1) % users.length);
+  };
 
   return (
     <View style={styles.container}>
@@ -69,7 +81,7 @@ const Swipe = () => {
         </View>
 
         {
-          showUserInfo && (
+        
             <View>
               <View style={{
                 position: 'absolute',
@@ -87,26 +99,25 @@ const Swipe = () => {
                 <Text color={Colors.white} fontWeight='normal' fontSize={Dimensions.medium}>{user.job}</Text>
               </View>
             </View>
-          )
         }
       </View>
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <View style={{ flexDirection: 'row' }}>
-          {users[currentUser].images.map((_: any, index: number) => (
+          {users[currentUserIndex].images.map((_: any, index: number) => (
             <View key={index} style={index === currentPhotoStep ? styles.activeDot : styles.dot} />
           ))}
         </View>
       </View>
       <View style={styles.actionContainer}>
-        <Button style={styles.actionButton}>
+        <Button onPress={dislike} style={styles.actionButton}>
           <FontAwesomeIcon icon={faTimes} size={Dimensions.xLarge} color={Colors.orange.main} />
         </Button>
 
-        <Button style={[styles.actionButton, { backgroundColor: Colors.red.main }]}>
+        <Button onPress={superlike} style={[styles.actionButton, { backgroundColor: Colors.red.main }]}>
           <FontAwesomeIcon icon={faStar} size={Dimensions.xxxLarge} color={Colors.white} />
         </Button>
 
-        <Button style={styles.actionButton}>
+        <Button onPress={like} style={styles.actionButton}>
           <FontAwesomeIcon icon={faHeart} size={Dimensions.xLarge} color={Colors.purple.main} />
         </Button>
       </View>
