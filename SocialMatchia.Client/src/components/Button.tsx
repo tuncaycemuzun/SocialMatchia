@@ -4,7 +4,7 @@ import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { Dimensions } from '@utils';
 
 interface ButtonProps extends TouchableOpacityProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
         padding: Dimensions.medium,
         alignItems: 'center'
       },
-      props.style]} {...props} activeOpacity={0.8} >
+      props.style]} {...props} activeOpacity={0.8}>
       {children}
     </TouchableOpacity>
   );

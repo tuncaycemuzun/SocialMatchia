@@ -1,7 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 
-import Swiper from 'react-native-swiper';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHeart, faTimes, faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -36,44 +35,39 @@ const users: any = [
 const Swipe = () => {
   const [currentUser, setCurrentUser] = useState(0);
   const [currentPhotoStep, setCurrentPhotoStep] = useState(0);
-  const swiperRef = useRef<Swiper>(null);
   const [user, setUser] = useState(users[currentUser]);
-  const [userImages, setUserImages] = useState(user.images);
   const [showUserInfo, setShowUserInfo] = useState(user ? true : false);
 
 
   useEffect(() => {
     setUser(users[currentUser]);
-    setUserImages(users[currentUser].images);
     setShowUserInfo(true);
   }, [currentUser]);
 
-  const onPhotoIndexChanged = (index: number) => {
-    setCurrentPhotoStep(index);
-    console.log('index', index);
+  const changePhotoIndex = (decrement: boolean) => {
+    if (decrement && currentPhotoStep > 0) {
+      setCurrentPhotoStep(currentPhotoStep - 1);
+    } else if (!decrement && currentPhotoStep < user.images.length - 1) {
+      setCurrentPhotoStep(currentPhotoStep + 1);
+    }
   };
+
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Swiper
-          horizontal={false}
-          ref={swiperRef}
-          loop={false}
-          index={currentPhotoStep}
-          onIndexChanged={onPhotoIndexChanged}
-          onTouchStart={() => setShowUserInfo(false)}
-          onMomentumScrollEnd={() => setShowUserInfo(true)}
-          showsPagination={true}
-          activeDot={<View style={styles.activeDot} />}
-          dot={<View style={styles.dot} />}
-        >
-          {userImages.map((image: any, index: number) => (
-            <View key={`${user.id}-image-${index}`} style={styles.slide}>
-              <Image source={image} style={styles.image} />
-            </View>
-          ))}
-        </Swiper>
+        <View style={{ flex: 1, position: 'relative' }}>
+          <View style={styles.slide}>
+            <Image source={user.images[currentPhotoStep]} style={styles.image} />
+          </View>
+          <Button
+            onPress={() => changePhotoIndex(true)}
+            style={[styles.swipeButton, { left: 0 }]} />
+          <Button
+            onPress={() => changePhotoIndex(false)}
+            style={[styles.swipeButton, { right: 0 }]} />
+        </View>
+
         {
           showUserInfo && (
             <View>
@@ -81,11 +75,9 @@ const Swipe = () => {
                 position: 'absolute',
                 bottom: 20,
                 left: 0,
-                backgroundColor: 'rgba(0,0,0,0.5)',
+                backgroundColor: 'rgba(0,0,0,0.2)',
                 width: '100%',
                 padding: Dimensions.large,
-                borderWidth: 1,
-                borderColor: Colors.lightGray,
                 borderBottomRightRadius: Dimensions.normal,
                 borderBottomLeftRadius: Dimensions.normal,
               }}>
@@ -97,6 +89,13 @@ const Swipe = () => {
             </View>
           )
         }
+      </View>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row' }}>
+          {users[currentUser].images.map((_: any, index: number) => (
+            <View key={index} style={index === currentPhotoStep ? styles.activeDot : styles.dot} />
+          ))}
+        </View>
       </View>
       <View style={styles.actionContainer}>
         <Button style={styles.actionButton}>
@@ -118,6 +117,7 @@ const Swipe = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: 5
   },
   imageContainer: {
     flex: 6,
@@ -153,13 +153,19 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   slide: {
-    flex: 1
+    flex: 1,
+    height: '100%',
   },
   actionButton: {
     backgroundColor: Colors.white,
     padding: Dimensions.medium,
     borderRadius: Dimensions.xxLarge,
     elevation: 2
+  },
+  swipeButton: {
+    position: 'absolute',
+    height: '100%',
+    width: '50%'
   }
 });
 
