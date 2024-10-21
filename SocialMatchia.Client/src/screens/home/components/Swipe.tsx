@@ -47,22 +47,30 @@ const Swipe = () => {
     }
   };
 
+  const nextUser = () => {
+    if (currentUserIndex < users.length - 1) {
+      setCurrentUserIndex((prevIndex) => (prevIndex + 1));
+      return;
+    }
+    //loadUsers
+  }
+
   const like = () => {
     const userId = user.id;
     console.log(`Liked user with ID: ${userId}`);
-    setCurrentUserIndex((prevIndex) => (prevIndex + 1) % users.length);
+    nextUser();
   };
 
   const superlike = () => {
     const userId = user.id;
     console.log(`Superliked user with ID: ${userId}`);
-    setCurrentUserIndex((prevIndex) => (prevIndex + 1) % users.length);
+    nextUser();
   };
 
   const dislike = () => {
     const userId = user.id;
     console.log(`Disliked user with ID: ${userId}`);
-    setCurrentUserIndex((prevIndex) => (prevIndex + 1) % users.length);
+    nextUser();
   };
 
   return (
@@ -81,24 +89,24 @@ const Swipe = () => {
         </View>
 
         {
-        
-            <View>
-              <View style={{
-                position: 'absolute',
-                bottom: 20,
-                left: 0,
-                backgroundColor: 'rgba(0,0,0,0.2)',
-                width: '100%',
-                padding: Dimensions.large,
-                borderBottomRightRadius: Dimensions.normal,
-                borderBottomLeftRadius: Dimensions.normal,
-              }}>
-                <Text color={Colors.white} fontWeight='bold' fontSize={Dimensions.large}>
-                  {user.name} - {user.age}
-                </Text>
-                <Text color={Colors.white} fontWeight='normal' fontSize={Dimensions.medium}>{user.job}</Text>
-              </View>
+
+          <View>
+            <View style={{
+              position: 'absolute',
+              bottom: 20,
+              left: 0,
+              backgroundColor: 'rgba(0,0,0,0.2)',
+              width: '100%',
+              padding: Dimensions.large,
+              borderBottomRightRadius: Dimensions.normal,
+              borderBottomLeftRadius: Dimensions.normal,
+            }}>
+              <Text color={Colors.white} fontWeight='bold' fontSize={Dimensions.large}>
+                {user.name} - {user.age}
+              </Text>
+              <Text color={Colors.white} fontWeight='normal' fontSize={Dimensions.medium}>{user.job}</Text>
             </View>
+          </View>
         }
       </View>
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
