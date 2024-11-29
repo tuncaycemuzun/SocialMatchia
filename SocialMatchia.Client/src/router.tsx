@@ -7,7 +7,7 @@ import { faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { Colors } from '@utils';
 
-import { SignIn, SignUp, Onboard, Home, EmailSignUp, Profile } from '@screens';
+import { SignIn, SignUp, Onboard, Home, EmailSignUp, Profile, Settings } from '@screens';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,6 +40,7 @@ function MainTabNavigator() {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
+      
     </Tab.Navigator>
   );
 }
@@ -60,6 +61,7 @@ export default function Router() {
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="EmailSignUp" component={EmailSignUp} />
         <Stack.Screen name="HomeTabs" component={MainTabNavigator} />
+        <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );

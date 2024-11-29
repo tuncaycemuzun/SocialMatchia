@@ -3,12 +3,14 @@ import { View, StyleSheet } from 'react-native'
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSliders, faRotate } from '@fortawesome/free-solid-svg-icons'
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native'
 
-import { BackButton, Button, Text } from '@components'
+import { Button } from '@components'
 import { Colors, Dimensions } from '@utils'
 import CoinInfo from './CoinInfo'
 
 const Header = () => {
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
   return (
     <View style={styles.container}>
       <Button style={{ width: 'auto' }}>
@@ -23,7 +25,7 @@ const Header = () => {
       </View>
       <Button
         onPress={() => {
-          console.log('filter')
+          navigation.navigate('Settings')
         }}
         style={{
           width: 'auto',
